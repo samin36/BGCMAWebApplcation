@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Button, Icon, Label } from "semantic-ui-react";
 
-const ApplicationEntry = ({ child }) => {
+const ApplicationEntry = ({ child, dispatch }) => {
   const colorMap = {
     Approved: "green",
     Incomplete: "red",
@@ -14,6 +14,10 @@ const ApplicationEntry = ({ child }) => {
     Pending: "clock",
   };
 
+  const deleteApplication = () => {
+    dispatch({ type: "DELETE", id: child.id });
+  };
+
   return (
     <Table.Row>
       <Table.Cell>{child.name}</Table.Cell>
@@ -23,6 +27,8 @@ const ApplicationEntry = ({ child }) => {
           size="large"
           name="trash alternate"
           disabled={child.action === "View"}
+          onClick={() => deleteApplication()}
+          style={{ cursor: `${child.action === "Edit" && "pointer"}` }}
         />
       </Table.Cell>
       <Table.Cell>{child.date}</Table.Cell>

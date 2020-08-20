@@ -1,8 +1,23 @@
 import React from "react";
-import { Menu, Image, Icon } from "semantic-ui-react";
+import { Menu, Image, Icon, Dropdown } from "semantic-ui-react";
 import { NavLink, withRouter } from "react-router-dom";
 
 const NavBarDesktop = () => {
+  const options = [
+    {
+      key: "user",
+      text: (
+        <span>
+          Signed in as <strong>Taylor Smith</strong>
+        </span>
+      ),
+      disabled: true,
+    },
+    { key: "profile", text: "Account Settings", icon: "settings" },
+    { key: "help", text: "Help & FAQ", icon: "help" },
+    { key: "contact", text: "Contact Us", icon: "talk" },
+  ];
+
   return (
     <Menu
       size="large"
@@ -30,7 +45,10 @@ const NavBarDesktop = () => {
           Logout
         </Menu.Item>
         <Menu.Item>
-          <Icon name="user circle" size="large" />
+          <Dropdown
+            trigger={<Icon name="user circle" size="large" />}
+            options={options}
+          />
         </Menu.Item>
       </Menu.Menu>
     </Menu>
