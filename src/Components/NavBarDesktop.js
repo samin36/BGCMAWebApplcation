@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Image, Icon, Dropdown } from "semantic-ui-react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavBarDesktop = () => {
   const options = [
