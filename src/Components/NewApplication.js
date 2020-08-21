@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import ApplicationEntries from "./ApplicationEntries";
+import SampleForm from "./Forms/SampleForm";
 
-const Dashboard = () => {
+const NewApplication = () => {
   return (
     <Container fluid style={{ background: "#EFF2F7" }} textAlign="center">
       <Header
@@ -11,11 +11,11 @@ const Dashboard = () => {
         style={{ color: "#47525E", fontSize: "4em" }}
         dividing
       >
-        Dashboard
+        New Application
       </Header>
-      <ApplicationEntries />
+      <SampleForm />
     </Container>
   );
 };
 
-export default Dashboard;
+export default NewApplication;

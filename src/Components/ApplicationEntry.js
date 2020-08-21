@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Table, Button, Icon, Label } from "semantic-ui-react";
+import { DashboardDispatchContext } from "../Context/DashboardDispatchContext";
 
-const ApplicationEntry = ({ child, dispatch }) => {
+const ApplicationEntry = ({ child }) => {
+  const dashboardDispatch = useContext(DashboardDispatchContext);
   const colorMap = {
     Approved: "green",
     Incomplete: "red",
@@ -15,7 +17,7 @@ const ApplicationEntry = ({ child, dispatch }) => {
   };
 
   const deleteApplication = () => {
-    dispatch({ type: "DELETE", id: child.id });
+    dashboardDispatch({ type: "DELETE", id: child.id });
   };
 
   return (
