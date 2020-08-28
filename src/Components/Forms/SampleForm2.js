@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { Form, Container } from "semantic-ui-react";
+import React, { useContext, useEffect } from "react";
+import { Form, Container, Icon } from "semantic-ui-react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
 import { useHistory } from "react-router-dom";
 
-const SampleForm2 = () => {
+const SampleForm2 = ({ nextStep, prevStep, setFormStates, formStates }) => {
   const dashboardDispatch = useContext(DashboardDispatchContext);
   const history = useHistory();
 
@@ -18,16 +18,18 @@ const SampleForm2 = () => {
       applicationStatus: "",
     },
     onSubmit: (values, { setSubmitting, resetForm }) => {
-      console.log("submit");
-      const newApplication = {
-        name: `${values.childFirstName} ${values.childLastName}`,
-        date: values.date,
-        action: values.actionType,
-        applicationStatus: values.applicationStatus,
-      };
-      dashboardDispatch({ type: "NEW_APPLICATION", newApplication });
-      resetForm();
-      history.goBack();
+      //   console.log("submit");
+      //   const newApplication = {
+      //     name: `${values.childFirstName} ${values.childLastName}`,
+      //     date: values.date,
+      //     action: values.actionType,
+      //     applicationStatus: values.applicationStatus,
+      //   };
+      //   dashboardDispatch({ type: "NEW_APPLICATION", newApplication });
+      //   //   resetForm();
+      //   //   history.goBack();
+      setSubmitting(true);
+      updateFormState();
     },
     validationSchema: yup.object().shape({
       childFirstName: yup.string().required("First name is required"),
@@ -39,10 +41,50 @@ const SampleForm2 = () => {
         .required("Application status must be selected"),
     }),
   });
+  const updateFormState = () => {
+    setFormStates((prevState) => {
+      return {
+        ...prevState,
+        page2: formik.values,
+      };
+    });
+  };
+
+  const goToNextPage = () => {
+    //updateFormState();
+    nextStep();
+  };
+
+  const goToPrevPage = () => {
+    updateFormState();
+    prevStep();
+  };
+
+  useEffect(() => {
+    if (formik.isSubmitting) {
+      formik.setSubmitting(false);
+      const newApplication = {
+        ...formStates,
+      };
+      delete newApplication.step;
+      dashboardDispatch({ type: "NEW_APPLICATIONS", newApplication });
+      setTimeout(() => {
+        history.goBack();
+      }, 4000);
+      goToNextPage();
+    }
+  }, [formStates.page2]);
+
+  useEffect(() => {
+    if (formStates.page2) {
+      formik.setValues(formStates.page2);
+    }
+  }, [formStates.page2]);
 
   return (
     <Container textAlign="center" text>
       {JSON.stringify(formik.values)}
+      <h1>Sample Form 2</h1>
       <Form>
         <Form.Group widths="equal">
           <Form.Input
@@ -173,9 +215,23 @@ const SampleForm2 = () => {
             }
           />
         </Form.Group>
-        <Form.Button type="submit" onClick={formik.handleSubmit} primary>
+        {/* <Form.Button type="submit" onClick={formik.handleSubmit} primary>
           Create
-        </Form.Button>
+        </Form.Button> */}
+        <Form.Group inline widths="equal">
+          <Form.Button onClick={goToPrevPage} primary floated="left" compact>
+            <Icon name="arrow left" />
+          </Form.Button>
+          <Form.Button
+            onClick={formik.handleSubmit}
+            type="submit"
+            primary
+            floated="right"
+            compact
+          >
+            <Icon name="arrow right" />
+          </Form.Button>
+        </Form.Group>
       </Form>
     </Container>
   );

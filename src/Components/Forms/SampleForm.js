@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { Form, Container } from "semantic-ui-react";
+import React, { useContext, useEffect } from "react";
+import { Form, Container, Icon } from "semantic-ui-react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
 import { useHistory } from "react-router-dom";
 
-const SampleForm = () => {
+const SampleForm = ({ nextStep, prevStep, setFormStates, formStates }) => {
   const dashboardDispatch = useContext(DashboardDispatchContext);
   const history = useHistory();
 
@@ -18,16 +18,16 @@ const SampleForm = () => {
       applicationStatus: "",
     },
     onSubmit: (values, { setSubmitting, resetForm }) => {
-      console.log("submit");
-      const newApplication = {
-        name: `${values.childFirstName} ${values.childLastName}`,
-        date: values.date,
-        action: values.actionType,
-        applicationStatus: values.applicationStatus,
-      };
-      dashboardDispatch({ type: "NEW_APPLICATION", newApplication });
-      resetForm();
-      history.goBack();
+      // const newApplication = {
+      //   name: `${values.childFirstName} ${values.childLastName}`,
+      //   date: values.date,
+      //   action: values.actionType,
+      //   applicationStatus: values.applicationStatus,
+      // };
+      // dashboardDispatch({ type: "NEW_APPLICATION", newApplication });
+      // resetForm();
+      // history.goBack();
+      goToNextPage();
     },
     validationSchema: yup.object().shape({
       childFirstName: yup.string().required("First name is required"),
@@ -40,9 +40,30 @@ const SampleForm = () => {
     }),
   });
 
+  const updateFormState = () => {
+    setFormStates((prevState) => {
+      return {
+        ...prevState,
+        page1: formik.values,
+      };
+    });
+  };
+
+  const goToNextPage = () => {
+    updateFormState();
+    nextStep();
+  };
+
+  useEffect(() => {
+    if (formStates.page1) {
+      formik.setValues(formStates.page1);
+    }
+  }, [formStates.page1]);
+
   return (
     <Container textAlign="center" text>
       {JSON.stringify(formik.values)}
+      <h1>Sample Form 1</h1>
       <Form>
         <Form.Group widths="equal">
           <Form.Input
@@ -173,9 +194,20 @@ const SampleForm = () => {
             }
           />
         </Form.Group>
-        <Form.Button type="submit" onClick={formik.handleSubmit} primary>
+        {/* <Form.Button type="submit" onClick={formik.handleSubmit} primary>
           Create
-        </Form.Button>
+        </Form.Button> */}
+        <Form.Group inline widths="equal">
+          <Form.Button
+            type="submit"
+            onClick={formik.handleSubmit}
+            primary
+            floated="right"
+            compact
+          >
+            <Icon name="arrow right" />
+          </Form.Button>
+        </Form.Group>
       </Form>
     </Container>
   );

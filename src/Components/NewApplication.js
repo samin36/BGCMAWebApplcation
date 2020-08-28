@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
-import SampleForm from "./Forms/SampleForm";
+import MainForm from "./Forms/MainForm";
 
 const NewApplication = () => {
   return (
@@ -13,7 +13,7 @@ const NewApplication = () => {
       >
         New Application
       </Header>
-      <SampleForm />
+      <MainForm />
     </Container>
   );
 };
