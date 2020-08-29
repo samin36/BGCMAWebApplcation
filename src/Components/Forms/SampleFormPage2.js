@@ -11,7 +11,7 @@ const SampleFormPage2 = ({ nextStep, prevStep, formStates, setFormStates }) => {
   const pageNo = 2; //Define the page number here
   const updateFormState = (values) => {
     // console.log("updating form state in sampleformpage2: ", values);
-    console.log("current state of formStates in sampleformpage2: ", formStates);
+    // console.log("current state of formStates in sampleformpage2: ", formStates);
     setFormStates((prevState) => {
       return {
         ...prevState,

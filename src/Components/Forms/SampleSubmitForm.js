@@ -16,11 +16,7 @@ const SampleSubmitForm = ({ formStates }) => {
       history.goBack();
     }
     return () => {
-      console.log(localStorage.getItem("page1"));
-      console.log(localStorage.getItem("page2"));
       localStorage.clear();
-      console.log(localStorage.getItem("page1"));
-      console.log(localStorage.getItem("page2"));
     };
   }, [dashboardState]);
 
@@ -29,8 +25,13 @@ const SampleSubmitForm = ({ formStates }) => {
       ...formStates,
     };
     delete newApplication.step;
-    dashboardDispatch({ type: "NEW_APPLICATIONS", newApplication });
+    const timeoutId = setTimeout(() => {
+      dashboardDispatch({ type: "NEW_APPLICATIONS", newApplication });
+    }, 3000);
     setIsSubmitting(true);
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   return (

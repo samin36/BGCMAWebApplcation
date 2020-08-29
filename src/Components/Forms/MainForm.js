@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // import SampleForm2 from "./SampleForm2";
 import SampleFormPage1 from "./SampleFormPage1";
@@ -11,6 +11,12 @@ const MainForm = () => {
     step: 1,
     newApplicationDashboardData: {},
   });
+
+  useEffect(() => {
+    return () => {
+      localStorage.clear();
+    };
+  }, []);
 
   const nextStep = () => {
     setFormStates((prevState) => {
