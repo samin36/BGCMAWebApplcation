@@ -1,15 +1,11 @@
-import React, { useState, useContext } from "react";
-import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
-import { useHistory } from "react-router-dom";
-import { Pagination, Container, Segment } from "semantic-ui-react";
+import React, { useState } from "react";
 
-import SampleForm from "./SampleForm";
-import SampleForm2 from "./SampleForm2";
+// import SampleForm2 from "./SampleForm2";
+import SampleFormPage1 from "./SampleFormPage1";
+import SampleFormPage2 from "./SampleFormPage2";
+import SampleSubmitForm from "./SampleSubmitForm";
 
 const MainForm = () => {
-  const dashboardDispatch = useContext(DashboardDispatchContext);
-  const history = useHistory();
-
   const totalNumberOfForms = 16;
   const [formStates, setFormStates] = useState({
     step: 1,
@@ -41,30 +37,23 @@ const MainForm = () => {
     switch (formStates.step) {
       case 1:
         return (
-          <SampleForm
+          <SampleFormPage1
             nextStep={nextStep}
-            prevStep={prevStep}
             setFormStates={setFormStates}
             formStates={formStates}
           />
         );
       case 2:
         return (
-          <SampleForm2
+          <SampleFormPage2
             nextStep={nextStep}
             prevStep={prevStep}
-            setFormStates={setFormStates}
             formStates={formStates}
+            setFormStates={setFormStates}
           />
         );
       case 3:
-        return (
-          <>
-            <h1>Your form has been submitted.</h1>
-            <h2>Redirecting...</h2>
-            {JSON.stringify(formStates)}
-          </>
-        );
+        return <SampleSubmitForm formStates={formStates} />;
       default:
         return <h1>Default Page</h1>;
     }

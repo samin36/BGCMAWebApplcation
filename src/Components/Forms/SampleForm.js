@@ -1,14 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Form, Container, Icon } from "semantic-ui-react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
-import { useHistory } from "react-router-dom";
+import { Persist } from "formik-persist";
 
 const SampleForm = ({ nextStep, prevStep, setFormStates, formStates }) => {
-  const dashboardDispatch = useContext(DashboardDispatchContext);
-  const history = useHistory();
-
   const formik = useFormik({
     initialValues: {
       childFirstName: "",
@@ -54,11 +50,11 @@ const SampleForm = ({ nextStep, prevStep, setFormStates, formStates }) => {
     nextStep();
   };
 
-  useEffect(() => {
-    if (formStates.page1) {
-      formik.setValues(formStates.page1);
-    }
-  }, [formStates.page1]);
+  // useEffect(() => {
+  //   if (formStates.page1) {
+  //     formik.setValues(formStates.page1);
+  //   }
+  // }, [formStates.page1]);
 
   return (
     <Container textAlign="center" text>
@@ -208,6 +204,7 @@ const SampleForm = ({ nextStep, prevStep, setFormStates, formStates }) => {
             <Icon name="arrow right" />
           </Form.Button>
         </Form.Group>
+        {/* <Persist name="sampleform" isSessionStorage={true} /> */}
       </Form>
     </Container>
   );
