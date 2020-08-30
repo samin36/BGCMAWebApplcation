@@ -5,6 +5,8 @@ import SampleFormPage1 from "./SampleFormPage1";
 import SampleFormPage2 from "./SampleFormPage2";
 import SampleSubmitForm from "./SampleSubmitForm";
 
+import Page5 from "./Page5";
+
 const MainForm = () => {
   const totalNumberOfForms = 16;
   const [formStates, setFormStates] = useState({
@@ -43,10 +45,15 @@ const MainForm = () => {
     switch (formStates.step) {
       case 1:
         return (
-          <SampleFormPage1
+          // <SampleFormPage1
+          //   nextStep={nextStep}
+          //   setFormStates={setFormStates}
+          //   formStates={formStates}
+          // />
+          <Page5
             nextStep={nextStep}
             setFormStates={setFormStates}
-            formStates={formStates}
+            prevStep={prevStep}
           />
         );
       case 2:
