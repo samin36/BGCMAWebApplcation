@@ -6,6 +6,7 @@ import SampleFormPage2 from "./SampleFormPage2";
 import SampleSubmitForm from "./SampleSubmitForm";
 
 import Page5 from "./Page5";
+import Page6 from "./Page6";
 
 const MainForm = () => {
   const totalNumberOfForms = 16;
@@ -58,11 +59,16 @@ const MainForm = () => {
         );
       case 2:
         return (
-          <SampleFormPage2
+          // <SampleFormPage2
+          //   nextStep={nextStep}
+          //   prevStep={prevStep}
+          //   formStates={formStates}
+          //   setFormStates={setFormStates}
+          // />
+          <Page6
             nextStep={nextStep}
-            prevStep={prevStep}
-            formStates={formStates}
             setFormStates={setFormStates}
+            prevStep={prevStep}
           />
         );
       case 3:

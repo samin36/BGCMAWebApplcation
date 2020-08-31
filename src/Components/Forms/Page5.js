@@ -62,7 +62,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         // as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
@@ -77,7 +77,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         handleBlur,
         handleSubmit,
         isSubmitting,
-        setFieldValue,
       }) => (
         <Container textAlign="center">
           {JSON.stringify(values, null, 2)}
