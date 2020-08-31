@@ -79,7 +79,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         isSubmitting,
       }) => (
         <Container textAlign="center">
-          {JSON.stringify(values, null, 2)}
+          {/* {JSON.stringify(values, null, 2)} */}
           <Header textAlign="center" as="h1">
             <b>
               Assumption of the Risk and Waiver of Liability Relating to

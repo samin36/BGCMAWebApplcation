@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 // import SampleForm2 from "./SampleForm2";
-import SampleFormPage1 from "./SampleFormPage1";
-import SampleFormPage2 from "./SampleFormPage2";
+// import SampleFormPage1 from "./SampleFormPage1";
+// import SampleFormPage2 from "./SampleFormPage2";
 import SampleSubmitForm from "./SampleSubmitForm";
 
 import Page5 from "./Page5";
@@ -72,7 +72,8 @@ const MainForm = () => {
           />
         );
       case 3:
-        return <SampleSubmitForm formStates={formStates} />;
+        // return <SampleSubmitForm formStates={formStates} />;
+        return <h1>{JSON.stringify(formStates, null, 2)}</h1>;
       default:
         return <h1>Default Page</h1>;
     }

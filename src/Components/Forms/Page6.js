@@ -205,7 +205,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         // as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
@@ -223,7 +223,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         setFieldValue,
       }) => (
         <Container textAlign="center">
-          {JSON.stringify(errors, null, 2)}
           <Header as="h1" textAlign="center">
             Membership Application
           </Header>
@@ -1661,7 +1660,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               </Grid.Row>
               <Grid.Row>
                 <Grid.Column>
-                  <Form.Group widths="equal" inline>
+                  <Form.Group widths="equal">
                     <Form.Input
                       fluid
                       icon={
@@ -1699,7 +1698,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                       onBlur={handleBlur}
                     />
                   </Form.Group>
-                  <Form.Group inline widths="equal">
+                  <Form.Group widths="equal">
                     <Form.Input
                       fluid
                       icon={
