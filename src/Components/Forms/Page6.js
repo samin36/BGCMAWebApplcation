@@ -7,7 +7,6 @@ import {
   Segment,
   Grid,
   Divider,
-  Label,
 } from "semantic-ui-react";
 import * as yup from "yup";
 import { Formik } from "formik";
@@ -74,8 +73,12 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     militaryHousehold: "",
     liveOnBase: "",
     memberAllergies: "",
+    memberAllergiesOther: "",
     memberMedications: "",
+    memberMedicationsOther: "",
     memberPescriptionMedication: "",
+    memberPescriptionMedicationNames: "",
+    memberPrescriptionClubHours: "",
     physicianName: "",
     physicianCellPhone: "",
     insuranceCompany: "",
@@ -150,7 +153,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
       .required(
         "Please select from one of the options. For other, please specify"
       ),
-    memberLivesWithOther: yup.string().required("Please specify other"),
+    memberLivesWithOther: yup.string(),
     primaryLanguageSpokenInHome: yup
       .string()
       .required("Language spoken in home is required"),
@@ -164,12 +167,22 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     memberAllergies: yup
       .string()
       .required("Please select any allergies. For other, please specify"),
+    memberAllergiesOther: yup
+      .string()
+      .default("None")
+      .required("Please specify"),
     memberMedications: yup
       .string()
       .required(
         "Please select any medical conditions. For other, please specify"
       ),
-    memberPescriptionMedication: yup.string(),
+    memberMedicationsOther: yup.string(),
+    memberPescriptionMedication: yup
+      .string()
+      .required("Please select Yes or No"),
+    memberPescriptionMedicationNames: yup.string(),
+
+    memberPrescriptionClubHours: yup.string(),
     physicianName: yup.string().required("Physician's name is required"),
     physicianCellPhone: yup
       .string()
@@ -210,7 +223,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         setFieldValue,
       }) => (
         <Container textAlign="center">
-          {/* {JSON.stringify(values, null, 2)} */}
+          {JSON.stringify(errors, null, 2)}
           <Header as="h1" textAlign="center">
             Membership Application
           </Header>
@@ -256,7 +269,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.childMiddleInitial &&
                   errors.childMiddleInitial !== undefined && {
@@ -760,112 +772,127 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             </Form.Group>
             <Divider horizontal content="Household Info" />
 
-            <Grid>
-              <Grid.Column width={4}>
-                <Grid.Row>
-                  <Segment textAlign="left" size="big">
-                    <Form.Group grouped>
-                      <label>Is Member from a Single Parent Household: </label>
-                      <Icon name="asterisk" color="red" size="small" corner />
-                      <Form.Radio
-                        name="memberFromSingleParentHousehold"
-                        value="Yes"
-                        label="Yes"
-                        onBlur={handleBlur}
-                        onChange={(_, { value }) =>
-                          setFieldValue(
-                            "memberFromSingleParentHousehold",
-                            value
-                          )
-                        }
-                        checked={
-                          values.memberFromSingleParentHousehold === "Yes"
-                        }
-                        error={
-                          touched.memberFromSingleParentHousehold &&
-                          errors.memberFromSingleParentHousehold !== undefined
-                        }
-                      />
-                      <Form.Radio
-                        name="memberFromSingleParentHousehold"
-                        value="No"
-                        label="No"
-                        onBlur={handleBlur}
-                        onChange={(_, { value }) =>
-                          setFieldValue(
-                            "memberFromSingleParentHousehold",
-                            value
-                          )
-                        }
-                        checked={
-                          values.memberFromSingleParentHousehold === "No"
-                        }
-                        error={
-                          touched.memberFromSingleParentHousehold &&
-                          errors.memberFromSingleParentHousehold !== undefined
-                        }
-                      />
-                    </Form.Group>
-                  </Segment>
-                </Grid.Row>
-                <Grid.Row>
-                  <Segment textAlign="left" size="big">
-                    <Form.Group grouped>
-                      <label>Gender of Head of Household:</label>
-                      <Icon name="asterisk" color="red" size="small" corner />
-                      <Form.Radio
-                        name="genderOfHeadOfHousehold"
-                        value="Male"
-                        label="Male"
-                        onBlur={handleBlur}
-                        onChange={(_, { value }) =>
-                          setFieldValue("genderOfHeadOfHousehold", value)
-                        }
-                        checked={values.genderOfHeadOfHousehold === "Male"}
-                        error={
-                          touched.genderOfHeadOfHousehold &&
-                          errors.genderOfHeadOfHousehold !== undefined
-                        }
-                      />
-                      <Form.Radio
-                        name="genderOfHeadOfHousehold"
-                        value="Female"
-                        label="Female"
-                        onBlur={handleBlur}
-                        onChange={(_, { value }) =>
-                          setFieldValue("genderOfHeadOfHousehold", value)
-                        }
-                        checked={values.genderOfHeadOfHousehold === "Female"}
-                        error={
-                          touched.genderOfHeadOfHousehold &&
-                          errors.genderOfHeadOfHousehold !== undefined
-                        }
-                      />
-                      <Form.Radio
-                        name="genderOfHeadOfHousehold"
-                        value="Non-Binary"
-                        label="Non-Binary"
-                        onBlur={handleBlur}
-                        onChange={(_, { value }) =>
-                          setFieldValue("genderOfHeadOfHousehold", value)
-                        }
-                        checked={
-                          values.genderOfHeadOfHousehold === "Non-Binary"
-                        }
-                        error={
-                          touched.genderOfHeadOfHousehold &&
-                          errors.genderOfHeadOfHousehold !== undefined && {
-                            content: errors.genderOfHeadOfHousehold,
-                            pointing: "above",
+            <Grid centered>
+              <Grid.Row>
+                <Grid.Column width={4}>
+                  <Grid.Row>
+                    <Segment textAlign="left" size="big">
+                      <Form.Group grouped>
+                        <label>
+                          Is Member from a Single Parent Household:{" "}
+                        </label>
+                        <Icon name="asterisk" color="red" size="small" corner />
+                        <Form.Radio
+                          name="memberFromSingleParentHousehold"
+                          value="Yes"
+                          label="Yes"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue(
+                              "memberFromSingleParentHousehold",
+                              value
+                            )
                           }
-                        }
-                      />
-                    </Form.Group>
-                  </Segment>
-                </Grid.Row>
-              </Grid.Column>
-              <Grid.Column width={4}>
-                <Grid.Row>
+                          checked={
+                            values.memberFromSingleParentHousehold === "Yes"
+                          }
+                          error={
+                            touched.memberFromSingleParentHousehold &&
+                            errors.memberFromSingleParentHousehold !==
+                              undefined && {
+                              content: errors.memberFromSingleParentHousehold,
+                              pointing: "above",
+                            }
+                          }
+                        />
+                        <Form.Radio
+                          name="memberFromSingleParentHousehold"
+                          value="No"
+                          label="No"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue(
+                              "memberFromSingleParentHousehold",
+                              value
+                            )
+                          }
+                          checked={
+                            values.memberFromSingleParentHousehold === "No"
+                          }
+                          error={
+                            touched.memberFromSingleParentHousehold &&
+                            errors.memberFromSingleParentHousehold !== undefined
+                          }
+                        />
+                      </Form.Group>
+                    </Segment>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Grid.Column width={4}>
+                      <Segment textAlign="left" size="big">
+                        <Form.Group grouped>
+                          <label>Gender of Head of Household:</label>
+                          <Icon
+                            name="asterisk"
+                            color="red"
+                            size="small"
+                            corner
+                          />
+                          <Form.Radio
+                            name="genderOfHeadOfHousehold"
+                            value="Male"
+                            label="Male"
+                            onBlur={handleBlur}
+                            onChange={(_, { value }) =>
+                              setFieldValue("genderOfHeadOfHousehold", value)
+                            }
+                            checked={values.genderOfHeadOfHousehold === "Male"}
+                            error={
+                              touched.genderOfHeadOfHousehold &&
+                              errors.genderOfHeadOfHousehold !== undefined
+                            }
+                          />
+                          <Form.Radio
+                            name="genderOfHeadOfHousehold"
+                            value="Female"
+                            label="Female"
+                            onBlur={handleBlur}
+                            onChange={(_, { value }) =>
+                              setFieldValue("genderOfHeadOfHousehold", value)
+                            }
+                            checked={
+                              values.genderOfHeadOfHousehold === "Female"
+                            }
+                            error={
+                              touched.genderOfHeadOfHousehold &&
+                              errors.genderOfHeadOfHousehold !== undefined
+                            }
+                          />
+                          <Form.Radio
+                            name="genderOfHeadOfHousehold"
+                            value="Non-Binary"
+                            label="Non-Binary"
+                            onBlur={handleBlur}
+                            onChange={(_, { value }) =>
+                              setFieldValue("genderOfHeadOfHousehold", value)
+                            }
+                            checked={
+                              values.genderOfHeadOfHousehold === "Non-Binary"
+                            }
+                            error={
+                              touched.genderOfHeadOfHousehold &&
+                              errors.genderOfHeadOfHousehold !== undefined && {
+                                content: errors.genderOfHeadOfHousehold,
+                                pointing: "above",
+                              }
+                            }
+                          />
+                        </Form.Group>
+                      </Segment>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid.Column>
+                <Grid.Column width={4}>
                   <Segment textAlign="left" size="big">
                     <Form.Group grouped>
                       <label>Member Lives With: </label>
@@ -965,7 +992,10 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                         checked={values.memberLivesWith === "Other"}
                         error={
                           touched.memberLivesWith &&
-                          errors.memberLivesWith !== undefined
+                          errors.memberLivesWith !== undefined && {
+                            content: errors.memberLivesWith,
+                            pointing: "above",
+                          }
                         }
                       />
                       {values.memberLivesWith === "Other" && (
@@ -989,11 +1019,726 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                       )}
                     </Form.Group>
                   </Segment>
-                </Grid.Row>
-              </Grid.Column>
-              <Grid.Column width={8}>
-                <h1>Hello</h1>
-              </Grid.Column>
+                </Grid.Column>
+                <Grid.Column width={4}>
+                  <Segment textAlign="left" size="big">
+                    <Form.Group grouped>
+                      <label>Military Household: </label>
+                      <Icon name="asterisk" color="red" size="small" corner />
+                      <Form.Radio
+                        name="militaryHousehold"
+                        value="No, not military"
+                        label="No, not military"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("militaryHousehold", value)
+                        }
+                        checked={
+                          values.militaryHousehold === "No, not military"
+                        }
+                        error={
+                          touched.militaryHousehold &&
+                          errors.militaryHousehold !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="militaryHousehold"
+                        value="Air Force"
+                        label="Air Force"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("militaryHousehold", value)
+                        }
+                        checked={values.militaryHousehold === "Air Force"}
+                        error={
+                          touched.militaryHousehold &&
+                          errors.militaryHousehold !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="militaryHousehold"
+                        value="Army"
+                        label="Army"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("militaryHousehold", value)
+                        }
+                        checked={values.militaryHousehold === "Army"}
+                        error={
+                          touched.militaryHousehold &&
+                          errors.militaryHousehold !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="militaryHousehold"
+                        value="Coast Guard"
+                        label="Coast Guard"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("militaryHousehold", value)
+                        }
+                        checked={values.militaryHousehold === "Coast Guard"}
+                        error={
+                          touched.militaryHousehold &&
+                          errors.militaryHousehold !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="militaryHousehold"
+                        value="Navy"
+                        label="Navy"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("militaryHousehold", value)
+                        }
+                        checked={values.militaryHousehold === "Navy"}
+                        error={
+                          touched.militaryHousehold &&
+                          errors.militaryHousehold !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="militaryHousehold"
+                        value="Marine Corps"
+                        label="Marine Corps"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("militaryHousehold", value)
+                        }
+                        checked={values.militaryHousehold === "Marine Corps"}
+                        error={
+                          touched.militaryHousehold &&
+                          errors.militaryHousehold !== undefined && {
+                            content: errors.militaryHousehold,
+                            pointing: "above",
+                          }
+                        }
+                      />
+                    </Form.Group>
+                  </Segment>
+                </Grid.Column>
+                <Grid.Column width={4}>
+                  <Grid.Row>
+                    <Segment textAlign="left" size="big">
+                      <Form.Group grouped>
+                        <label>Live on Base?</label>
+                        <Icon name="asterisk" color="red" size="small" corner />
+                        <Form.Radio
+                          name="liveOnBase"
+                          value="Yes"
+                          label="Yes"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue("liveOnBase", value)
+                          }
+                          checked={values.liveOnBase === "Yes"}
+                          error={
+                            touched.liveOnBase &&
+                            errors.liveOnBase !== undefined
+                          }
+                        />
+                        <Form.Radio
+                          name="liveOnBase"
+                          value="No"
+                          label="No"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue("liveOnBase", value)
+                          }
+                          checked={values.liveOnBase === "No"}
+                          error={
+                            touched.liveOnBase &&
+                            errors.liveOnBase !== undefined && {
+                              content: errors.liveOnBase,
+                              pointing: "above",
+                            }
+                          }
+                        />
+                      </Form.Group>
+                    </Segment>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Segment textAlign="left" size="big">
+                      <Form.Group grouped>
+                        <label>Member Receives</label>
+                        <Icon name="asterisk" color="red" size="small" corner />
+                        <Form.Radio
+                          name="memberReceives"
+                          value="Free Lunch"
+                          label="Free Lunch"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue("memberReceives", value)
+                          }
+                          checked={values.memberReceives === "Free Lunch"}
+                          error={
+                            touched.memberReceives &&
+                            errors.memberReceives !== undefined
+                          }
+                        />
+                        <Form.Radio
+                          name="memberReceives"
+                          value="Reduced Lunch"
+                          label="Reduced Lunch"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue("memberReceives", value)
+                          }
+                          checked={values.memberReceives === "Reduced Lunch"}
+                          error={
+                            touched.memberReceives &&
+                            errors.memberReceives !== undefined
+                          }
+                        />
+                        <Form.Radio
+                          name="memberReceives"
+                          value="None"
+                          label="None"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue("memberReceives", value)
+                          }
+                          checked={values.memberReceives === "None"}
+                          error={
+                            touched.memberReceives &&
+                            errors.memberReceives !== undefined && {
+                              content: errors.memberReceives,
+                              pointing: "above",
+                            }
+                          }
+                        />
+                      </Form.Group>
+                    </Segment>
+                  </Grid.Row>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={8}>
+                  <Form.Group grouped>
+                    <Form.Input
+                      fluid
+                      icon={
+                        <Icon name="asterisk" color="red" size="small" corner />
+                      }
+                      error={
+                        touched.primaryLanguageSpokenInHome &&
+                        errors.primaryLanguageSpokenInHome !== undefined && {
+                          content: errors.primaryLanguageSpokenInHome,
+                          pointing: "above",
+                        }
+                      }
+                      placeholder="Primary language spoken in home"
+                      name="primaryLanguageSpokenInHome"
+                      value={values.primaryLanguageSpokenInHome}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </Form.Group>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+            <Divider horizontal content="Member's Medical Profile" />
+            <Grid centered>
+              <Grid.Row>
+                <Grid.Column width={5}>
+                  <Segment textAlign="left" size="big">
+                    <Form.Group grouped>
+                      <label>
+                        Allergies or Dietary religious restrictions?
+                      </label>
+                      <Icon name="asterisk" color="red" size="small" corner />
+                      <Form.Radio
+                        name="memberAllergies"
+                        value="Beef"
+                        label="Beef"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberAllergies", value)
+                        }
+                        checked={values.memberAllergies === "Beef"}
+                        error={
+                          touched.memberAllergies &&
+                          errors.memberAllergies !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberAllergies"
+                        value="Pork"
+                        label="Pork"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberAllergies", value)
+                        }
+                        checked={values.memberAllergies === "Pork"}
+                        error={
+                          touched.memberAllergies &&
+                          errors.memberAllergies !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberAllergies"
+                        value="Fish/Shellfish"
+                        label="Fish/Shellfish"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberAllergies", value)
+                        }
+                        checked={values.memberAllergies === "Fish/Shellfish"}
+                        error={
+                          touched.memberAllergies &&
+                          errors.memberAllergies !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberAllergies"
+                        value="Milk/Dairy products"
+                        label="Milk/Dairy products"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberAllergies", value)
+                        }
+                        checked={
+                          values.memberAllergies === "Milk/Dairy products"
+                        }
+                        error={
+                          touched.memberAllergies &&
+                          errors.memberAllergies !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberAllergies"
+                        value="Peanuts/Peanut butter"
+                        label="Peanuts/Peanut butter"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberAllergies", value)
+                        }
+                        checked={
+                          values.memberAllergies === "Peanuts/Peanut butter"
+                        }
+                        error={
+                          touched.memberAllergies &&
+                          errors.memberAllergies !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberAllergies"
+                        value="Tree Nuts"
+                        label="Tree Nuts"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberAllergies", value)
+                        }
+                        checked={values.memberAllergies === "Tree Nuts"}
+                        error={
+                          touched.memberAllergies &&
+                          errors.memberAllergies !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberAllergies"
+                        value="Wheat/Gluten"
+                        label="Wheat/Gluten"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberAllergies", value)
+                        }
+                        checked={values.memberAllergies === "Wheat/Gluten"}
+                        error={
+                          touched.memberAllergies &&
+                          errors.memberAllergies !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberAllergies"
+                        value="Drug allergy"
+                        label="Drug allergy (Provide name below)"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberAllergies", value)
+                        }
+                        checked={values.memberAllergies === "Drug allergy"}
+                        error={
+                          touched.memberAllergies &&
+                          errors.memberAllergies !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberAllergies"
+                        value="Other"
+                        label="Other"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberAllergies", value)
+                        }
+                        checked={values.memberAllergies === "Other"}
+                        error={
+                          touched.memberAllergies &&
+                          errors.memberAllergies !== undefined && {
+                            content: errors.memberAllergies,
+                            pointing: "above",
+                          }
+                        }
+                      />
+                      {(values.memberAllergies === "Other" ||
+                        values.memberAllergies === "Drug allergy") && (
+                        <Form.TextArea
+                          as={Form.Input}
+                          error={
+                            touched.memberAllergiesOther &&
+                            errors.memberAllergiesOther !== undefined && {
+                              content: errors.memberAllergiesOther,
+                              pointing: "above",
+                            }
+                          }
+                          placeholder={
+                            values.memberAllergies === "Drug allergy"
+                              ? "Please specify any drug allergies"
+                              : values.memberAllergies === "Other"
+                              ? "Please specify other"
+                              : null
+                          }
+                          name="memberAllergiesOther"
+                          value={values.memberAllergiesOther}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          disabled={
+                            values.memberAllergies !== "Other" &&
+                            values.memberAllergies !== "Drug allergy"
+                          }
+                        />
+                      )}
+                    </Form.Group>
+                  </Segment>
+                </Grid.Column>
+                <Grid.Column width={5}>
+                  <Segment textAlign="left" size="big">
+                    <Form.Group grouped>
+                      <label>Any special medical conditions?</label>
+                      <Icon name="asterisk" color="red" size="small" corner />
+                      <Form.Radio
+                        name="memberMedications"
+                        value="ADD/ADHD"
+                        label="ADD/ADHD"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberMedications", value)
+                        }
+                        checked={values.memberMedications === "ADD/ADHD"}
+                        error={
+                          touched.memberMedications &&
+                          errors.memberMedications !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberMedications"
+                        value="Asthma"
+                        label="Asthma"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberMedications", value)
+                        }
+                        checked={values.memberMedications === "Asthma"}
+                        error={
+                          touched.memberMedications &&
+                          errors.memberMedications !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberMedications"
+                        value="Diabetes"
+                        label="Diabetes"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberMedications", value)
+                        }
+                        checked={values.memberMedications === "Diabetes"}
+                        error={
+                          touched.memberMedications &&
+                          errors.memberMedications !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberMedications"
+                        value="Emotional/Behavior disorder"
+                        label="Emotional/Behavior disorder"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberMedications", value)
+                        }
+                        checked={
+                          values.memberMedications ===
+                          "Emotional/Behavior disorder"
+                        }
+                        error={
+                          touched.memberMedications &&
+                          errors.memberMedications !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberMedications"
+                        value="Epilepsy/Seizure disorder"
+                        label="Epilepsy/Seizure disorder"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberMedications", value)
+                        }
+                        checked={
+                          values.memberMedications ===
+                          "Epilepsy/Seizure disorder"
+                        }
+                        error={
+                          touched.memberMedications &&
+                          errors.memberMedications !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberMedications"
+                        value="Gastrointenstinal disorder"
+                        label="Gastrointenstinal disorder"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberMedications", value)
+                        }
+                        checked={
+                          values.memberMedications ===
+                          "Gastrointenstinal disorder"
+                        }
+                        error={
+                          touched.memberMedications &&
+                          errors.memberMedications !== undefined
+                        }
+                      />
+                      <Form.Radio
+                        name="memberMedications"
+                        value="Other"
+                        label="Other"
+                        onBlur={handleBlur}
+                        onChange={(_, { value }) =>
+                          setFieldValue("memberMedications", value)
+                        }
+                        checked={values.memberMedications === "Other"}
+                        error={
+                          touched.memberMedications &&
+                          errors.memberMedications !== undefined && {
+                            content: errors.memberMedications,
+                            pointing: "above",
+                          }
+                        }
+                      />
+                      {values.memberMedications === "Other" && (
+                        <Form.TextArea
+                          as={Form.Input}
+                          error={
+                            touched.memberMedicationsOther &&
+                            errors.memberMedicationsOther !== undefined && {
+                              content: errors.memberMedicationsOther,
+                              pointing: "above",
+                            }
+                          }
+                          placeholder="Please specify any other medical conditions"
+                          name="memberMedicationsOther"
+                          value={values.memberMedicationsOther}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          disabled={values.memberMedications !== "Other"}
+                        />
+                      )}
+                    </Form.Group>
+                  </Segment>
+                </Grid.Column>
+                <Grid.Column width={6}>
+                  <Grid.Row>
+                    <Segment textAlign="left" size="big">
+                      <Form.Group grouped>
+                        <label>
+                          Does member take any pescription medication?
+                        </label>
+                        <Form.Radio
+                          name="memberPescriptionMedication"
+                          value="Yes"
+                          label="Yes"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue("memberPescriptionMedication", value)
+                          }
+                          checked={values.memberPescriptionMedication === "Yes"}
+                          error={
+                            touched.memberPescriptionMedication &&
+                            errors.memberPescriptionMedication !==
+                              undefined && {
+                              content: errors.memberPescriptionMedication,
+                              pointing: "above",
+                            }
+                          }
+                        />
+                        <Form.Radio
+                          name="memberPescriptionMedication"
+                          value="No"
+                          label="No"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue("memberPescriptionMedication", value)
+                          }
+                          checked={values.memberPescriptionMedication === "No"}
+                          error={
+                            touched.memberPescriptionMedication &&
+                            errors.memberPescriptionMedication !== undefined
+                          }
+                        />
+                        {values.memberPescriptionMedication === "Yes" && (
+                          <Form.TextArea
+                            as={Form.Input}
+                            error={
+                              touched.memberPescriptionMedicationNames &&
+                              errors.memberPescriptionMedicationNames !==
+                                undefined && {
+                                content:
+                                  errors.memberPescriptionMedicationNames,
+                                pointing: "above",
+                              }
+                            }
+                            placeholder="Please specify any other medical conditions"
+                            name="memberPescriptionMedicationNames"
+                            value={values.memberPescriptionMedicationNames}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            disabled={
+                              values.memberPescriptionMedication === "No"
+                            }
+                          />
+                        )}
+                      </Form.Group>
+                    </Segment>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <Segment
+                      textAlign="left"
+                      size="big"
+                      disabled={values.memberPescriptionMedication !== "Yes"}
+                    >
+                      <Form.Group grouped>
+                        <label>
+                          Will member need to take prescription medication
+                          during Club hours?
+                        </label>
+                        <Form.Radio
+                          name="memberPrescriptionClubHours"
+                          value="Yes"
+                          label="Yes"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue("memberPrescriptionClubHours", value)
+                          }
+                          checked={values.memberPrescriptionClubHours === "Yes"}
+                          error={
+                            touched.memberPrescriptionClubHours &&
+                            errors.memberPrescriptionClubHours !==
+                              undefined && {
+                              content: errors.memberPrescriptionClubHours,
+                              pointing: "above",
+                            }
+                          }
+                        />
+                        <Form.Radio
+                          name="memberPrescriptionClubHours"
+                          value="No"
+                          label="No"
+                          onBlur={handleBlur}
+                          onChange={(_, { value }) =>
+                            setFieldValue("memberPrescriptionClubHours", value)
+                          }
+                          checked={values.memberPrescriptionClubHours === "No"}
+                          error={
+                            touched.memberPrescriptionClubHours &&
+                            errors.memberPrescriptionClubHours !== undefined
+                          }
+                        />
+                      </Form.Group>
+                    </Segment>
+                  </Grid.Row>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Form.Group widths="equal" inline>
+                    <Form.Input
+                      fluid
+                      icon={
+                        <Icon name="asterisk" color="red" size="small" corner />
+                      }
+                      error={
+                        touched.physicianName &&
+                        errors.physicianName !== undefined && {
+                          content: errors.physicianName,
+                          pointing: "above",
+                        }
+                      }
+                      placeholder="Physician Name"
+                      name="physicianName"
+                      value={values.physicianName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <Form.Input
+                      fluid
+                      icon={
+                        <Icon name="asterisk" color="red" size="small" corner />
+                      }
+                      error={
+                        touched.physicianCellPhone &&
+                        errors.physicianCellPhone !== undefined && {
+                          content: errors.physicianCellPhone,
+                          pointing: "above",
+                        }
+                      }
+                      placeholder="Cell Phone (Physician)"
+                      name="physicianCellPhone"
+                      value={values.physicianCellPhone}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </Form.Group>
+                  <Form.Group inline widths="equal">
+                    <Form.Input
+                      fluid
+                      icon={
+                        <Icon name="asterisk" color="red" size="small" corner />
+                      }
+                      error={
+                        touched.insuranceCompany &&
+                        errors.insuranceCompany !== undefined && {
+                          content: errors.insuranceCompany,
+                          pointing: "above",
+                        }
+                      }
+                      placeholder="Insurance Company Name"
+                      name="insuranceCompany"
+                      value={values.insuranceCompany}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <Form.Input
+                      fluid
+                      icon={
+                        <Icon name="asterisk" color="red" size="small" corner />
+                      }
+                      error={
+                        touched.insuranceCompanyPolicyNumber &&
+                        errors.insuranceCompanyPolicyNumber !== undefined && {
+                          content: errors.insuranceCompanyPolicyNumber,
+                          pointing: "above",
+                        }
+                      }
+                      placeholder="Insurance Policy Number"
+                      name="insuranceCompanyPolicyNumber"
+                      value={values.insuranceCompanyPolicyNumber}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </Form.Group>
+                </Grid.Column>
+              </Grid.Row>
             </Grid>
 
             <Form.Button
