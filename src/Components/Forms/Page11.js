@@ -109,23 +109,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               <Form.Input
                 icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
-                  touched.signatureDate &&
-                  errors.signatureDate !== undefined && {
-                    content: errors.signatureDate,
-                    pointing: "above",
-                  }
-                }
-                placeholder="Date"
-                name="signatureDate"
-                value={values.signatureDate}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </Form.Group>
-
-              <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
-                error={
                   touched.childName &&
                   errors.childName !== undefined && {
                     content: errors.childName,
@@ -138,7 +121,22 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              
+            </Form.Group>              
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.signatureDate &&
+                  errors.signatureDate !== undefined && {
+                    content: errors.signatureDate,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Date"
+                name="signatureDate"
+                value={values.signatureDate}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
             <Form.Button
               onClick={goToPrevPage}
               primary
