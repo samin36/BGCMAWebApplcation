@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import SampleSubmitForm from "./SampleSubmitForm";
 
 import Page11 from "./Page11";
+import Page12 from "./Page12";
 
 
 const MainForm = () => {
@@ -57,17 +58,21 @@ const MainForm = () => {
             prevStep={prevStep}
           />
         );
-      // case 2:
-      //   return (
+      case 2:
+         return (
       //      <SampleFormPage2
       //        nextStep={nextStep}
       //        prevStep={prevStep}
       //        formStates={formStates}
       //        setFormStates={setFormStates}
       //      />
-
-      //   );
-      case 2:
+          <Page12
+            nextStep={nextStep}
+            setFormStates={setFormStates}
+            prevStep={prevStep}
+          />
+         );
+      case 3:
         //return <SampleSubmitForm formStates={formStates} />;
         return <h1>{JSON.stringify(formStates, null, 2)}</h1>;
       default:
