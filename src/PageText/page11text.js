@@ -47,7 +47,7 @@ export const list3= (
 
 export const list4 = (
   <>
-   <h3>As the parent/guardian I will support my child�s participation in this program by:</h3>
+   <h3>As the parent/guardian I will support my child's participation in this program by:</h3>
    <ul>
         <li>Making arrangements so my child is available to participate in the program during specified times.</li>
         <li>Allowing time for my child to complete required assignments.</li>
@@ -60,12 +60,18 @@ export const list4 = (
 );
 export const list5 = (
   <>
-  <h3>Your Youth Development Professionals� commit to:</h3>
+  <h3>Your Youth Development Professionals' commit to:</h3>
   <ul>
     <li>Respectful and effective communication with all participants and their parents</li>
     <li>Helping you have a safe and fun experience</li>
     <li>Addressing problems that are brought to our attention</li>
     <li>Creating an environment where everyone is welcomed and given the opportunity to succeed. Everyone contributes to the success of this program!</li>
   </ul>
+  </>
+);
+
+export const signing= (
+  <>
+  <b>By printing your name, you are acknowledging your understanding of and a commitment to following this Code of Conduct. </b>
   </>
 );

@@ -11,6 +11,7 @@ import {
   list3,
   list4,
   list5,
+  signing,
 } from "../../PageText/page11text";
 /**
  * Pass in prevStep if the page number >= 1
@@ -79,13 +80,14 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               The Boys and Girls Clubs of Metro Atlanta's Virtual Club Experience
             </b>
           </Header>
-          <Header textAlign="left">
+          <Header as="h4" textAlign="left">
             {paragraph1}
             {list1}
             {list2}
             {list3}
             {list4}
             {list5}
+            {signing}
           </Header>
           <Form size="big">
             <Form.Group widths="equal">
