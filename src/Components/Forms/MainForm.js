@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
 import { useHistory } from "react-router-dom";
-import { Pagination, Container, Segment } from "semantic-ui-react";
 
 import SampleForm from "./SampleForm";
 import SampleForm2 from "./SampleForm2";
+import Page9 from "./Page9";
 
 const MainForm = () => {
   const dashboardDispatch = useContext(DashboardDispatchContext);
@@ -12,7 +12,7 @@ const MainForm = () => {
 
   const totalNumberOfForms = 16;
   const [formStates, setFormStates] = useState({
-    step: 1,
+    step: 9,
     newApplicationDashboardData: {},
   });
 
@@ -39,13 +39,12 @@ const MainForm = () => {
 
   const renderForm = () => {
     switch (formStates.step) {
-      case 1:
+      case 9:
         return (
-          <SampleForm
+          <Page9
             nextStep={nextStep}
             prevStep={prevStep}
             setFormStates={setFormStates}
-            formStates={formStates}
           />
         );
       case 2:
