@@ -38,18 +38,18 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   };
 
   const initialValues = {
-      parentSign: "",
-      childName: "",
-      signatureDate:"",
+    parentSign: "",
+    childName: "",
+    signatureDate: "",
   };
 
   const validationSchema = yup.object().shape({
-      parentSign: yup.string().required("Parent Signature/ Name is required."),
-      signatureDate: yup
+    parentSign: yup.string().required("Parent Signature/ Name is required."),
+    signatureDate: yup
       .string()
       .required("Date is required as MM/DD/YYYY.")
       .matches(dateRegex, "Date must be in the form MM/DD/YYYY."),
-      childName: yup.string().required("Child Name is required."),
+    childName: yup.string().required("Child Name is required."),
   });
 
   return (
@@ -76,8 +76,8 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
           {/*JSON.stringify(values, null, 2)*/}
           <Header textAlign="center" as="h1">
             <b>
-              Code of Conduct for Participation in
-              The Boys and Girls Clubs of Metro Atlanta's Virtual Club Experience
+              Code of Conduct for Participation in The Boys and Girls Clubs of
+              Metro Atlanta's Virtual Club Experience
             </b>
           </Header>
           <Header as="h4" textAlign="left">
@@ -121,42 +121,40 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-            </Form.Group>              
-              <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
-                error={
-                  touched.signatureDate &&
-                  errors.signatureDate !== undefined && {
-                    content: errors.signatureDate,
-                    pointing: "above",
-                  }
+            </Form.Group>
+            <Form.Input
+              icon={<Icon name="asterisk" size="small" color="red" />}
+              error={
+                touched.signatureDate &&
+                errors.signatureDate !== undefined && {
+                  content: errors.signatureDate,
+                  pointing: "above",
                 }
-                placeholder="Date"
-                name="signatureDate"
-                value={values.signatureDate}
-                onChange={handleChange}
-                onBlur={handleBlur}
+              }
+              placeholder="Date"
+              name="signatureDate"
+              value={values.signatureDate}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <Form.Group widths="equal">
+              <Form.Button
+                onClick={goToPrevPage}
+                primary
+                floated="left"
+                disabled={isSubmitting}
+                icon="arrow left"
+                style={{ padding: ".75em 2em" }}
               />
-            <Form.Button
-              onClick={goToPrevPage}
-              primary
-              floated="left"
-              compact
-              disabled={isSubmitting}
-            >
-              <Icon name="arrow left" />
-            </Form.Button>
-            <Form.Group inline widths="equal">
               <Form.Button
                 type="submit"
                 onClick={handleSubmit}
                 primary
                 floated="right"
-                compact
                 disabled={isSubmitting}
-              >
-                <Icon name="arrow right" />
-              </Form.Button>
+                icon="arrow right"
+                style={{ padding: ".75em 2em" }}
+              />
             </Form.Group>
             <Persist name={`page${pageNo}`} />
           </Form>
