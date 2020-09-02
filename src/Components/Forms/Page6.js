@@ -1740,26 +1740,24 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               </Grid.Row>
             </Grid>
 
-            <Form.Button
-              onClick={goToPrevPage}
-              primary
-              floated="left"
-              compact
-              disabled={isSubmitting}
-            >
-              <Icon name="arrow left" />
-            </Form.Button>
-            <Form.Group inline widths="equal">
+            <Form.Group widths="equal">
+              <Form.Button
+                onClick={goToPrevPage}
+                primary
+                floated="left"
+                disabled={isSubmitting}
+                icon="arrow left"
+                style={{ padding: ".75em 2em" }}
+              />
               <Form.Button
                 type="submit"
                 onClick={handleSubmit}
                 primary
                 floated="right"
-                compact
                 disabled={isSubmitting}
-              >
-                <Icon name="arrow right" />
-              </Form.Button>
+                icon="arrow right"
+                style={{ padding: ".75em 2em" }}
+              />
             </Form.Group>
             <Persist name={`page${pageNo}`} />
           </Form>
