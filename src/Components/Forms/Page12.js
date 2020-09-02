@@ -19,6 +19,8 @@ import {
 } from "../../Regex/regex";
 import {
     paragraph1,
+    redText,
+    section2Q
 } from "../../PageText/page12text";
 /**
  * Pass in prevStep if the page number >= 1
@@ -461,6 +463,15 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                                     </Segment>
                                 </Grid.Row>
                             </Grid.Column>
+                            <Divider hidden />
+                            <Header as= "h5" textAlign="left">
+                                {redText}
+                            </Header>
+                            <Divider horizontal content = "Section 2"/>
+                            <Header as= "h3" textAlign="left">
+                                {section2Q}
+                            </Header>
+                            
                             <Form.Group inline widths="equal">
                                 <Form.Button
                                     onClick={goToPrevPage}
