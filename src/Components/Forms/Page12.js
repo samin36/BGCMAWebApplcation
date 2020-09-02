@@ -20,7 +20,9 @@ import {
 import {
     paragraph1,
     redText,
-    section2Q
+    section2Q,
+    paragraph3,
+    paragraph4
 } from "../../PageText/page12text";
 /**
  * Pass in prevStep if the page number >= 1
@@ -98,15 +100,15 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     DPFK: yup.string().required("You must select either Yes or No."),
   });
 
-  const validationSchema = yup
-    .object()
-    .concat(section1ValidationSchema)
-    .concat(section2ValidationSchema);
+//   const validationSchema = yup
+//     .object()
+//     .concat(section1ValidationSchema)
+//     .concat(section2ValidationSchema);
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      //validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         //as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
@@ -331,10 +333,10 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               <Grid.Row>
                 <Segment textAlign="left" size="big">
                   <Form.Group>
-                    <h3>
+                    <h4>
                       A. Is the youth applicant a U.S. citizen or qualified
                       alien?{" "}
-                    </h3>
+                    </h4>
                     <Icon name="asterisk" color="red" size="small" corner />
                     <Form.Radio
                       name="youthUSCiti"
@@ -364,7 +366,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <h3>B. Is the youth applicant a Georgia resident? </h3>
+                    <h4>B. Is the youth applicant a Georgia resident? </h4>
                     <Icon name="asterisk" color="red" size="small" corner />
                     <Form.Radio
                       name="youthGARes"
@@ -394,11 +396,11 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <h3>
+                    <h4>
                       C. Does the youth applicant fall into one (1) or more of
                       the three categories below (check the category below that
                       apply to the youth)?:{" "}
-                    </h3>
+                    </h4>
                     <Icon name="asterisk" color="red" size="small" corner />
                     <Form.Radio
                       name="youth3CateQuestion"
@@ -488,6 +490,158 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 </Segment>
               </Grid.Row>
             </Grid.Column>
+            <Divider hidden/>
+            <Header as="h4" textAlign = "left">
+                {redText}
+            </Header>
+            <Divider horizontal content= "Section 2"/>
+            <Header as="h3" textAlign = "left">
+                {section2Q}
+            </Header>
+            <Grid.Column>
+              <Grid.Row>
+                <Segment textAlign="left" size="big">
+                  <Form.Group>
+                    <h4>
+                      A. Temporary Assistance for Needy Families (TANF)
+                      {" "}
+                    </h4>
+                    <Icon name="asterisk" color="red" size="small" corner />
+                    <Form.Radio
+                      name="ATANF"
+                      value="Yes"
+                      label="Yes"
+                      onBlur={handleBlur}
+                      onChange={(_, { value }) =>
+                        setFieldValue("ATANF", value)
+                      }
+                      checked={values.ATANF === "Yes"}
+                      error={
+                        touched.ATANF && errors.ATANF !== undefined
+                      }
+                    />
+                    <Form.Radio
+                      name="ATANF"
+                      value="No"
+                      label="No"
+                      onBlur={handleBlur}
+                      onChange={(_, { value }) =>
+                        setFieldValue("ATANF", value)
+                      }
+                      checked={values.ATANF === "No"}
+                      error={
+                        touched.ATANF && errors.ATANF !== undefined
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <h4>B. Supplemental Nutrition Assistance Program (SNAP) (also known as Food Stamps)
+                        {" "} </h4>
+                    <Icon name="asterisk" color="red" size="small" corner />
+                    <Form.Radio
+                      name="BSNAP"
+                      value="Yes"
+                      label="Yes"
+                      onBlur={handleBlur}
+                      onChange={(_, { value }) =>
+                        setFieldValue("BSNAP", value)
+                      }
+                      checked={values.BSNAP === "Yes"}
+                      error={
+                        touched.BSNAP && errors.BSNAP !== undefined
+                      }
+                    />
+                    <Form.Radio
+                      name="BSNAP"
+                      value="No"
+                      label="No"
+                      onBlur={handleBlur}
+                      onChange={(_, { value }) =>
+                        setFieldValue("BSNAP", value)
+                      }
+                      checked={values.BSNAP === "No"}
+                      error={
+                        touched.BSNAP && errors.BSNAP !== undefined
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <h4>
+                      C. Medicaid or Social Security Income (SSI){" "}
+                    </h4>
+                    <Icon name="asterisk" color="red" size="small" corner />
+                    <Form.Radio
+                      name="CSSI"
+                      value="Yes"
+                      label="Yes"
+                      onBlur={handleBlur}
+                      onChange={(_, { value }) =>
+                        setFieldValue("CSSI", value)
+                      }
+                      checked={values.CSSI === "Yes"}
+                      error={
+                        touched.CSSI &&
+                        errors.CSSI !== undefined
+                      }
+                    />
+                    <Form.Radio
+                      name="CSSI"
+                      value="No"
+                      label="No"
+                      onBlur={handleBlur}
+                      onChange={(_, { value }) =>
+                        setFieldValue("CSSI", value)
+                      }
+                      checked={values.CSSI === "No"}
+                      error={
+                        touched.CSSI &&
+                        errors.CSSI !== undefined
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <h4>
+                      D. Peachcare for Kids{" "}
+                    </h4>
+                    <Icon name="asterisk" color="red" size="small" corner />
+                    <Form.Radio
+                      name="DPFK"
+                      value="Yes"
+                      label="Yes"
+                      onBlur={handleBlur}
+                      onChange={(_, { value }) =>
+                        setFieldValue("DPFK", value)
+                      }
+                      checked={values.DPFK === "Yes"}
+                      error={
+                        touched.DPFK &&
+                        errors.DPFK !== undefined
+                      }
+                    />
+                    <Form.Radio
+                      name="DPFK"
+                      value="No"
+                      label="No"
+                      onBlur={handleBlur}
+                      onChange={(_, { value }) =>
+                        setFieldValue("DPFK", value)
+                      }
+                      checked={values.DPFK === "No"}
+                      error={
+                        touched.DPFK &&
+                        errors.DPFK !== undefined
+                      }
+                    />
+                  </Form.Group>
+                </Segment>
+              </Grid.Row>
+            </Grid.Column>
+            
+            <Header as="h4"textAlign="left">
+                {paragraph3}
+                {paragraph4}
+            </Header>
+            <hr/>
             <Form.Group widths="equal">
               <Form.Button
                 onClick={goToPrevPage}

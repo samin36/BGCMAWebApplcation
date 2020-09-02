@@ -43,19 +43,19 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     signatureDate: "",
   };
 
-  const validationSchema = yup.object().shape({
-    parentSign: yup.string().required("Parent Signature/ Name is required."),
-    signatureDate: yup
-      .string()
-      .required("Date is required as MM/DD/YYYY.")
-      .matches(dateRegex, "Date must be in the form MM/DD/YYYY."),
-    childName: yup.string().required("Child Name is required."),
-  });
+  // const validationSchema = yup.object().shape({
+  //   parentSign: yup.string().required("Parent Signature/ Name is required."),
+  //   signatureDate: yup
+  //     .string()
+  //     .required("Date is required as MM/DD/YYYY.")
+  //     .matches(dateRegex, "Date must be in the form MM/DD/YYYY."),
+  //   childName: yup.string().required("Child Name is required."),
+  // });
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      //validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         //as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
