@@ -48,6 +48,14 @@ const MainForm = () => {
             setFormStates={setFormStates}
           />
         );
+      case 10:
+        return (
+          <Page10
+            nextStep={nextStep}
+            prevStep={prevStep}
+            setFormStates={setFormStates}
+          />
+        );
       case 2:
         return (
           <SampleForm2
