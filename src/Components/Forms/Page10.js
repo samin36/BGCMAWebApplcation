@@ -21,13 +21,13 @@ import {
 /**
 * Pass in prevStep if the page number >= 1
 */
-const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
-    const pageNo = 9; //Define the page number here
+const Page10 = ({ nextStep, prevStep, setFormStates }) => {
+    const pageNo = 10; //Define the page number here
     const updateFormState = (values) => {
         setFormStates((prevState) => {
             return {
                 ...prevState,
-                ['page${pageNo}']: values,
+                [`page${pageNo}`]: values,
             };
         });
     };
@@ -37,7 +37,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         nextStep();
     };
 
-    const goToPrevPge = (values) => {
+    const goToPrevPage = (values) => {
         updateFormState(values);
         prevStep();
     };
@@ -428,7 +428,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                             onBlur={handleBlur}
                         />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group widths="equal">
                             <Form.Button
                                 onClick={goToPrevPage}
                                 primary

@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import SampleForm from "./SampleForm";
 import SampleForm2 from "./SampleForm2";
 import Page9 from "./Page9";
+import Page10 from "./Page10";
 
 const MainForm = () => {
   const dashboardDispatch = useContext(DashboardDispatchContext);
