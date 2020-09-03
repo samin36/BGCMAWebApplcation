@@ -3,7 +3,11 @@ import { Form, Container, Icon, Header } from "semantic-ui-react";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Persist } from "formik-persist";
-import { dateRegex } from "../../Regex/regex";
+import {
+  phoneRegex,
+  dateRegex,
+  zipCodeRegex,
+} from "../../Regex/regex";
 import {
   paragraph1,
   paragraph2,
@@ -54,6 +58,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     guardianPrintedNameDate: "",
     guardianInitals: "",
     guardianInitalsDate: "",
+    
     totalIncome: "",
     incomeFrequency: "",
     houseHoldSize: "",
@@ -63,15 +68,49 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     staffDate: "",
   };
 
-  const validationSchema = yup.object().shape({
-    guardianFirstName: yup.string().required("Child's First name is required"),
+  const page14validationSchema = yup.object().shape({
+    guardianFirstName: yup.string().required("Guardian's first name is required"),
     guardianMiddleInitial: yup.string().max(1, "Initial must be a single letter"),
-  });
+    guardianLastName: yup.string().required("Guardian's last name is required"),
+    streetAddress: yup.string().required("Street address is required"),
+    city: yup.string().required("City is required"),
+    stateIn: yup.string().required("State is required"),
+    zipCode: yup
+      .string()
+      .required("Zip code is required")
+      .matches(zipCodeRegex, "Please make sure your zip code is formatted correctly"),
+    homePhoneNumber: yup
+      .string()
+      .required("Home phone number is required")
+      .matches(phoneRegex, "Phone number must be in the form xxx-xxx-xxxx"),
+    workPhoneNumber: yup
+      .string()
+      .required("Work phone number is required")
+      .matches(phoneRegex, "Phone number must be in the form xxx-xxx-xxxx"),
+    cellPhoneNumber: yup
+      .string()
+      .required("Cell phone number is required")
+      .matches(phoneRegex, "Phone number must be in the form xxx-xxx-xxxx"),
+    guardianPrintedName: yup.string().required("Guardian's printed name is required"),
+    guardianPrintedNameDate: yup
+      .string()
+      .required("Date  is required")
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+    guardianInitals: yup.string().required("Guardian's initial are required"),
+    guardianInitalsDate: yup
+      .string()
+      .required("Date  is required")
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+    });
+
+  const validationSchema = yup
+    .object()
+    .concat(page14validationSchema);
 
   return (
     <Formik
       initialValues={initialValues}
-      // validationSchema={validationSchema}
+      validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         // as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
@@ -138,7 +177,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.guardianMiddleInitial &&
                   errors.guardianMiddleInitial !== undefined && {
@@ -236,7 +274,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 error={
                   touched.homePhoneNumber &&
                   errors.homePhoneNumber !== undefined && {
-                    content: errors.streetAddress,
+                    content: errors.homePhoneNumber,
                     pointing: "above",
                   }
                 }
@@ -348,7 +386,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             </Header>
             <Form.Group widths="equal">
             <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.totalIncome &&
                   errors.guardianInitaltotalIncomesDate !== undefined && {
@@ -363,7 +400,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
               <label>Per: </label>
-              <Icon name="asterisk" color="red" size="small" corner />
               <Form.Radio
                 name="incomeFrequency"
                 value="Week"
@@ -425,7 +461,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             </Form.Group>
             <Form.Group widths="equal">
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.houseHoldSize &&
                   errors.houseHoldSize !== undefined && {
@@ -445,7 +480,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             </Header>
             <Form.Group widths="equal">
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.anualIncome &&
                   errors.anualIncome !== undefined && {
@@ -465,7 +499,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             </Header>
             <Form.Group widths="equal">
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.staffInitials &&
                   errors.staffInitials !== undefined && {
@@ -480,7 +513,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.staffTitle &&
                   errors.staffTitle !== undefined && {
@@ -495,7 +527,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.staffDate &&
                   errors.staffDate !== undefined && {
