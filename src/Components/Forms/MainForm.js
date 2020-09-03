@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
 import { useHistory } from "react-router-dom";
 
-import SampleForm from "./SampleForm";
+// import SampleForm from "./SampleForm";
 import SampleForm2 from "./SampleForm2";
 import Page9 from "./Page9";
 import Page10 from "./Page10";
