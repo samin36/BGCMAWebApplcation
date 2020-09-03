@@ -179,14 +179,12 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                 setFieldValue,
             }) => (
                 <Container textAlign="center">
-                    <Header as="h2">
+                    <Header as="h1">
                         Parent/Guardian Information
                     </Header>
-                    <Header as="h3">
-                        Primary Parent/Guardian
-                    </Header>
+                    <Divider horizontal content="PRIMARY PARENT/GUARDIAN"/>
                     <Form size="big">
-                        <Form.Group>
+                        <Form.Group widths="equal">
                             <Form.Input //First Name__ Last Name__ Home #__ Cell #__
                                 icon={<Icon name="asterisk" size="small" color = "red" />}
                                 error={
@@ -196,7 +194,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={6}
                                 placeholder="First Name"
                                 name="parent1_firstName"
                                 value={values.parent1_firstName}
@@ -212,7 +209,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Last Name"
                                 name="parent1_lastName"
                                 value={values.parent1_lastName}
@@ -227,7 +223,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Home Phone #"
                                 name="parent1_homePhone"
                                 value={values.parent1_homePhone}
@@ -242,7 +237,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Cell Phone #"
                                 name="parent1_cellPhone"
                                 value={values.parent1_cellPhone}
@@ -251,7 +245,7 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                             />
                         </Form.Group>
 
-                        <Form.Group>
+                        <Form.Group widths="equal">
                             <Form.Input //Employer__ Occupation__ Work #__
                                 error={
                                     touched.parent1_employer &&
@@ -260,7 +254,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Employer"
                                 name="parent1_employer"
                                 value={values.parent1_employer}
@@ -275,7 +268,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Occupation"
                                 name="parent1_occupation"
                                 value={values.parent1_occupation}
@@ -290,7 +282,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Work Phone #"
                                 name="parent1_workPhone"
                                 value={values.parent1_workPhone}
@@ -299,11 +290,11 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                             />
                         </Form.Group>
 
-                        <Form.Group>
+                        <Form.Group grouped>
                             <Grid>
-                                <Grid.Column width={4}>
+                                <Grid.Column>
                                     <Segment textAlign="left" size="big">
-                                        <Form.Group grouped>
+                                        <Form.Group>
                                             <label>Do you receive vouchers from the housing authority in your community
                                                 or do you live in public housing?
                                             </label>
@@ -318,9 +309,31 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                                 }
                                                 checked={values.parent1_vouchersOrPublicHousing === "Yes"}
                                                 error={
-                                                    touched.parent1_vouchersOrPublicHousing && errors.parent1_vouchersOrPublicHousing !== undefined
+                                                    touched.parent1_vouchersOrPublicHousing && errors.parent1_vouchersOrPublicHousing !== undefined && {
+                                                        content: errors.parent1_vouchersOrPublicHousing,
+                                                        pointing: "above",
+                                                    }
                                                 }
                                             />
+                                            {(values.parent1_vouchersOrPublicHousing === "Yes") && (
+                                                <Form.TextArea
+                                                    as={Form.Input}
+                                                    error={
+                                                        touched.parent1_vouchersOrPublicHousingYes && errors.parent1_vouchersOrPublicHousingYes !== undefined && {
+                                                            content: errors.parent1_vouchersOrPublicHousingYes,
+                                                            pointing: "above",
+                                                        }
+                                                    }
+                                                    placeholder="Please list the name of the housing authority where you receive assistance: "
+                                                    name="parent1_vouchersOrPublicHousingYes"
+                                                    value={values.parent1_vouchersOrPublicHousingYes}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    disabled={
+                                                        values.parent1_vouchersOrPublicHousing !== "Yes"
+                                                    }
+                                                />
+                                            )}
                                             <Form.Radio
                                                 name="parent1_vouchersOrPublicHousing"
                                                 value="No"
@@ -340,11 +353,9 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                             </Grid>
                         </Form.Group>
 
-                        <Header as="h4">
-                            Secondary Parent/Guardian
-                        </Header>
+                        <Divider horizontal content="Secondary Parent/Guardian" />
 
-                        <Form.Group>
+                        <Form.Group widths="equal">
                             <Form.Input //First Name__ Last Name__ Home #__ Cell #__
                                 error={
                                     touched.parent2_firstName &&
@@ -353,7 +364,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={6}
                                 placeholder="First Name"
                                 name="parent2_firstName"
                                 value={values.parent2_firstName}
@@ -368,7 +378,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Last Name"
                                 name="parent2_lastName"
                                 value={values.parent2_lastName}
@@ -383,7 +392,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Home Phone #"
                                 name="parent2_homePhone"
                                 value={values.parent2_homePhone}
@@ -398,7 +406,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Cell Phone #"
                                 name="parent2_cellPhone"
                                 value={values.parent2_cellPhone}
@@ -407,7 +414,7 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                             />
                         </Form.Group>
 
-                        <Form.Group>
+                        <Form.Group widths="equal">
                             <Form.Input //Employer__ Occupation__ Work #__
                                 error={
                                     touched.parent2_employer &&
@@ -416,7 +423,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Employer"
                                 name="parent2_employer"
                                 value={values.parent2_employer}
@@ -431,7 +437,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Occupation"
                                 name="parent2_occupation"
                                 value={values.parent2_occupation}
@@ -446,7 +451,6 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
                                 placeholder="Work Phone #"
                                 name="parent2_workPhone"
                                 value={values.parent2_workPhone}
@@ -455,13 +459,16 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                             />
                         </Form.Group>
 
-                        <Divider horizontal content="Emergency Contacts and Authorized to pick up member from Club" />
-                        <Header as="h4">
+                        <Divider/>
+                        <Header as="h1">
+                            Emergency Contacts and Authorized to pick up member from Club
+                        </Header>
+                        <Header as="h3">
                             NOTE: At least 2 contacts that are not the Parent/Guardian are REQUIRED below.
                         </Header>
 
                         <Form.Group>
-                            <Form.Input //First two (required) emergency contacts
+                            <Form.Input //First (required) emergency contact
                                 icon={<Icon name="asterisk" size="small" color = "red" />}
                                 error={
                                     touched.emergencyContact1_name &&
@@ -470,8 +477,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #1 Name"
+                                width={10}
+                                placeholder="Emergency Contact Name"
                                 name="emergencyContact1_name"
                                 value={values.emergencyContact1_name}
                                 onChange={handleChange}
@@ -486,14 +493,16 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #1 Phone #"
+                                width={6}
+                                placeholder="Emergency Contact Phone #"
                                 name="emergencyContact1_phone"
                                 value={values.emergencyContact1_phone}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-                            <Form.Input
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Input //Second (required) emergency contact
                                 icon={<Icon name="asterisk" size="small" color = "red" />}
                                 error={
                                     touched.emergencyContact2_name &&
@@ -502,8 +511,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #2 Name"
+                                width={10}
+                                placeholder="Emergency Contact Name"
                                 name="emergencyContact2_name"
                                 value={values.emergencyContact2_name}
                                 onChange={handleChange}
@@ -518,8 +527,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #2 Phone #"
+                                width={6}
+                                placeholder="Emergency Contact Phone #"
                                 name="emergencyContact2_phone"
                                 value={values.emergencyContact2_phone}
                                 onChange={handleChange}
@@ -528,7 +537,7 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Input //Next two emergency contacts
+                            <Form.Input //Third emergency contact
                                 error={
                                     touched.emergencyContact3_name &&
                                     errors.emergencyContact3_name !== undefined && {
@@ -536,8 +545,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #3 Name"
+                                width={10}
+                                placeholder="Emergency Contact Name"
                                 name="emergencyContact3_name"
                                 value={values.emergencyContact3_name}
                                 onChange={handleChange}
@@ -551,14 +560,16 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #3 Phone #"
+                                width={6}
+                                placeholder="Emergency Contact Phone #"
                                 name="emergencyContact3_phone"
                                 value={values.emergencyContact3_phone}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-                            <Form.Input
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Input //Fourth emergency contact
                                 error={
                                     touched.emergencyContact4_name &&
                                     errors.emergencyContact4_name !== undefined && {
@@ -566,8 +577,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #4 Name"
+                                width={10}
+                                placeholder="Emergency Contact Name"
                                 name="emergencyContact4_name"
                                 value={values.emergencyContact4_name}
                                 onChange={handleChange}
@@ -581,8 +592,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #4 Phone #"
+                                width={6}
+                                placeholder="Emergency Contact Phone #"
                                 name="emergencyContact4_phone"
                                 value={values.emergencyContact4_phone}
                                 onChange={handleChange}
@@ -591,7 +602,7 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Input //Last two emergency contacts
+                            <Form.Input //Fifth emergency contact
                                 error={
                                     touched.emergencyContact5_name &&
                                     errors.emergencyContact5_name !== undefined && {
@@ -599,8 +610,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #5 Name"
+                                width={10}
+                                placeholder="Emergency Contact Name"
                                 name="emergencyContact5_name"
                                 value={values.emergencyContact5_name}
                                 onChange={handleChange}
@@ -614,13 +625,15 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #5 Phone #"
+                                width={6}
+                                placeholder="Emergency Contact Phone #"
                                 name="emergencyContact5_phone"
                                 value={values.emergencyContact5_phone}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
+                        </Form.Group>
+                        <Form.Group>
                             <Form.Input
                                 error={
                                     touched.emergencyContact6_name &&
@@ -629,8 +642,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #6 Name"
+                                width={10}
+                                placeholder="Emergency Contact Name"
                                 name="emergencyContact6_name"
                                 value={values.emergencyContact6_name}
                                 onChange={handleChange}
@@ -644,8 +657,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={4}
-                                placeholder="Emergency Contact #6 Phone #"
+                                width={6}
+                                placeholder="Emergency Contact Phone #"
                                 name="emergencyContact6_phone"
                                 value={values.emergencyContact6_phone}
                                 onChange={handleChange}
@@ -653,9 +666,9 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                             />
                         </Form.Group>
 
-                        <Form.Group>
+                        <Form.Group grouped>
                             <Grid>
-                                <Grid.Column width={4}>
+                                <Grid.Column width={20}>
                                     <Segment textAlign="left" size="big">
                                         <Form.Group grouped>
                                             <label>Authorization to leave premises unescorted: </label>
@@ -718,7 +731,7 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                             </Grid>
                         </Form.Group>
 
-                        <Header as="h5">
+                        <Header as="h4">
                             NOTE: If there are any legal situations regarding unauthorized pick-ups/visitations, please provide that information to the Club (i.e. court orders).
                         </Header>
 
@@ -734,7 +747,7 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={6}
+                                width={8}
                                 placeholder="Number of Persons in Family Unit (# in household)"
                                 name="numPersonsInFam"
                                 value={values.numPersonsInFam}
@@ -750,15 +763,16 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                width={6}
-                                placeholder="Gross Annual Household Income (before taxes and deductions):"
+                                width={10}
+                                placeholder="Gross Annual Household Income (before taxes and deductions)"
                                 name="houseHoldIncome"
                                 value={values.houseHoldIncome}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
                         </Form.Group>
-                        <Form.Group>
+
+                        <Form.Group widths="equal">
                             <Form.Button
                                 onClick={goToPrevPage}
                                 primary
@@ -770,7 +784,8 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                             <Form.Button
                                 type="submit"
                                 onClick={handleSubmit}
-                                primaryfloated="right"
+                                primary
+                                floated="right"
                                 disabled={isSubmitting}
                                 icon="arrow right"
                                 style={{ padding: ".75em 2em" }}
