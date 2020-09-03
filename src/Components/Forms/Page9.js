@@ -179,8 +179,10 @@ const Page9 = ({ nextStep, prevStep, setFormStates }) => {
                 setFieldValue,
             }) => (
                 <Container textAlign="center">
-                    <Divider horizontal content="Parent/Guardian Information" />
-                    <Header as="h4">
+                    <Header as="h2">
+                        Parent/Guardian Information
+                    </Header>
+                    <Header as="h3">
                         Primary Parent/Guardian
                     </Header>
                     <Form size="big">
