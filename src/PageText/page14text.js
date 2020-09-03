@@ -40,3 +40,17 @@ export const paragraph6 = (
     guidelines.
   </p>
 );
+
+export const paragraph7 = (
+  <p style={{}}>
+    Annual Income Conversion: Weekly = (Income x 4.333), Every 2 Weeks = (Income x 2.1666), Twice Monthly = (Income x 2), Monthly = (Income x 1)
+  </p>
+);
+
+export const paragraph8 = (
+  <p style={{}}>
+    By signing below, I certify the information presented within this form was reviewed, verified and confirmed** and meets the DFCS Afterschool Care
+    Program Elgibility rules and guidelines indicated within this form.  I also certify this form will be kept in the youth participant’s file in a
+    confidential and secured location. 
+  </p>
+);

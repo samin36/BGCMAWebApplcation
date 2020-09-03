@@ -11,6 +11,8 @@ import {
   paragraph4,
   paragraph5,
   paragraph6,
+  paragraph7,
+  paragraph8,
 } from "../../PageText/page14text";
 
 /**
@@ -38,7 +40,9 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   };
 
   const initialValues = {
-    guardianName: "",
+    guardianFirstName: "",
+    guardianMiddleInitial: "",
+    guardianLastName: "",
     streetAddress: "",
     city: "",
     stateIn: "",
@@ -50,21 +54,18 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     guardianPrintedNameDate: "",
     guardianInitals: "",
     guardianInitalsDate: "",
+    totalIncome: "",
+    incomeFrequency: "",
+    houseHoldSize: "",
+    anualIncome: "",
+    staffInitials: "",
+    staffTitle: "",
+    staffDate: "",
   };
 
   const validationSchema = yup.object().shape({
-    staffVisitorParentOrGuardianInitials: yup
-      .string()
-      .max(3, "Initials cannot be more than 3 characters")
-      .required("Initials are required"),
-    staffVisitorParentOrGuardianName: yup.string().required("Name is required"),
-    agreementDate: yup
-      .string()
-      .required("Date is required as MM/DD/YYYY")
-      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
-    bgcmaParticipantOrClubMemberName: yup
-      .string()
-      .required("Name(s) of participants/club members are required"),
+    guardianFirstName: yup.string().required("Child's First name is required"),
+    guardianMiddleInitial: yup.string().max(1, "Initial must be a single letter"),
   });
 
   return (
@@ -85,6 +86,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         handleBlur,
         handleSubmit,
         isSubmitting,
+        setFieldValue,
       }) => (
         <Container textAlign="center">
           {/* {JSON.stringify(values, null, 2)} */}
@@ -123,15 +125,45 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               <Form.Input
                 icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
-                  touched.guardianName &&
-                  errors.guardianName !== undefined && {
-                    content: errors.guardianName,
+                  touched.guardianFirstName &&
+                  errors.guardianFirstName !== undefined && {
+                    content: errors.guardianFirstName,
                     pointing: "above",
                   }
                 }
-                placeholder="Name of Parent/Guardian/Caregiver (Lase, First, MI)"
-                name="guardianName"
-                value={values.guardianName}
+                placeholder="First Name of Parent/Guardian/Caregiver"
+                name="guardianFirstName"
+                value={values.guardianFirstName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.guardianMiddleInitial &&
+                  errors.guardianMiddleInitial !== undefined && {
+                    content: errors.guardianMiddleInitial,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Middle Initial of Parent/Guardian/Caregiver"
+                name="guardianMiddleInitial"
+                value={values.guardianMiddleInitial}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.guardianLastName &&
+                  errors.guardianLastName !== undefined && {
+                    content: errors.guardianLastName,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Last Name of Parent/Guardian/Caregiver"
+                name="guardianLastName"
+                value={values.guardianLastName}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
@@ -313,7 +345,176 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             <b>
               Official Use Only Section for DFCS Funded AfterSchool/Summer Service Provider:
             </b>
-          </Header>
+            </Header>
+            <Form.Group widths="equal">
+            <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.totalIncome &&
+                  errors.guardianInitaltotalIncomesDate !== undefined && {
+                    content: errors.totalIncome,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Total Income $"
+                name="totalIncome"
+                value={values.totalIncome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <label>Per: </label>
+              <Icon name="asterisk" color="red" size="small" corner />
+              <Form.Radio
+                name="incomeFrequency"
+                value="Week"
+                label="Week"
+                onBlur={handleBlur}
+                onChange={(_, { value }) =>
+                  setFieldValue("incomeFrequency", value)
+                }
+                checked={
+                  values.incomeFrequency === "Week"
+                }
+                error={
+                  touched.incomeFrequency &&
+                  errors.incomeFrequency !== undefined
+                }
+              />
+              <Form.Radio
+                name="incomeFrequency"
+                value="Every 2 Weeks"
+                label="Every 2 Weeks"
+                onBlur={handleBlur}
+                onChange={(_, { value }) =>
+                  setFieldValue("incomeFrequency", value)
+                }
+                checked={values.incomeFrequency === "Every 2 Weeks"}
+                error={
+                  touched.incomeFrequency &&
+                  errors.incomeFrequency !== undefined
+                }
+              />
+              <Form.Radio
+                name="incomeFrequency"
+                value="Twice Monthly"
+                label="Twice Monthly"
+                onBlur={handleBlur}
+                onChange={(_, { value }) =>
+                  setFieldValue("incomeFrequency", value)
+                }
+                checked={values.incomeFrequency === "Twice Monthly"}
+                error={
+                  touched.incomeFrequency &&
+                  errors.incomeFrequency !== undefined
+                }
+              />
+              <Form.Radio
+                name="incomeFrequency"
+                value="Monthly"
+                label="Monthly"
+                onBlur={handleBlur}
+                onChange={(_, { value }) =>
+                  setFieldValue("incomeFrequency", value)
+                }
+                checked={values.incomeFrequency === "Monthly"}
+                error={
+                  touched.incomeFrequency &&
+                  errors.incomeFrequency !== undefined
+                }
+              />
+            </Form.Group>
+            <Form.Group widths="equal">
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.houseHoldSize &&
+                  errors.houseHoldSize !== undefined && {
+                    content: errors.houseHoldSize,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Household Size"
+                name="houseHoldSize"
+                value={values.houseHoldSize}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Header as="h4" textAlign="left">
+              {paragraph7}
+            </Header>
+            <Form.Group widths="equal">
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.anualIncome &&
+                  errors.anualIncome !== undefined && {
+                    content: errors.anualIncome,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Total Converted Annual Income (Round to the nearest whole number) $"
+                name="anualIncome"
+                value={values.anualIncome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Header as="h4" textAlign="left">
+              {paragraph8}
+            </Header>
+            <Form.Group widths="equal">
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.staffInitials &&
+                  errors.staffInitials !== undefined && {
+                    content: errors.staffInitials,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Authorized Program Staff Initials"
+                name="staffInitials"
+                value={values.staffInitials}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.staffTitle &&
+                  errors.staffTitle !== undefined && {
+                    content: errors.staffTitle,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Title"
+                name="staffTitle"
+                value={values.staffTitle}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.staffDate &&
+                  errors.staffDate !== undefined && {
+                    content: errors.staffDate,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Date"
+                name="staffDate"
+                value={values.staffDate}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Header as="h1" textAlign="left">
+            <b>
+              ** See Apendix B for income verification proof sources
+            </b>
+            </Header>
             <Form.Group widths="equal">
               <Form.Button
                 onClick={goToPrevPage}

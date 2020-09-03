@@ -5,8 +5,8 @@ import React, { useState, useEffect } from "react";
 // import SampleFormPage2 from "./SampleFormPage2";
 import SampleSubmitForm from "./SampleSubmitForm";
 
-import Page13 from "./Page14"
-import Page14 from "./Page13"
+import Page13 from "./Page13"
+import Page14 from "./Page14"
 
 const MainForm = () => {
   const totalNumberOfForms = 16;
