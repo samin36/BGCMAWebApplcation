@@ -452,4 +452,6 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
         </Formik>
     )
 
-}
+};
+
+export default Page10;
