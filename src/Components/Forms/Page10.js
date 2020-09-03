@@ -116,30 +116,26 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
                         Forms and Waivers
                     </Header>
                     <Header as="h3">
-                        PLEASE READ CAREFULLY AND INDICATE CHOICES WITH CHECKMARKS OR INITIALS
+                        PLEASE READ CAREFULLY SELECT FROM THE OPTIONS BELOW
                     </Header>
                     <Divider horizontal content="NOTICE OF EXEMPTION AND PARENT ORIENTATION" />
 
                     <Form.Group>
                         <Grid>
-                            <Grid.Column width={4}>
+                            <Grid.Column width={6}>
                                 <Segment textAlign="left" size="big">
                                     <Form.Group grouped>
                                         <label>Bright From the Start Notice of Exemption</label>
                                         <Icon name="asterisk" color="red" size="small" corner />
                                         <Form.Radio
                                             name="brightFromStart"
-                                            value="I acknowledge that I have been informed that this program is not a licensed childcare
-                                            facility. I also understand this program is not required to be licensed by the Georgia
-                                            Department of Early Care and Learning and this program is exempt from state licensure requirements."
-                                            label="I acknowledge that I have been informed that this program is not a licensed childcare
-                                            facility. I also understand this program is not required to be licensed by the Georgia
-                                            Department of Early Care and Learning and this program is exempt from state licensure requirements."
+                                            value="I acknowledge that I have been informed that this program is not a licensed childcare facility. I also understand this program is not required to be licensed by the Georgia Department of Early Care and Learning and this program is exempt from state licensure requirements."
+                                            label="I acknowledge that I have been informed that this program is not a licensed childcare facility. I also understand this program is not required to be licensed by the Georgia Department of Early Care and Learning and this program is exempt from state licensure requirements."
                                             onBlur={handleBlur}
                                             onChange={(_, { value }) =>
                                                 setFieldValue("brightFromStart", value)
                                             }
-                                            checked={values.brightFromStart === "I acknowledge that I have been informed that this program is not a licensed childcare facility. I also understand this program is not required to be licensed by the GeorgiaDepartment of Early Care and Learning and this program is exempt from state licensure requirements."}
+                                            checked={values.brightFromStart === "I acknowledge that I have been informed that this program is not a licensed childcare facility. I also understand this program is not required to be licensed by the Georgia Department of Early Care and Learning and this program is exempt from state licensure requirements."}
                                             error={
                                                 touched.brightFromStart && errors.brightFromStart !== undefined
                                             }
@@ -147,30 +143,20 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
                                     </Form.Group>
                                 </Segment>
                             </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment textAlign="right" size="big">
+                            <Grid.Column width={10}>
+                                <Segment textAlign="left" size="big">
                                     <Form.Group grouped>
                                         <label>Parent Orientation/Remind Communications</label>
                                         <Icon name="asterisk" color="red" size="small" corner /> 
                                         <Form.Radio
                                             name="parentOrientation"
-                                            value="I understand that attending Parent Orientation is MANDATORY, and I agree to adhere to and abide 
-                                            by the policies of the Clubs stated in the orientation guide. I also agree to further review Club 
-                                            policies with my child, assuming responsibility for their appropriate behavior while in attendance at 
-                                            the Boys and Girls Club. I understand that it is MANDATORY to opt-in to the Club Remind Class to receive 
-                                            important Club/Org communications. NOTE: The Member/Parent Orientation guide is available per download on 
-                                            our website and/or per request at the front desk of each Club."
-                                            label="I understand that attending Parent Orientation is MANDATORY, and I agree to adhere to and abide 
-                                            by the policies of the Club as stated in the orientation guide. I also agree to further review Club 
-                                            policies with my child, assuming responsibility for their appropriate behavior while in attendance at 
-                                            the Boys and Girls Club. I understand that it is MANDATORY to opt-in to the Club Remind Class to receive 
-                                            important Club/Org communications. NOTE: The Member/Parent Orientation guide is available per download on 
-                                            our website and/or per request at the front desk of each Club."
+                                            value="I understand that attending Parent Orientation is MANDATORY, and I agree to adhere to and abide by the policies of the Clubs as stated in the orientation guide. I also agree to further review Club policies with my child, assuming responsibility for their appropriate behavior while in attendance at the Boys and Girls Club. I understand that it is MANDATORY to opt-in to the Club Remind Class to receive important Club/Org communications. NOTE: The Member/Parent Orientation guide is available per download on our website and/or per request at the front desk of each Club."
+                                            label="I understand that attending Parent Orientation is MANDATORY, and I agree to adhere to and abide by the policies of the Clubs as stated in the orientation guide. I also agree to further review Club policies with my child, assuming responsibility for their appropriate behavior while in attendance at the Boys and Girls Club. I understand that it is MANDATORY to opt-in to the Club Remind Class to receive important Club/Org communications. NOTE: The Member/Parent Orientation guide is available per download on our website and/or per request at the front desk of each Club."
                                             onBlur={handleBlur}
                                             onChange={(_, { value }) =>
                                                 setFieldValue("parentOrientation", value)
                                             }
-                                            checked={values.parentOrientation === "I understand that attending Parent Orientation is MANDATORY, and I agree to adhere to and abide by the policies of the Club as stated in the orientation guide. I also agree to further review Club policies with my child, assuming responsibility for their appropriate behavior while in attendance at the Boys and Girls Club. I understand that it is MANDATORY to opt-in to the Club Remind Class to receive important Club/Org communications. NOTE: The Member/Parent Orientation guide is available per download on our website and/or per request at the front desk of each Club."}
+                                            checked={values.parentOrientation === "I understand that attending Parent Orientation is MANDATORY, and I agree to adhere to and abide by the policies of the Clubs as stated in the orientation guide. I also agree to further review Club policies with my child, assuming responsibility for their appropriate behavior while in attendance at the Boys and Girls Club. I understand that it is MANDATORY to opt-in to the Club Remind Class to receive important Club/Org communications. NOTE: The Member/Parent Orientation guide is available per download on our website and/or per request at the front desk of each Club."}
                                             error={
                                                 touched.parentOrientation && errors.parentOrientation !== undefined
                                             }
@@ -183,7 +169,7 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
                     <Divider horizontal content="MEDICAL" />
                     <Form.Group>
                         <Grid>
-                            <Grid.Column width={4}>
+                            <Grid.Column width={6}>
                                 <Segment textAlign="left" size="big">
                                     <Form.Group grouped>
                                         <label>In the event of an emergency, the Club must have written consent to seek medical treatment for your child.</label>
@@ -217,8 +203,8 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
                                     </Form.Group>
                                 </Segment>
                             </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment textAlign="right" size="big">
+                            <Grid.Column width={10}>
+                                <Segment textAlign="left" size="big">
                                     <Form.Group grouped>
                                         <label>In the event of an emergency, the Club must have written consent to seek medical treatment for your child.</label>
                                         <Icon name="asterisk" color="red" size="small" corner /> 
@@ -260,17 +246,15 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
                     <Divider horizontal content="Transportation" />
                     <Form.Group>
                         <Grid>
-                            <Grid.Column width={4}>
+                            <Grid.Column width={6}>
                                 <Segment textAlign="left" size="big">
                                     <Form.Group grouped>
                                         <label>After School Travel: From School and Travel To Home (When space is available on van routes)</label>
                                         <Icon name="asterisk" color="red" size="small" corner />
                                         <Form.Radio
                                             name="afterSchoolTravel"
-                                            value="I authorize service from my child's school to the Club for the current school year. I understand that 
-                                            BGCMA reserves the right to remove my child from the van service."
-                                            label="I authorize service from my child's school to the Club for the current school year. I understand that 
-                                            BGCMA reserves the right to remove my child from the van service."
+                                            value="I authorize service from my child's school to the Club for the current school year. I understand that BGCMA reserves the right to remove my child from the van service."
+                                            label="I authorize service from my child's school to the Club for the current school year. I understand that BGCMA reserves the right to remove my child from the van service."
                                             onBlur={handleBlur}
                                             onChange={(_, { value }) =>
                                                 setFieldValue("afterSchoolTravel", value)
@@ -283,17 +267,15 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
                                     </Form.Group>
                                 </Segment>
                             </Grid.Column>
-                            <Grid.Column width={4}>
-                                <Segment textAlign="right" size="big">
+                            <Grid.Column width={10}>
+                                <Segment textAlign="left" size="big">
                                     <Form.Group grouped>
                                         <label>Field Trips/Special Events/Summer Travel</label>
                                         <Icon name="asterisk" color="red" size="small" corner /> 
                                         <Form.Radio
                                             name="fieldTrips"
-                                            value="I authorize travel with the BGCMA to any field trip or outing that I sign my child up for during the 
-                                            SCHOOL YEAR AND /OR SUMMER PROGRAM. I understand that BGCMA reserves the right to remove my child from the van service."
-                                            label="I authorize travel with the BGCMA to any field trip or outing that I sign my child up for during the 
-                                            SCHOOL YEAR AND /OR SUMMER PROGRAM. I understand that BGCMA reserves the right to remove my child from the van service."
+                                            value="I authorize travel with the BGCMA to any field trip or outing that I sign my child up for during the SCHOOL YEAR AND /OR SUMMER PROGRAM. I understand that BGCMA reserves the right to remove my child from the van service."
+                                            label="I authorize travel with the BGCMA to any field trip or outing that I sign my child up for during the SCHOOL YEAR AND /OR SUMMER PROGRAM. I understand that BGCMA reserves the right to remove my child from the van service."
                                             onBlur={handleBlur}
                                             onChange={(_, { value }) =>
                                                 setFieldValue("fieldTrips", value)
@@ -322,23 +304,16 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
                         </Grid>
                     </Form.Group>
                     <Divider horizontal content="HOLD HARMLESS AND LIABILITY RELEASE" />
-                    <Form.Group>
+                    <Form.Group inline>
                         <Grid>
-                            <Grid.Column width={4}>
-                                <Segment textAlign="middle" size="big">
+                            <Grid.Column>
+                                <Segment textAlign="left" size="big">
                                     <Form.Group grouped>
                                         <label>WAIVER AGREEMENT</label>
                                         <Icon name="asterisk" color="red" size="small" corner />
-                                        <Form.Radio
+                                        <Form.Radio 
                                             name="waiverAgreement"
-                                            value="I voluntarily submit my child for registration as a member at BGCMA. Activities at the Club may include, but
-                                            are not limited to BGCMA SWIM, WEIGHT ROOM and other SPORTS/REC ACTIVITIES, which at my discretion may choose to allow
-                                            my child to participate in. I will hold harmless BGCMA, Department of Human Services and their subsidiaries/affiliates from
-                                            any claim by me or my child or any entity on behalf of myself or my child arising out of my child's participation in the 
-                                            program. I further state that I am of lawful age and legally competent to sign this agreement, and that my signing this 
-                                            agreement is my own free act. I also understand and agree that the terms herein are contractual, and they are not a mere
-                                            recital or simply for information purposes. I have read, understand, and fully informed myself of the contents of this agreement. 
-                                            I assume responsibility for my child's physical condition and capability to perform under the program."
+                                            value="I voluntarily submit my child for registration as a member at BGCMA. Activities at the Club may include, but are not limited to BGCMA SWIM, WEIGHT ROOM and other SPORTS/REC ACTIVITIES, which at my discretion may choose to allow my child to participate in. I will hold harmless BGCMA, Department of Human Services and their subsidiaries/affiliates from any claim by me or my child or any entity on behalf of myself or my child arising out of my child's participation in the program. I further state that I am of lawful age and legally competent to sign this agreement, and that my signing this agreement is my own free act. I also understand and agree that the terms herein are contractual, and they are not a mere recital or simply for information purposes. I have read, understand, and fully informed myself of the contents of this agreement. I assume responsibility for my child's physical condition and capability to perform under the program."
                                             label="I voluntarily submit my child for registration as a member at BGCMA. Activities at the Club may include, but
                                             are not limited to BGCMA SWIM, WEIGHT ROOM and other SPORTS/REC ACTIVITIES, which at my discretion may choose to allow
                                             my child to participate in. I will hold harmless BGCMA, Department of Human Services and their subsidiaries/affiliates from
@@ -362,91 +337,117 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
                         </Grid>
                     </Form.Group>
                     <Divider/>
-                    <Header as="h5">
-                        I represent that I am the below-named parent/guardian, that I am over the age of 21, that I have read the foregoing and fully
-                        understand the contents thereof, that the consideration that I have received for this Agreement, Release and Waiver is fair and 
-                        equitable, and that I hereby give this Agreement, Release and Waiver of my own free choice. This Agreement, Release and 
-                        Waiver shall ensure to the benefit of the successors, assigns, licensees and legal representatives of the Companies and shall 
-                        be binding upon my heirs, executors, assigns and legal representatives. I request that my son/daughter be admitted into 
-                        membership and I grant permission for my child to participate in current and future programs, including virtual programming and 
-                        support with virtual school. I have explained the rules to my son/daughter and agree that BGCMA will not be responsible for any 
-                        accident to him/her while on the premises of BGCMA or while engaged in any of its activities away from BGCMA. BGCMA 
-                        participates in the USDA snack program. USDA is an equal opportunity provider and employer. I understand that BGCMA has 
-                        adopted a Safe Passage Policy that prohibits members from coming and going as they please. I understand that once a child 
-                        has entered the building, they will not be allowed to leave until a parent/guardian/authorized person arrives to retrieve them. I 
-                        understand that the Club is not a licensed day care facility and that staff will not physically restrain children who insist on leaving 
-                        without parent/guardian permission. I have read and agree to abide by the BGCMA policies stated in the Parent Handbook. I 
-                        understand that failure to abide by the policies in the handbook may result in the removal of my child from the Club programs.
-                    </Header>
-                    <Form.Group>
-                        <Form.Input //Child's Name__ Parent/Guardian's Signature__ Date__
-                            icon={<Icon name="asterisk" size="small" color = "red" />}
-                            error={
-                                touched.childName &&
-                                errors.childName !== undefined && {
-                                    content: errors.childName,
-                                    pointing: "above",
-                                }
-                            }
-                            width={6}
-                            placeholder="Child's Name"
-                            name="childName"
-                            value={values.childName}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
+                    <Form.Group inline>
+                        <Grid>
+                            <Grid.Row>
+                                <Grid.Column>
+                                    <Segment textAlign="left" size="big">
+                                        <Form.Group>
+                                            <label>I represent that I am the below-named parent/guardian, that I am over the age of 21, that I have read the foregoing and fully
+                                            understand the contents thereof, that the consideration that I have received for this Agreement, Release and Waiver is fair and 
+                                            equitable, and that I hereby give this Agreement, Release and Waiver of my own free choice. This Agreement, Release and 
+                                            Waiver shall ensure to the benefit of the successors, assigns, licensees and legal representatives of the Companies and shall 
+                                            be binding upon my heirs, executors, assigns and legal representatives. I request that my son/daughter be admitted into 
+                                            membership and I grant permission for my child to participate in current and future programs, including virtual programming and 
+                                            support with virtual school. I have explained the rules to my son/daughter and agree that BGCMA will not be responsible for any 
+                                            accident to him/her while on the premises of BGCMA or while engaged in any of its activities away from BGCMA. BGCMA 
+                                            participates in the USDA snack program. USDA is an equal opportunity provider and employer. I understand that BGCMA has 
+                                            adopted a Safe Passage Policy that prohibits members from coming and going as they please. I understand that once a child 
+                                            has entered the building, they will not be allowed to leave until a parent/guardian/authorized person arrives to retrieve them. I 
+                                            understand that the Club is not a licensed day care facility and that staff will not physically restrain children who insist on leaving 
+                                            without parent/guardian permission. I have read and agree to abide by the BGCMA policies stated in the Parent Handbook. I 
+                                            understand that failure to abide by the policies in the handbook may result in the removal of my child from the Club programs.</label>
+                                        </Form.Group>
+                                    </Segment>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column width={4}>
+                                    <Form.Group>
+                                        <Form.Input //Child's Name__ Parent/Guardian's Signature__ Date__
+                                            icon={<Icon name="asterisk" size="small" color = "red" />}
+                                            error={
+                                                touched.childName &&
+                                                errors.childName !== undefined && {
+                                                    content: errors.childName,
+                                                    pointing: "above",
+                                                }
+                                            }
+                                            width={4}
+                                            placeholder="Child's Name"
+                                            name="childName"
+                                            value={values.childName}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                    </Form.Group>
+                                </Grid.Column>
+                                <Grid.Column width={8}>
+                                    <Form.Group>
+                                        <Form.Input 
+                                            fluid
+                                            icon={<Icon name="asterisk" size="small" color = "red" />}
+                                            error={
+                                                touched.parentSignature &&
+                                                errors.parentSignature !== undefined && {
+                                                    content: errors.parentSignature,
+                                                    pointing: "above",
+                                                }
+                                            }
+                                            width={8}
+                                            placeholder="Parent/Guardian's Signature"
+                                            name="parentSignature"
+                                            value={values.parentSignature}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                    </Form.Group>
+                                </Grid.Column>
+                                <Grid.Column width={4}>
+                                    <Form.Group>
+                                        <Form.Input 
+                                            icon={<Icon name="asterisk" size="small" color = "red" />}
+                                            error={
+                                                touched.date &&
+                                                errors.date !== undefined && {
+                                                    content: errors.date,
+                                                    pointing: "above",
+                                                }
+                                            }
+                                            width={4}
+                                            placeholder="Date"
+                                            name="date"
+                                            value={values.date}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                        />
+                                    </Form.Group>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Form.Group>
+                    <Divider hidden/>
+
+                    <Form.Group widths="equal">
+                        <Form.Button
+                            onClick={goToPrevPage}
+                            primary
+                            floated="left"
+                            disabled={isSubmitting}
+                            icon="arrow left"
+                            style={{ padding: ".75em 2em" }}
                         />
-                        <Form.Input 
-                            icon={<Icon name="asterisk" size="small" color = "red" />}
-                            error={
-                                touched.parentSignature &&
-                                errors.parentSignature !== undefined && {
-                                    content: errors.parentSignature,
-                                    pointing: "above",
-                                }
-                            }
-                            width={6}
-                            placeholder="Parent/Guardian's Signature"
-                            name="parentSignature"
-                            value={values.parentSignature}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                        />
-                        <Form.Input 
-                            icon={<Icon name="asterisk" size="small" color = "red" />}
-                            error={
-                                touched.date &&
-                                errors.date !== undefined && {
-                                    content: errors.date,
-                                    pointing: "above",
-                                }
-                            }
-                            width={6}
-                            placeholder="Date"
-                            name="date"
-                            value={values.childName}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
+                        <Form.Button
+                            type="submit"
+                            onClick={handleSubmit}
+                            primary
+                            floated="right"
+                            disabled={isSubmitting}
+                            icon="arrow right"
+                            style={{ padding: ".75em 2em" }}
                         />
                     </Form.Group>
-                    <Form.Group widths="equal">
-                            <Form.Button
-                                onClick={goToPrevPage}
-                                primary
-                                floated="left"
-                                disabled={isSubmitting}
-                                icon="arrow left"
-                                style={{ padding: ".75em 2em" }}
-                            />
-                            <Form.Button
-                                type="submit"
-                                onClick={handleSubmit}
-                                primaryfloated="right"
-                                disabled={isSubmitting}
-                                icon="arrow right"
-                                style={{ padding: ".75em 2em" }}
-                            />
-                        </Form.Group>
-                        <Persist name ={`page${pageNo}`} />
+                    <Persist name ={`page${pageNo}`} />
                 </Container>
             )}
         </Formik>
