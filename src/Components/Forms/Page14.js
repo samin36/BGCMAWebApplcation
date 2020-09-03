@@ -46,6 +46,10 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     homePhoneNumber: "",
     workPhoneNumber: "",
     cellPhoneNumber: "",
+    guardianPrintedName: "",
+    guardianPrintedNameDate: "",
+    guardianInitals: "",
+    guardianInitalsDate: "",
   };
 
   const validationSchema = yup.object().shape({
@@ -241,6 +245,75 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
             </Form.Group>
+            <Form.Group widths="equal">
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.guardianPrintedName &&
+                  errors.guardianPrintedName !== undefined && {
+                    content: errors.guardianPrintedName,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Parent/Caregiver/Guardian Printed Name"
+                name="guardianPrintedName"
+                value={values.guardianPrintedName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.guardianPrintedNameDate &&
+                  errors.guardianPrintedNameDate !== undefined && {
+                    content: errors.guardianPrintedNameDate,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Date"
+                name="guardianPrintedNameDate"
+                value={values.guardianPrintedNameDate}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Form.Group widths="equal">
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.guardianInitals &&
+                  errors.guardianInitals !== undefined && {
+                    content: errors.guardianInitals,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Parent/Caregiver/Guardian Initials"
+                name="guardianInitals"
+                value={values.guardianInitals}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.guardianInitalsDate &&
+                  errors.guardianInitalsDate !== undefined && {
+                    content: errors.guardianInitalsDate,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Date"
+                name="guardianInitalsDate"
+                value={values.guardianInitalsDate}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Header as="h1" textAlign="center">
+            <b>
+              Official Use Only Section for DFCS Funded AfterSchool/Summer Service Provider:
+            </b>
+          </Header>
             <Form.Group widths="equal">
               <Form.Button
                 onClick={goToPrevPage}
