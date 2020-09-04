@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Container, Icon, Header, FormTextArea } from "semantic-ui-react";
+import { Form, Container, Icon, Header} from "semantic-ui-react";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Persist } from "formik-persist";
@@ -167,6 +167,9 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               <u>Family Income Elgibility for the DFCS Afterschool Care Program Income Elgibility Guide</u> 
             </b>
           </Header>
+          <center>
+              <img src={require('../../PageText/page12Table.jpg')} width="1000" height="" alt="chart describing poverty level" />
+          </center>
           <Form size="big">
             <Header as="h4" textAlign="left">
               {paragraph2}

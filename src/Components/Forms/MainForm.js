@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 // import SampleForm2 from "./SampleForm2";
 // import SampleFormPage1 from "./SampleFormPage1";
 // import SampleFormPage2 from "./SampleFormPage2";
-import SampleSubmitForm from "./SampleSubmitForm";
 
 import Page13 from "./Page13"
 import Page14 from "./Page14"
