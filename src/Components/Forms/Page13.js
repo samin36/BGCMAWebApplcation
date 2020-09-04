@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Container, Icon, Header } from "semantic-ui-react";
+import { Form, Container, Icon, Header, FormTextArea } from "semantic-ui-react";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Persist } from "formik-persist";
@@ -39,17 +39,80 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     familyUnitSize: "",
     yealyIncome: "",
     monthlyIncome: "",
+
+    person1Name: "",
+    person1Relationship: "",
+    person1Birth: "",
+    person1IncomeSource: "",
+    person1grossMonthlyIncome: "",
+    person1howOften: "",
+    person2Name: "",
+    person2Relationship: "",
+    person2Birth: "",
+    person2IncomeSource: "",
+    person2grossMonthlyIncome: "",
+    person2howOften: "",
+
+    person3Name: "",
+    person3Relationship: "",
+    person3Birth: "",
+    person3IncomeSource: "",
+    person3grossMonthlyIncome: "",
+    person3howOften: "",
+    person4Name: "",
+    person4Relationship: "",
+    person4Birth: "",
+    person4IncomeSource: "",
+    person4grossMonthlyIncome: "",
+    person4howOften: "",
+    person5Name: "",
+    person5Relationship: "",
+    person5Birth: "",
+    person5IncomeSource: "",
+    person5grossMonthlyIncome: "",
+    person5howOften: "",
+    person6Name: "",
+    person6Relationship: "",
+    person6Birth: "",
+    person6IncomeSource: "",
+    person6grossMonthlyIncome: "",
+    person6howOften: "",
   };
 
-  const validationSchema = yup.object().shape({
-    guardianFirstName: yup.string().required("Child's First name is required"),
-    guardianMiddleInitial: yup.string().max(1, "Initial must be a single letter"),
+  const page13validationSchema = yup.object().shape({
+    familyUnitSize: yup.string().required("Family unit size is required"),
+    yealyIncome: yup.string().required("Yearly income is required"),
+    monthlyIncome: yup.string().required("Monthly income is required"),
+    
+    person1Name: yup.string().required("Your first, middle, and last name is required"),
+    person1Relationship: yup.string().required("Self is required"),
+    person1Birth: yup
+      .string()
+      .required("Birthdate is required as MM/DD/YYYY")
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+    person1IncomeSource: yup.string().required("Source of income is required"),
+    person1grossMonthlyIncome: yup.string().required("Gross monthly income is required"),
+    person1howOften: yup.string().required("How often recieved is required"),
+
+    person2Name: yup.string().required("Your first, middle, and last name is required"),
+    person2Relationship: yup.string().required("Child is required"),
+    person2Birth: yup
+      .string()
+      .required("Birthdate is required as MM/DD/YYYY")
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+    person2IncomeSource: yup.string().required("Source of income is required"),
+    person2grossMonthlyIncome: yup.string().required("Gross monthly income is required"),
+    person2howOften: yup.string().required("How often recieved is required"),
   });
+
+  const validationSchema = yup
+    .object()
+    .concat(page13validationSchema);
 
   return (
     <Formik
       initialValues={initialValues}
-      // validationSchema={validationSchema}
+      validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         // as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
@@ -145,12 +208,550 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             </Header> 
             <Header as="h2" textAlign="left">
               <b>
-                  Section 4
+                Section 4
               </b>
             </Header>
             <Header as="h4" textAlign="left">
-            {paragraph4}
-          </Header> 
+              {paragraph4}
+            </Header>
+            <Header as="h2" textAlign="left">
+              <b>
+                Household Composition and Income 
+              </b>
+            </Header>
+            <Header as="h2" textAlign="left">
+              <b>
+                Gross Monthly Income is income before taxes and deductions
+              </b>
+            </Header>
+            <Form.Group widths="2">
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person1Name &&
+                  errors.person1Name !== undefined && {
+                    content: errors.person1Name,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Full Name"
+                name="person1Name"
+                value={values.person1Name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person1Relationship &&
+                  errors.person1Relationship !== undefined && {
+                    content: errors.person1Relationship,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Self"
+                name="person1Relationship"
+                value={values.person1Relationship}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person1Birth &&
+                  errors.person1Birth !== undefined && {
+                    content: errors.person1Birth,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Birth Date"
+                name="person1Birth"
+                value={values.person1Birth}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person1IncomeSource &&
+                  errors.person1IncomeSource !== undefined && {
+                    content: errors.person1IncomeSource,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Income Source"
+                name="person1IncomeSource"
+                value={values.person1IncomeSource}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person1grossMonthlyIncome &&
+                  errors.person1grossMonthlyIncome !== undefined && {
+                    content: errors.person1grossMonthlyIncome,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Amount (Gross Monthly Income)"
+                name="person1grossMonthlyIncome"
+                value={values.person1grossMonthlyIncome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person1howOften &&
+                  errors.person1howOften !== undefined && {
+                    content: errors.person1howOften,
+                    pointing: "above",
+                  }
+                }
+                placeholder="How often"
+                name="person1howOften"
+                value={values.person1howOften}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Form.Group widths="2">
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person2Name &&
+                  errors.person2Name !== undefined && {
+                    content: errors.person2Name,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Full Name"
+                name="person2Name"
+                value={values.person2Name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person2Relationship &&
+                  errors.person2Relationship !== undefined && {
+                    content: errors.person2Relationship,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Child"
+                name="person2Relationship"
+                value={values.person2Relationship}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person2Birth &&
+                  errors.person2Birth !== undefined && {
+                    content: errors.person2Birth,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Birth Date"
+                name="person2Birth"
+                value={values.person2Birth}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person2IncomeSource &&
+                  errors.person2IncomeSource !== undefined && {
+                    content: errors.person2IncomeSource,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Income Source"
+                name="person2IncomeSource"
+                value={values.person2IncomeSource}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person2grossMonthlyIncome &&
+                  errors.person2grossMonthlyIncome !== undefined && {
+                    content: errors.person2grossMonthlyIncome,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Amount (Gross Monthly Income)"
+                name="person2grossMonthlyIncome"
+                value={values.person2grossMonthlyIncome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                icon={<Icon name="asterisk" size="small" color="red" />}
+                error={
+                  touched.person2howOften &&
+                  errors.person2howOften !== undefined && {
+                    content: errors.person2howOften,
+                    pointing: "above",
+                  }
+                }
+                placeholder="How often"
+                name="person2howOften"
+                value={values.person2howOften}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Form.Group widths="2">
+              <Form.Input
+                error={
+                  touched.person3Name &&
+                  errors.person3Name !== undefined && {
+                    content: errors.person3Name,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Full Name"
+                name="person3Name"
+                value={values.person3Name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person3Relationship &&
+                  errors.person3Relationship !== undefined && {
+                    content: errors.person3Relationship,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Relationship"
+                name="person3Relationship"
+                value={values.person3Relationship}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person3Birth &&
+                  errors.person3Birth !== undefined && {
+                    content: errors.person3Birth,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Birth Date"
+                name="person3Birth"
+                value={values.person3Birth}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person3IncomeSource &&
+                  errors.person3IncomeSource !== undefined && {
+                    content: errors.person3IncomeSource,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Income Source"
+                name="person3IncomeSource"
+                value={values.person3IncomeSource}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person3grossMonthlyIncome &&
+                  errors.person3grossMonthlyIncome !== undefined && {
+                    content: errors.person3grossMonthlyIncome,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Amount (Gross Monthly Income)"
+                name="person3grossMonthlyIncome"
+                value={values.person3grossMonthlyIncome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person3howOften &&
+                  errors.person3howOften !== undefined && {
+                    content: errors.person3howOften,
+                    pointing: "above",
+                  }
+                }
+                placeholder="How often"
+                name="person3howOften"
+                value={values.person3howOften}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Form.Group widths="2">
+              <Form.Input
+                error={
+                  touched.person4Name &&
+                  errors.person4Name !== undefined && {
+                    content: errors.person4Name,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Full Name"
+                name="person4Name"
+                value={values.person4Name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person4Relationship &&
+                  errors.person4Relationship !== undefined && {
+                    content: errors.person4Relationship,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Relationship"
+                name="person4Relationship"
+                value={values.person4Relationship}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person4Birth &&
+                  errors.person4Birth !== undefined && {
+                    content: errors.person4Birth,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Birth Date"
+                name="person4Birth"
+                value={values.person4Birth}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person4IncomeSource &&
+                  errors.person4IncomeSource !== undefined && {
+                    content: errors.person4IncomeSource,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Income Source"
+                name="person4IncomeSource"
+                value={values.person4IncomeSource}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person4grossMonthlyIncome &&
+                  errors.person4grossMonthlyIncome !== undefined && {
+                    content: errors.person4grossMonthlyIncome,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Amount (Gross Monthly Income)"
+                name="person4grossMonthlyIncome"
+                value={values.person4grossMonthlyIncome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person4howOften &&
+                  errors.person4howOften !== undefined && {
+                    content: errors.person4howOften,
+                    pointing: "above",
+                  }
+                }
+                placeholder="How often"
+                name="person4howOften"
+                value={values.person4howOften}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Form.Group widths="2">
+              <Form.Input
+                error={
+                  touched.person5Name &&
+                  errors.person5Name !== undefined && {
+                    content: errors.person5Name,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Full Name"
+                name="person5Name"
+                value={values.person5Name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person5Relationship &&
+                  errors.person5Relationship !== undefined && {
+                    content: errors.person5Relationship,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Relationship"
+                name="person5Relationship"
+                value={values.person5Relationship}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person5Birth &&
+                  errors.person5Birth !== undefined && {
+                    content: errors.person5Birth,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Birth Date"
+                name="person5Birth"
+                value={values.person5Birth}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person5IncomeSource &&
+                  errors.person5IncomeSource !== undefined && {
+                    content: errors.person5IncomeSource,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Income Source"
+                name="person5IncomeSource"
+                value={values.person5IncomeSource}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person5grossMonthlyIncome &&
+                  errors.person5grossMonthlyIncome !== undefined && {
+                    content: errors.person5grossMonthlyIncome,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Amount (Gross Monthly Income)"
+                name="person5grossMonthlyIncome"
+                value={values.person5grossMonthlyIncome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person5howOften &&
+                  errors.person5howOften !== undefined && {
+                    content: errors.person5howOften,
+                    pointing: "above",
+                  }
+                }
+                placeholder="How often"
+                name="person5howOften"
+                value={values.person5howOften}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
+            <Form.Group widths="2">
+              <Form.Input
+                error={
+                  touched.person6Name &&
+                  errors.person6Name !== undefined && {
+                    content: errors.person6Name,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Full Name"
+                name="person6Name"
+                value={values.person6Name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person6Relationship &&
+                  errors.person6Relationship !== undefined && {
+                    content: errors.person6Relationship,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Relationship"
+                name="person6Relationship"
+                value={values.person6Relationship}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person6Birth &&
+                  errors.person6Birth !== undefined && {
+                    content: errors.person6Birth,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Birth Date"
+                name="person6Birth"
+                value={values.person6Birth}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person6IncomeSource &&
+                  errors.person6IncomeSource !== undefined && {
+                    content: errors.person6IncomeSource,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Income Source"
+                name="person6IncomeSource"
+                value={values.person6IncomeSource}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person6grossMonthlyIncome &&
+                  errors.person6grossMonthlyIncome !== undefined && {
+                    content: errors.person6grossMonthlyIncome,
+                    pointing: "above",
+                  }
+                }
+                placeholder="Amount (Gross Monthly Income)"
+                name="person6grossMonthlyIncome"
+                value={values.person6grossMonthlyIncome}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <Form.Input
+                error={
+                  touched.person6howOften &&
+                  errors.person6howOften !== undefined && {
+                    content: errors.person6howOften,
+                    pointing: "above",
+                  }
+                }
+                placeholder="How often"
+                name="person6howOften"
+                value={values.person6howOften}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form.Group>
             <Form.Group widths="equal">
               <Form.Button
                 onClick={goToPrevPage}
