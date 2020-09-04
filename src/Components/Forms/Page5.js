@@ -78,7 +78,7 @@ const Page5 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
         handleSubmit,
         isSubmitting,
       }) => (
-        <Container textAlign="center">
+        <Container textAlign="center" fluid style={{ padding: "0 10em" }}>
           {/* {JSON.stringify(values, null, 2)} */}
           <Header textAlign="center" as="h1">
             <b>

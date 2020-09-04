@@ -222,7 +222,7 @@ const Page6 = ({ nextStep, prevStep, setCancel, setFormStates }) => {
         isSubmitting,
         setFieldValue,
       }) => (
-        <Container textAlign="center">
+        <Container textAlign="center" fluid style={{ padding: "0 10em" }}>
           <Header as="h1" textAlign="center">
             Membership Application
           </Header>
