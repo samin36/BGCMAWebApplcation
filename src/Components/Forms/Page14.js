@@ -81,15 +81,12 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
       .matches(zipCodeRegex, "Please make sure your zip code is formatted correctly"),
     homePhoneNumber: yup
       .string()
-      .required("Home phone number is required")
       .matches(phoneRegex, "Phone number must be in the form xxx-xxx-xxxx"),
     workPhoneNumber: yup
       .string()
-      .required("Work phone number is required")
       .matches(phoneRegex, "Phone number must be in the form xxx-xxx-xxxx"),
     cellPhoneNumber: yup
       .string()
-      .required("Cell phone number is required")
       .matches(phoneRegex, "Phone number must be in the form xxx-xxx-xxxx"),
     guardianPrintedName: yup.string().required("Guardian's printed name is required"),
     guardianPrintedNameDate: yup
@@ -277,7 +274,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             </Form.Group>
             <Form.Group widths="equal">
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.homePhoneNumber &&
                   errors.homePhoneNumber !== undefined && {
@@ -292,7 +288,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.workPhoneNumber &&
                   errors.workPhoneNumber !== undefined && {
@@ -307,7 +302,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
               <Form.Input
-                icon={<Icon name="asterisk" size="small" color="red" />}
                 error={
                   touched.cellPhoneNumber &&
                   errors.cellPhoneNumber !== undefined && {
