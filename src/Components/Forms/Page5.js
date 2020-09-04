@@ -16,7 +16,7 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
+const Page5 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
   const pageNo = 5; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -159,16 +159,28 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
             </Form.Group>
-            <Form.Group widths="equal">
+            <Form.Group>
               <Form.Button
+                size="large"
                 onClick={goToPrevPage}
                 primary
                 floated="left"
                 disabled={isSubmitting}
                 icon="arrow left"
                 style={{ padding: ".75em 2em" }}
+                width={12}
               />
               <Form.Button
+                size="large"
+                onClick={() => setCancel(true)}
+                disabled={isSubmitting}
+                content="Cancel"
+                style={{ padding: ".75em 2em" }}
+                color="red"
+                width={2}
+              />
+              <Form.Button
+                size="large"
                 type="submit"
                 onClick={handleSubmit}
                 primary
@@ -176,6 +188,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 disabled={isSubmitting}
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}
+                width={2}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />
@@ -186,4 +199,4 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   );
 };
 
-export default FormTemplate;
+export default Page5;

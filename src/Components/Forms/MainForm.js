@@ -7,6 +7,9 @@ import SampleSubmitForm from "./SampleSubmitForm";
 
 import Page5 from "./Page5";
 import Page6 from "./Page6";
+import ConfirmationPopup from "../ConfirmationPopup";
+import { useHistory } from "react-router";
+import { SegmentGroup, Segment } from "semantic-ui-react";
 
 const MainForm = () => {
   const totalNumberOfForms = 16;
@@ -14,12 +17,29 @@ const MainForm = () => {
     step: 1,
     newApplicationDashboardData: {},
   });
+  const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem("step")) {
+      setFormStates((prevState) => {
+        return {
+          ...prevState,
+          step: Number.parseInt(localStorage.getItem("step")),
+        };
+      });
+    }
+  }, []);
 
   useEffect(() => {
     return () => {
       localStorage.clear();
     };
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("step", formStates.step);
+  }, [formStates.step]);
 
   const nextStep = () => {
     setFormStates((prevState) => {
@@ -42,6 +62,18 @@ const MainForm = () => {
     });
   };
 
+  const cancelApplication = () => {
+    setCancelPopupOpen(false);
+    history.goBack();
+    setTimeout(() => {
+      localStorage.clear();
+    }, 1000);
+  };
+
+  const dontCancelApplication = () => {
+    setCancelPopupOpen(false);
+  };
+
   const renderForm = () => {
     switch (formStates.step) {
       case 1:
@@ -55,6 +87,7 @@ const MainForm = () => {
             nextStep={nextStep}
             setFormStates={setFormStates}
             prevStep={prevStep}
+            setCancel={setCancelPopupOpen}
           />
         );
       case 2:
@@ -69,17 +102,41 @@ const MainForm = () => {
             nextStep={nextStep}
             setFormStates={setFormStates}
             prevStep={prevStep}
+            cancelApplication={cancelApplication}
+            setCancel={setCancelPopupOpen}
           />
         );
       case 3:
         // return <SampleSubmitForm formStates={formStates} />;
-        return <h1>{JSON.stringify(formStates, null, 2)}</h1>;
+        return (
+          <SegmentGroup>
+            {Object.entries(formStates).map(([k, v], index) => (
+              <Segment key={index}>
+                <h2>
+                  {k} {`->`} {JSON.stringify(v, null, 2)}
+                </h2>
+              </Segment>
+            ))}
+          </SegmentGroup>
+        );
       default:
-        return <h1>Default Page</h1>;
+        return <h1>Page: {formStates.step}</h1>;
     }
   };
-
-  return renderForm();
+  return (
+    <>
+      {renderForm()}
+      {cancelPopupOpen && (
+        <ConfirmationPopup
+          headerMessage="Cancel Application?"
+          bodyMessage="Are you sure you want to cancel the application?"
+          yesAction={cancelApplication}
+          noAction={dontCancelApplication}
+          isOpen={cancelPopupOpen}
+        />
+      )}
+    </>
+  );
 };
 
 export default MainForm;
