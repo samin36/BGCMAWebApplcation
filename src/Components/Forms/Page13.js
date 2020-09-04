@@ -80,9 +80,9 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   };
 
   const page13validationSchema = yup.object().shape({
-    familyUnitSize: yup.string().required("Family unit size is required"),
-    yealyIncome: yup.string().required("Yearly income is required"),
-    monthlyIncome: yup.string().required("Monthly income is required"),
+    familyUnitSize: yup.number().required("Family unit size is required"),
+    yealyIncome: yup.number().required("Yearly income is required"),
+    monthlyIncome: yup.number().required("Monthly income is required"),
     
     person1Name: yup.string().required("Your first, middle, and last name is required"),
     person1Relationship: yup.string().required("Self is required"),
@@ -91,7 +91,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
       .required("Birthdate is required as MM/DD/YYYY")
       .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
     person1IncomeSource: yup.string().required("Source of income is required"),
-    person1grossMonthlyIncome: yup.string().required("Gross monthly income is required"),
+    person1grossMonthlyIncome: yup.number().required("Gross monthly income is required"),
     person1howOften: yup.string().required("How often recieved is required"),
 
     person2Name: yup.string().required("Your first, middle, and last name is required"),
@@ -101,8 +101,26 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
       .required("Birthdate is required as MM/DD/YYYY")
       .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
     person2IncomeSource: yup.string().required("Source of income is required"),
-    person2grossMonthlyIncome: yup.string().required("Gross monthly income is required"),
+    person2grossMonthlyIncome: yup.number().required("Gross monthly income is required"),
     person2howOften: yup.string().required("How often recieved is required"),
+
+    person3Birth: yup
+      .string()
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+    person4Birth: yup
+      .string()
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+    person5Birth: yup
+      .string()
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+    person6Birth: yup
+      .string()
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+
+    person3grossMonthlyIncome: yup.number(),
+    person4grossMonthlyIncome: yup.number(),
+    person5grossMonthlyIncome: yup.number(),
+    person6grossMonthlyIncome: yup.number(),
   });
 
   const validationSchema = yup

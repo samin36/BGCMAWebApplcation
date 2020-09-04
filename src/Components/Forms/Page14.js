@@ -62,7 +62,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     totalIncome: "",
     incomeFrequency: "",
     houseHoldSize: "",
-    anualIncome: "",
+    annualIncome: "",
     staffInitials: "",
     staffTitle: "",
     staffDate: "",
@@ -101,6 +101,13 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
       .string()
       .required("Date  is required")
       .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+    
+    totalIncome: yup.number(),
+    houseHoldSize: yup.number(),
+    annualIncome: yup.number(),
+    staffDate: yup
+    .string()
+    .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
     });
 
   const validationSchema = yup
@@ -388,7 +395,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             <Form.Input
                 error={
                   touched.totalIncome &&
-                  errors.guardianInitaltotalIncomesDate !== undefined && {
+                  errors.totalIncome !== undefined && {
                     content: errors.totalIncome,
                     pointing: "above",
                   }
@@ -481,15 +488,15 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             <Form.Group widths="equal">
               <Form.Input
                 error={
-                  touched.anualIncome &&
-                  errors.anualIncome !== undefined && {
-                    content: errors.anualIncome,
+                  touched.annualIncome &&
+                  errors.annualIncome !== undefined && {
+                    content: errors.annualIncome,
                     pointing: "above",
                   }
                 }
                 placeholder="Total Converted Annual Income (Round to the nearest whole number) $"
-                name="anualIncome"
-                value={values.anualIncome}
+                name="annualIncome"
+                value={values.annualIncome}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
