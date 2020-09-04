@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Container, Icon, Header } from "semantic-ui-react";
 import * as yup from "yup";
-import { Formik } from "formik";
+import {Field, Formik} from "formik";
 import { Persist } from "formik-persist";
 import { dateRegex } from "../../Regex/regex";
 import {
@@ -11,12 +11,13 @@ import {
     paragraph4,
     paragraph5,
     paragraph6,
-} from "../../PageText/page5text";
+    paragraph7
+} from "../../PageText/page7text";
 
 /**
  * Pass in prevStep if the page number >= 1
  */
-const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
+const Page7 = ({ nextStep, prevStep, setFormStates }) => {
     const pageNo = 7; //Define the page number here
     const updateFormState = (values) => {
         setFormStates((prevState) => {
@@ -41,7 +42,8 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         staffVisitorParentOrGuardianInitials: "",
         staffVisitorParentOrGuardianName: "",
         agreementDate: "",
-        bgcmaParticipantOrClubMemberName: "",
+        staffVisitorChildName: "",
+        memberAssessmentBool: true
     };
 
     const validationSchema = yup.object().shape({
@@ -49,14 +51,14 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             .string()
             .max(3, "Initials cannot be more than 3 characters")
             .required("Initials are required"),
-        staffVisitorParentOrGuardianName: yup.string().required("Name is required"),
+        staffVisitorParentOrGuardianName: yup.string().required("Parent Name is required"),
         agreementDate: yup
             .string()
             .required("Date is required as MM/DD/YYYY")
             .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
-        bgcmaParticipantOrClubMemberName: yup
+        staffVisitorChildName: yup
             .string()
-            .required("Name(s) of participants/club members are required"),
+            .required("Child's Name is Required"),
     });
 
     return (
@@ -82,20 +84,15 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                     {/* {JSON.stringify(values, null, 2)} */}
                     <Header textAlign="center" as="h1">
                         <b>
-                            Assumption of the Risk and Waiver of Liability Relating to
-                            Coronavirus/COVID-19
+                            Member Assessment Permission Form
                         </b>
                     </Header>
                     <Header as="h3" textAlign="left">
                         {paragraph1}
                         {paragraph2}
-                        {paragraph3}
-                        {paragraph4}
-                        {paragraph5}
-                        {paragraph6}
                     </Header>
                     <Form size="big">
-                        <Form.Group widths="equal">
+                        <Form.Group>
                             <Form.Input
                                 icon={<Icon name="asterisk" size="small" color="red" />}
                                 error={
@@ -105,9 +102,55 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                                         pointing: "above",
                                     }
                                 }
-                                placeholder="Initials of Staff, Visitor or Parent/Guardian"
+                                placeholder="Parent/Guardian Initials"
                                 name="staffVisitorParentOrGuardianInitials"
                                 value={values.staffVisitorParentOrGuardianInitials}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            <Field as="select" name="memberAssessments">
+                                <option value={true}> I give permission for my child to participate in Member Assessments. </option>
+                                <option value={false}>I DO NOT give permission for my child to participate in Member Assessments</option>
+                                value={values.memberAssessmentBool}
+                            </Field>
+                        </Form.Group>
+                    </Form>
+                    <Header as="h3" textAlign="left">
+                        {paragraph3}
+                        {paragraph4}
+                        {paragraph5}
+                        {paragraph6}
+                        {paragraph7}
+                    </Header>
+                    <Form>
+                        <Form.Group widths="equal">
+                            <Form.Input
+                                icon={<Icon name="asterisk" size="small" color="red" />}
+                                error={
+                                    touched.staffVisitorChildName &&
+                                    errors.staffVisitorChildName !== undefined && {
+                                        content: errors.staffVisitorChildName,
+                                        pointing: "above",
+                                    }
+                                }
+                                placeholder="Child's Name"
+                                name="staffVisitorChildName"
+                                value={values.staffVisitorChildName}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                            <Form.Input
+                                icon={<Icon name="asterisk" size="small" color="red" />}
+                                error={
+                                    touched.staffVisitorParentOrGuardianName &&
+                                    errors.staffVisitorParentOrGuardianName !== undefined && {
+                                        content: errors.staffVisitorParentOrGuardianName,
+                                        pointing: "above",
+                                    }
+                                }
+                                placeholder="Parent or Guardian Name"
+                                name="staffVisitorParentOrGuardianName"
+                                value={values.staffVisitorParentOrGuardianName}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
@@ -123,38 +166,6 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                                 placeholder="Date"
                                 name="agreementDate"
                                 value={values.agreementDate}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                        </Form.Group>
-                        <Form.Group widths="equal">
-                            <Form.Input
-                                icon={<Icon name="asterisk" size="small" color="red" />}
-                                error={
-                                    touched.staffVisitorParentOrGuardianName &&
-                                    errors.staffVisitorParentOrGuardianName !== undefined && {
-                                        content: errors.staffVisitorParentOrGuardianName,
-                                        pointing: "above",
-                                    }
-                                }
-                                placeholder="Name of Staff, Visitor or Parent/Guardian"
-                                name="staffVisitorParentOrGuardianName"
-                                value={values.staffVisitorParentOrGuardianName}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            <Form.Input
-                                icon={<Icon name="asterisk" size="small" color="red" />}
-                                error={
-                                    touched.bgcmaParticipantOrClubMemberName &&
-                                    errors.bgcmaParticipantOrClubMemberName !== undefined && {
-                                        content: errors.bgcmaParticipantOrClubMemberName,
-                                        pointing: "above",
-                                    }
-                                }
-                                placeholder="Name(s) of BGCMA Program Participant(s) or Club Members"
-                                name="bgcmaParticipantOrClubMemberName"
-                                value={values.bgcmaParticipantOrClubMemberName}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
@@ -186,4 +197,4 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     );
 };
 
-export default FormTemplate;
+export default Page7;

@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import SampleFormPage1 from "./SampleFormPage1";
 import SampleFormPage2 from "./SampleFormPage2";
 import SampleSubmitForm from "./SampleSubmitForm";
+import Page8 from "./Page8";
+import Page7 from "./Page7";
 
 const MainForm = () => {
   const totalNumberOfForms = 16;
@@ -43,7 +45,7 @@ const MainForm = () => {
     switch (formStates.step) {
       case 1:
         return (
-          <SampleFormPage1
+          <Page7
             nextStep={nextStep}
             setFormStates={setFormStates}
             formStates={formStates}
@@ -51,7 +53,7 @@ const MainForm = () => {
         );
       case 2:
         return (
-          <SampleFormPage2
+          <Page8
             nextStep={nextStep}
             prevStep={prevStep}
             formStates={formStates}

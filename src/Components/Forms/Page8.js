@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Container, Icon, Header } from "semantic-ui-react";
 import * as yup from "yup";
-import { Formik } from "formik";
+import {Field, Formik} from "formik";
 import { Persist } from "formik-persist";
 import { dateRegex } from "../../Regex/regex";
 import {
@@ -11,13 +11,15 @@ import {
     paragraph4,
     paragraph5,
     paragraph6,
-} from "../../PageText/page5text";
+    paragraph7,
+    paragraph8
+} from "../../PageText/page8text";
 
 /**
  * Pass in prevStep if the page number >= 1
  */
-const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
-    const pageNo = 5; //Define the page number here
+const Page8 = ({ nextStep, prevStep, setFormStates }) => {
+    const pageNo = 8; //Define the page number here
     const updateFormState = (values) => {
         setFormStates((prevState) => {
             return {
@@ -38,25 +40,25 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     };
 
     const initialValues = {
-        staffVisitorParentOrGuardianInitials: "",
-        staffVisitorParentOrGuardianName: "",
-        agreementDate: "",
-        bgcmaParticipantOrClubMemberName: "",
+        mediaPermission: true,
+        schoolDataRelease: true,
+        generalTravelPermissions: true,
+        clubMaskDownZone: true,
     };
 
     const validationSchema = yup.object().shape({
-        staffVisitorParentOrGuardianInitials: yup
-            .string()
-            .max(3, "Initials cannot be more than 3 characters")
-            .required("Initials are required"),
-        staffVisitorParentOrGuardianName: yup.string().required("Name is required"),
-        agreementDate: yup
-            .string()
-            .required("Date is required as MM/DD/YYYY")
-            .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
-        bgcmaParticipantOrClubMemberName: yup
-            .string()
-            .required("Name(s) of participants/club members are required"),
+        mediaPermission: yup
+            .boolean()
+            .required("This selection is required"),
+        schoolDataRelease: yup
+            .boolean()
+            .required("This selection is required"),
+        generalTravelPermissions: yup
+            .boolean()
+            .required("This selection is required"),
+        clubMaskDownZone: yup
+            .boolean()
+            .required("This selection is required")
     });
 
     return (
@@ -82,90 +84,74 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                     {/* {JSON.stringify(values, null, 2)} */}
                     <Header textAlign="center" as="h1">
                         <b>
-                            Assumption of the Risk and Waiver of Liability Relating to
-                            Coronavirus/COVID-19
+                            Member Assessment Permission Form
                         </b>
                     </Header>
+
                     <Header as="h3" textAlign="left">
                         {paragraph1}
                         {paragraph2}
+                    </Header>
+                    <Form size="big">
+                        <Form.Group>
+                            <Field as="select" name="memberAssessments">
+                                <option value={true}>I give my child Media Permission </option>
+                                <option value={false}>I DO NOT give my child Media Permission.</option>
+                                value={values.mediaPermission}
+                            </Field>
+                        </Form.Group>
+                    </Form>
+
+                    <Header as="h3" textAlign="left">
                         {paragraph3}
                         {paragraph4}
+                    </Header>
+                    <Form size="big">
+                        <Form.Group>
+                            <Field as="select" name="memberAssessments">
+                                <option value={true}>I give permission to the BGCMA to request academic information from my child’s school district.</option>
+                                <option value={false}>I DO NOT give permission to BGCMA to request academic information from my child’s school district.</option>
+                                value={values.schoolDataRelease}
+                            </Field>
+                        </Form.Group>
+                    </Form>
+
+                    <Header as="h3" textAlign="left">
                         {paragraph5}
                         {paragraph6}
                     </Header>
                     <Form size="big">
-                        <Form.Group widths="equal">
-                            <Form.Input
-                                icon={<Icon name="asterisk" size="small" color="red" />}
-                                error={
-                                    touched.staffVisitorParentOrGuardianInitials &&
-                                    errors.staffVisitorParentOrGuardianInitials !== undefined && {
-                                        content: errors.staffVisitorParentOrGuardianInitials,
-                                        pointing: "above",
-                                    }
-                                }
-                                placeholder="Initials of Staff, Visitor or Parent/Guardian"
-                                name="staffVisitorParentOrGuardianInitials"
-                                value={values.staffVisitorParentOrGuardianInitials}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            <Form.Input
-                                icon={<Icon name="asterisk" size="small" color="red" />}
-                                error={
-                                    touched.agreementDate &&
-                                    errors.agreementDate !== undefined && {
-                                        content: errors.agreementDate,
-                                        pointing: "above",
-                                    }
-                                }
-                                placeholder="Date"
-                                name="agreementDate"
-                                value={values.agreementDate}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
+                        <Form.Group>
+                            <Field as="select" name="memberAssessments">
+                                <option value={true}>I give my child General Travel Permission.</option>
+                                <option value={false}> I DO NOT give my child General Travel Permission.</option>
+                                value={values.generalTravelPermissions}
+                            </Field>
                         </Form.Group>
-                        <Form.Group widths="equal">
-                            <Form.Input
-                                icon={<Icon name="asterisk" size="small" color="red" />}
-                                error={
-                                    touched.staffVisitorParentOrGuardianName &&
-                                    errors.staffVisitorParentOrGuardianName !== undefined && {
-                                        content: errors.staffVisitorParentOrGuardianName,
-                                        pointing: "above",
-                                    }
-                                }
-                                placeholder="Name of Staff, Visitor or Parent/Guardian"
-                                name="staffVisitorParentOrGuardianName"
-                                value={values.staffVisitorParentOrGuardianName}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
-                            <Form.Input
-                                icon={<Icon name="asterisk" size="small" color="red" />}
-                                error={
-                                    touched.bgcmaParticipantOrClubMemberName &&
-                                    errors.bgcmaParticipantOrClubMemberName !== undefined && {
-                                        content: errors.bgcmaParticipantOrClubMemberName,
-                                        pointing: "above",
-                                    }
-                                }
-                                placeholder="Name(s) of BGCMA Program Participant(s) or Club Members"
-                                name="bgcmaParticipantOrClubMemberName"
-                                value={values.bgcmaParticipantOrClubMemberName}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            />
+                    </Form>
+
+                    <Header as="h3" textAlign="left">
+                        {paragraph7}
+                        {paragraph8}
+                    </Header>
+                    <Form size="big">
+                        <Form.Group>
+                            <Field as="select" name="memberAssessments">
+                                <option value={true}>I give permission for my child to remove their mask during the Mask Down time.</option>
+                                <option value={false}>I DO NOT give permission for my child to remove their mask during the Mask Down time</option>
+                                value={values.clubMaskDownZone}
+                            </Field>
                         </Form.Group>
+                    </Form>
+
+                    <Form>
                         <Form.Group widths="equal">
                             <Form.Button
                                 onClick={goToPrevPage}
                                 primary
                                 floated="left"
                                 disabled={isSubmitting}
-                                icon="a rrow left"
+                                icon="arrow left"
                                 style={{ padding: ".75em 2em" }}
                             />
                             <Form.Button
@@ -186,4 +172,4 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     );
 };
 
-export default FormTemplate;
+export default Page8;
