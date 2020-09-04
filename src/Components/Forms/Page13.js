@@ -168,7 +168,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             </b>
           </Header>
           <center>
-              <img src={require('../../PageText/page12Table.jpg')} width="1000" height="" alt="chart describing poverty level" />
+              <img src={require('../../PageText/page13Section2Table.jpg')} width="1000" height="" alt="chart describing poverty level" />
           </center>
           <Form size="big">
             <Header as="h4" textAlign="left">
