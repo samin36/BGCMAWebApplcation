@@ -4,10 +4,13 @@ import { useHistory } from "react-router-dom";
 
 import Page5 from "./Page5";
 import Page6 from "./Page6";
-import Page13 from "./Page13";
-import Page14 from "./Page14";
+
 import Page9 from "./Page9";
 import Page10 from "./Page10";
+import Page11 from "./Page11";
+import Page12 from "./Page12";
+import Page13 from "./Page13";
+import Page14 from "./Page14";
 import SampleSubmitForm from "./SampleSubmitForm";
 
 import ConfirmationPopup from "../ConfirmationPopup";
@@ -104,6 +107,7 @@ const MainForm = () => {
             nextStep={nextStep}
             prevStep={prevStep}
             setFormStates={setFormStates}
+            prevStep={prevStep}
           />
         );
       case 8:
@@ -117,6 +121,24 @@ const MainForm = () => {
         );
       case 9:
         return (
+          <Page11
+            nextStep={nextStep}
+            setFormStates={setFormStates}
+            prevStep={prevStep}
+            setCancel={setCancelPopupOpen}
+          />
+        );
+      case 10:
+        return (
+          <Page12
+            nextStep={nextStep}
+            setFormStates={setFormStates}
+            prevStep={prevStep}
+            setCancel={setCancelPopupOpen}
+          />
+        );
+      case 11:
+        return (
           <Page13
             nextStep={nextStep}
             setFormStates={setFormStates}
@@ -125,7 +147,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 10:
+      case 12:
         return (
           <Page14
             nextStep={nextStep}
@@ -135,7 +157,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 11:
+      case 13:
         return <SampleSubmitForm formStates={formStates} />;
       default:
         return <h1>Page: {formStates.step}</h1>;
