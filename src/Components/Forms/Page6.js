@@ -21,7 +21,7 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page6 = ({ nextStep, prevStep, setCancel, setFormStates }) => {
+const Page6 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
   const pageNo = 6; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -38,6 +38,11 @@ const Page6 = ({ nextStep, prevStep, setCancel, setFormStates }) => {
   };
 
   const goToPrevPage = (values) => {
+    if (localStorage.getItem(`page${pageNo}`)) {
+      let currPage = JSON.parse(localStorage.getItem(`page${pageNo}`));
+      currPage["values"] = values;
+      localStorage.setItem(`page${pageNo}`, JSON.stringify(currPage));
+    }
     updateFormState(values);
     prevStep();
   };
@@ -205,7 +210,7 @@ const Page6 = ({ nextStep, prevStep, setCancel, setFormStates }) => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         // as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
@@ -1744,7 +1749,7 @@ const Page6 = ({ nextStep, prevStep, setCancel, setFormStates }) => {
             <Form.Group>
               <Form.Button
                 size="large"
-                onClick={goToPrevPage}
+                onClick={() => goToPrevPage(values)}
                 primary
                 floated="left"
                 disabled={isSubmitting}

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import Page5 from "./Page5";
 import Page6 from "./Page6";
-import Page13 from "./Page13"
-import Page14 from "./Page14"
+import Page13 from "./Page13";
+import Page14 from "./Page14";
 import SampleSubmitForm from "./SampleSubmitForm";
 
 import ConfirmationPopup from "../ConfirmationPopup";
@@ -13,7 +13,7 @@ import { SegmentGroup, Segment } from "semantic-ui-react";
 const MainForm = () => {
   const totalNumberOfForms = 16;
   const [formStates, setFormStates] = useState({
-    step: 1,
+    step: 5,
     newApplicationDashboardData: {},
   });
   const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
@@ -94,7 +94,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 13:
+      case 7:
         return (
           <Page13
             nextStep={nextStep}
@@ -104,7 +104,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 14:
+      case 8:
         return (
           <Page14
             nextStep={nextStep}
@@ -114,19 +114,8 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 16:
-        // return <SampleSubmitForm formStates={formStates} />;
-        return (
-          <SegmentGroup>
-            {Object.entries(formStates).map(([k, v], index) => (
-              <Segment key={index}>
-                <h2>
-                  {k} {`->`} {JSON.stringify(v, null, 2)}
-                </h2>
-              </Segment>
-            ))}
-          </SegmentGroup>
-        );
+      case 9:
+        return <SampleSubmitForm formStates={formStates} />;
       default:
         return <h1>Page: {formStates.step}</h1>;
     }

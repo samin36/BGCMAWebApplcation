@@ -33,6 +33,11 @@ const Page5 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
   };
 
   const goToPrevPage = (values) => {
+    if (localStorage.getItem(`page${pageNo}`)) {
+      let currPage = JSON.parse(localStorage.getItem(`page${pageNo}`));
+      currPage["values"] = values;
+      localStorage.setItem(`page${pageNo}`, JSON.stringify(currPage));
+    }
     updateFormState(values);
     prevStep();
   };
@@ -162,7 +167,7 @@ const Page5 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
             <Form.Group>
               <Form.Button
                 size="large"
-                onClick={goToPrevPage}
+                onClick={() => goToPrevPage(values)}
                 primary
                 floated="left"
                 disabled={isSubmitting}

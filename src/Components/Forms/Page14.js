@@ -3,11 +3,7 @@ import { Form, Container, Icon, Header } from "semantic-ui-react";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Persist } from "formik-persist";
-import {
-  phoneRegex,
-  dateRegex,
-  zipCodeRegex,
-} from "../../Regex/regex";
+import { phoneRegex, dateRegex, zipCodeRegex } from "../../Regex/regex";
 import {
   paragraph1,
   paragraph2,
@@ -22,7 +18,7 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
+const Page14 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
   const pageNo = 14; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -39,6 +35,11 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   };
 
   const goToPrevPage = (values) => {
+    if (localStorage.getItem(`page${pageNo}`)) {
+      let currPage = JSON.parse(localStorage.getItem(`page${pageNo}`));
+      currPage["values"] = values;
+      localStorage.setItem(`page${pageNo}`, JSON.stringify(currPage));
+    }
     updateFormState(values);
     prevStep();
   };
@@ -58,7 +59,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     guardianPrintedNameDate: "",
     guardianInitals: "",
     guardianInitalsDate: "",
-    
+
     totalIncome: "",
     incomeFrequency: "",
     houseHoldSize: "",
@@ -69,8 +70,12 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   };
 
   const page14validationSchema = yup.object().shape({
-    guardianFirstName: yup.string().required("Guardian's first name is required"),
-    guardianMiddleInitial: yup.string().max(1, "Initial must be a single letter"),
+    guardianFirstName: yup
+      .string()
+      .required("Guardian's first name is required"),
+    guardianMiddleInitial: yup
+      .string()
+      .max(1, "Initial must be a single letter"),
     guardianLastName: yup.string().required("Guardian's last name is required"),
     streetAddress: yup.string().required("Street address is required"),
     city: yup.string().required("City is required"),
@@ -78,7 +83,10 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     zipCode: yup
       .string()
       .required("Zip code is required")
-      .matches(zipCodeRegex, "Please make sure your zip code is formatted correctly"),
+      .matches(
+        zipCodeRegex,
+        "Please make sure your zip code is formatted correctly"
+      ),
     homePhoneNumber: yup
       .string()
       .matches(phoneRegex, "Phone number must be in the form xxx-xxx-xxxx"),
@@ -88,7 +96,9 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     cellPhoneNumber: yup
       .string()
       .matches(phoneRegex, "Phone number must be in the form xxx-xxx-xxxx"),
-    guardianPrintedName: yup.string().required("Guardian's printed name is required"),
+    guardianPrintedName: yup
+      .string()
+      .required("Guardian's printed name is required"),
     guardianPrintedNameDate: yup
       .string()
       .required("Date  is required")
@@ -98,23 +108,21 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
       .string()
       .required("Date  is required")
       .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
-    
+
     totalIncome: yup.number(),
     houseHoldSize: yup.number(),
     annualIncome: yup.number(),
     staffDate: yup
-    .string()
-    .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
-    });
+      .string()
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
+  });
 
-  const validationSchema = yup
-    .object()
-    .concat(page14validationSchema);
+  const validationSchema = yup.object().concat(page14validationSchema);
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         // as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
@@ -131,25 +139,19 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         isSubmitting,
         setFieldValue,
       }) => (
-        <Container textAlign="center">
+        <Container textAlign="center" fluid style={{ padding: "0 10em" }}>
           {/* {JSON.stringify(values, null, 2)} */}
           <Header textAlign="center" as="h1">
-            <b>
-              Page 3 of 3 - DFCS AfterSchool Care Program Elgibility Form
-            </b>
+            <b>Page 3 of 3 - DFCS AfterSchool Care Program Elgibility Form</b>
           </Header>
           <Header as="h2" textAlign="left">
-            <b>
-                Section 5
-            </b>
+            <b>Section 5</b>
           </Header>
           <Header as="h4" textAlign="left">
             {paragraph1}
           </Header>
           <Header textAlign="center" as="h1">
-            <b>
-              Application Notification and Signiture
-            </b>
+            <b>Application Notification and Signiture</b>
           </Header>
           <Header as="h4" textAlign="left">
             {paragraph2}
@@ -160,7 +162,8 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
           </Header>
           <Header as="h1" textAlign="left">
             <b>
-              Parent/Guardian/Caregiver Information - <i>This section must be completed in its entirety</i>.
+              Parent/Guardian/Caregiver Information -{" "}
+              <i>This section must be completed in its entirety</i>.
             </b>
           </Header>
           <Form size="big">
@@ -381,12 +384,13 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               />
             </Form.Group>
             <Header as="h1" textAlign="center">
-            <b>
-              Official Use Only Section for DFCS Funded AfterSchool/Summer Service Provider:
-            </b>
+              <b>
+                Official Use Only Section for DFCS Funded AfterSchool/Summer
+                Service Provider:
+              </b>
             </Header>
             <Form.Group widths="equal">
-            <Form.Input
+              <Form.Input
                 error={
                   touched.totalIncome &&
                   errors.totalIncome !== undefined && {
@@ -409,9 +413,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onChange={(_, { value }) =>
                   setFieldValue("incomeFrequency", value)
                 }
-                checked={
-                  values.incomeFrequency === "Week"
-                }
+                checked={values.incomeFrequency === "Week"}
                 error={
                   touched.incomeFrequency &&
                   errors.incomeFrequency !== undefined
@@ -543,20 +545,30 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               />
             </Form.Group>
             <Header as="h1" textAlign="left">
-            <b>
-              ** See Apendix B for income verification proof sources
-            </b>
+              <b>** See Apendix B for income verification proof sources</b>
             </Header>
-            <Form.Group widths="equal">
+            <Form.Group>
               <Form.Button
-                onClick={goToPrevPage}
+                size="large"
+                onClick={() => goToPrevPage(values)}
                 primary
                 floated="left"
                 disabled={isSubmitting}
                 icon="arrow left"
                 style={{ padding: ".75em 2em" }}
+                width={12}
               />
               <Form.Button
+                size="large"
+                onClick={() => setCancel(true)}
+                disabled={isSubmitting}
+                content="Cancel"
+                style={{ padding: ".75em 2em" }}
+                color="red"
+                width={2}
+              />
+              <Form.Button
+                size="large"
                 type="submit"
                 onClick={handleSubmit}
                 primary
@@ -564,6 +576,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 disabled={isSubmitting}
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}
+                width={2}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />
@@ -574,4 +587,4 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   );
 };
 
-export default FormTemplate;
+export default Page14;

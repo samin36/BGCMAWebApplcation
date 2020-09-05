@@ -14,7 +14,7 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
+const Page13 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
   const pageNo = 13; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -31,6 +31,11 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   };
 
   const goToPrevPage = (values) => {
+    if (localStorage.getItem(`page${pageNo}`)) {
+      let currPage = JSON.parse(localStorage.getItem(`page${pageNo}`));
+      currPage["values"] = values;
+      localStorage.setItem(`page${pageNo}`, JSON.stringify(currPage));
+    }
     updateFormState(values);
     prevStep();
   };
@@ -136,7 +141,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         // as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
@@ -151,9 +156,8 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         handleBlur,
         handleSubmit,
         isSubmitting,
-        setFieldValue,
       }) => (
-        <Container textAlign="center">
+        <Container textAlign="center" fluid style={{ padding: "0 10em" }}>
           {/* {JSON.stringify(values, null, 2)} */}
           <Header textAlign="center" as="h1">
             <b>Page 2 of 3 - DFCS AfterSchool Care Program Elgibility Form</b>
@@ -777,16 +781,28 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 onBlur={handleBlur}
               />
             </Form.Group>
-            <Form.Group widths="equal">
+            <Form.Group>
               <Form.Button
-                onClick={goToPrevPage}
+                size="large"
+                onClick={() => goToPrevPage(values)}
                 primary
                 floated="left"
                 disabled={isSubmitting}
                 icon="arrow left"
                 style={{ padding: ".75em 2em" }}
+                width={12}
               />
               <Form.Button
+                size="large"
+                onClick={() => setCancel(true)}
+                disabled={isSubmitting}
+                content="Cancel"
+                style={{ padding: ".75em 2em" }}
+                color="red"
+                width={2}
+              />
+              <Form.Button
+                size="large"
                 type="submit"
                 onClick={handleSubmit}
                 primary
@@ -794,6 +810,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 disabled={isSubmitting}
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}
+                width={2}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />
@@ -804,4 +821,4 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   );
 };
 
-export default FormTemplate;
+export default Page13;
