@@ -76,13 +76,8 @@ const MainForm = () => {
 
   const renderForm = () => {
     switch (formStates.step) {
-      case 1:
+      case 5:
         return (
-          // <SampleFormPage1
-          //   nextStep={nextStep}
-          //   setFormStates={setFormStates}
-          //   formStates={formStates}
-          // />
           <Page5
             nextStep={nextStep}
             setFormStates={setFormStates}
@@ -90,14 +85,8 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 2:
+      case 6:
         return (
-          // <SampleFormPage2
-          //   nextStep={nextStep}
-          //   prevStep={prevStep}
-          //   formStates={formStates}
-          //   setFormStates={setFormStates}
-          // />
           <Page6
             nextStep={nextStep}
             setFormStates={setFormStates}
@@ -106,7 +95,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 3:
+      case 16:
         // return <SampleSubmitForm formStates={formStates} />;
         return (
           <SegmentGroup>
