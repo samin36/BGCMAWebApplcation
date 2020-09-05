@@ -16,7 +16,7 @@ import { dateRegex } from "../../Regex/regex";
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page10 = ({ nextStep, prevStep, setFormStates }) => {
+const Page10 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
   const pageNo = 10; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -33,6 +33,11 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
   };
 
   const goToPrevPage = (values) => {
+    if (localStorage.getItem(`page${pageNo}`)) {
+      let currPage = JSON.parse(localStorage.getItem(`page${pageNo}`));
+      currPage["values"] = values;
+      localStorage.setItem(`page${pageNo}`, JSON.stringify(currPage));
+    }
     updateFormState(values);
     prevStep();
   };
@@ -106,7 +111,7 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
         isSubmitting,
         setFieldValue,
       }) => (
-        <Container textAlign="center">
+        <Container textAlign="center" fluid style={{ padding: "0 10em" }}>
           <Header as="h1" textAlign="center">
             Forms and Waivers
           </Header>
@@ -481,16 +486,28 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
               />
             </Form.Group>
 
-            <Form.Group widths="equal">
+            <Form.Group>
               <Form.Button
-                onClick={goToPrevPage}
+                size="large"
+                onClick={() => goToPrevPage(values)}
                 primary
                 floated="left"
                 disabled={isSubmitting}
                 icon="arrow left"
                 style={{ padding: ".75em 2em" }}
+                width={12}
               />
               <Form.Button
+                size="large"
+                onClick={() => setCancel(true)}
+                disabled={isSubmitting}
+                content="Cancel"
+                style={{ padding: ".75em 2em" }}
+                color="red"
+                width={2}
+              />
+              <Form.Button
+                size="large"
                 type="submit"
                 onClick={handleSubmit}
                 primary
@@ -498,6 +515,7 @@ const Page10 = ({ nextStep, prevStep, setFormStates }) => {
                 disabled={isSubmitting}
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}
+                width={2}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />

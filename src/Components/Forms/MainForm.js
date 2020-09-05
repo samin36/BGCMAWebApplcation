@@ -14,8 +14,6 @@ import Page13 from "./Page13";
 import Page14 from "./Page14";
 import SampleSubmitForm from "./SampleSubmitForm";
 
-
-
 import ConfirmationPopup from "../ConfirmationPopup";
 const MainForm = () => {
   const totalNumberOfForms = 16;
@@ -88,7 +86,6 @@ const MainForm = () => {
             nextStep={nextStep}
             setFormStates={setFormStates}
             prevStep={prevStep}
-            cancelApplication={cancelApplication}
             setCancel={setCancelPopupOpen}
           />
         );
@@ -98,7 +95,6 @@ const MainForm = () => {
             nextStep={nextStep}
             setFormStates={setFormStates}
             prevStep={prevStep}
-            cancelApplication={cancelApplication}
             setCancel={setCancelPopupOpen}
           />
         );
@@ -108,7 +104,6 @@ const MainForm = () => {
             nextStep={nextStep}
             setFormStates={setFormStates}
             prevStep={prevStep}
-            cancelApplication={cancelApplication}
             setCancel={setCancelPopupOpen}
           />
         );
@@ -118,7 +113,6 @@ const MainForm = () => {
             nextStep={nextStep}
             setFormStates={setFormStates}
             prevStep={prevStep}
-            cancelApplication={cancelApplication}
             setCancel={setCancelPopupOpen}
           />
         );
@@ -128,7 +122,7 @@ const MainForm = () => {
             nextStep={nextStep}
             prevStep={prevStep}
             setFormStates={setFormStates}
-            prevStep={prevStep}
+            setCancel={setCancelPopupOpen}
           />
         );
       case 10:
@@ -174,7 +168,6 @@ const MainForm = () => {
             nextStep={nextStep}
             setFormStates={setFormStates}
             prevStep={prevStep}
-            cancelApplication={cancelApplication}
             setCancel={setCancelPopupOpen}
           />
         );
@@ -186,6 +179,7 @@ const MainForm = () => {
   };
   return (
     <>
+      <h3>Page: {formStates.step}</h3>
       {renderForm()}
       {cancelPopupOpen && (
         <ConfirmationPopup

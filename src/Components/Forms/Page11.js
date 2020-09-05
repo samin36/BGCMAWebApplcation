@@ -16,7 +16,7 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
+const Page11 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
   const pageNo = 11; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -33,6 +33,11 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   };
 
   const goToPrevPage = (values) => {
+    if (localStorage.getItem(`page${pageNo}`)) {
+      let currPage = JSON.parse(localStorage.getItem(`page${pageNo}`));
+      currPage["values"] = values;
+      localStorage.setItem(`page${pageNo}`, JSON.stringify(currPage));
+    }
     updateFormState(values);
     prevStep();
   };
@@ -43,14 +48,14 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     signatureDate: "",
   };
 
-  // const validationSchema = yup.object().shape({
-  //   parentSign: yup.string().required("Parent Signature/ Name is required."),
-  //   signatureDate: yup
-  //     .string()
-  //     .required("Date is required as MM/DD/YYYY.")
-  //     .matches(dateRegex, "Date must be in the form MM/DD/YYYY."),
-  //   childName: yup.string().required("Child Name is required."),
-  // });
+  const validationSchema = yup.object().shape({
+    parentSign: yup.string().required("Parent Signature/ Name is required."),
+    signatureDate: yup
+      .string()
+      .required("Date is required as MM/DD/YYYY.")
+      .matches(dateRegex, "Date must be in the form MM/DD/YYYY."),
+    childName: yup.string().required("Child Name is required."),
+  });
 
   return (
     <Formik
@@ -72,7 +77,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         isSubmitting,
         setFieldValue,
       }) => (
-        <Container textAlign="center" text>
+        <Container textAlign="center" fluid style={{ padding: "0 10em" }}>
           {/*JSON.stringify(values, null, 2)*/}
           <Header textAlign="center" as="h1">
             <b>
@@ -80,15 +85,15 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               Metro Atlanta's Virtual Club Experience
             </b>
           </Header>
-          <Header as="h4" textAlign="left">
+          <Header as="h3" textAlign="left">
             {paragraph1}
-            {list1}
-            {list2}
-            {list3}
-            {list4}
-            {list5}
-            {signing}
           </Header>
+          {list1}
+          {list2}
+          {list3}
+          {list4}
+          {list5}
+          {signing}
           <Form size="big">
             <Form.Group widths="equal">
               <Form.Input
@@ -137,16 +142,28 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            <Form.Group widths="equal">
+            <Form.Group>
               <Form.Button
-                onClick={goToPrevPage}
+                size="large"
+                onClick={() => goToPrevPage(values)}
                 primary
                 floated="left"
                 disabled={isSubmitting}
                 icon="arrow left"
                 style={{ padding: ".75em 2em" }}
+                width={12}
               />
               <Form.Button
+                size="large"
+                onClick={() => setCancel(true)}
+                disabled={isSubmitting}
+                content="Cancel"
+                style={{ padding: ".75em 2em" }}
+                color="red"
+                width={2}
+              />
+              <Form.Button
+                size="large"
                 type="submit"
                 onClick={handleSubmit}
                 primary
@@ -154,6 +171,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 disabled={isSubmitting}
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}
+                width={2}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />
@@ -164,4 +182,4 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   );
 };
 
-export default FormTemplate;
+export default Page11;
