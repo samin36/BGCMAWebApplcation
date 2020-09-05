@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-// import SampleForm2 from "./SampleForm2";
-// import SampleFormPage1 from "./SampleFormPage1";
-// import SampleFormPage2 from "./SampleFormPage2";
-import SampleSubmitForm from "./SampleSubmitForm";
-
 import Page5 from "./Page5";
 import Page6 from "./Page6";
+import Page13 from "./Page13"
+import Page14 from "./Page14"
+import SampleSubmitForm from "./SampleSubmitForm";
+
 import ConfirmationPopup from "../ConfirmationPopup";
 import { useHistory } from "react-router";
 import { SegmentGroup, Segment } from "semantic-ui-react";
@@ -88,6 +87,26 @@ const MainForm = () => {
       case 6:
         return (
           <Page6
+            nextStep={nextStep}
+            setFormStates={setFormStates}
+            prevStep={prevStep}
+            cancelApplication={cancelApplication}
+            setCancel={setCancelPopupOpen}
+          />
+        );
+      case 13:
+        return (
+          <Page13
+            nextStep={nextStep}
+            setFormStates={setFormStates}
+            prevStep={prevStep}
+            cancelApplication={cancelApplication}
+            setCancel={setCancelPopupOpen}
+          />
+        );
+      case 14:
+        return (
+          <Page14
             nextStep={nextStep}
             setFormStates={setFormStates}
             prevStep={prevStep}
