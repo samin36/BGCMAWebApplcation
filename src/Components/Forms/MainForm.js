@@ -6,12 +6,11 @@ import Page5 from "./Page5";
 import Page6 from "./Page6";
 import Page13 from "./Page13";
 import Page14 from "./Page14";
-import Page9 from "/Page9";
+import Page9 from "./Page9";
 import Page10 from "./Page10";
 import SampleSubmitForm from "./SampleSubmitForm";
 
 import ConfirmationPopup from "../ConfirmationPopup";
-import { useHistory } from "react-router";
 import { SegmentGroup, Segment } from "semantic-ui-react";
 
 const MainForm = () => {
@@ -79,7 +78,7 @@ const MainForm = () => {
 
   const renderForm = () => {
     switch (formStates.step) {
-      case 1:
+      case 5:
         return (
           <Page5
           nextStep={nextStep}
@@ -89,7 +88,7 @@ const MainForm = () => {
           setCancel={setCancelPopupOpen}
           />
         );
-      case 2:
+      case 6:
         return (
           <Page6
             nextStep={nextStep}
@@ -99,7 +98,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 3:
+      case 7:
         return (
           <Page9
             nextStep={nextStep}
@@ -107,7 +106,7 @@ const MainForm = () => {
             setFormStates={setFormStates}
           />
         );
-      case 4:
+      case 8:
         return (
           <Page10
             nextStep={nextStep}
@@ -116,7 +115,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 5:
+      case 9:
         return (
           <Page13
             nextStep={nextStep}
@@ -126,7 +125,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 6:
+      case 10:
         return (
           <Page14
             nextStep={nextStep}
@@ -136,7 +135,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 9:
+      case 11:
         return <SampleSubmitForm formStates={formStates} />;
       default:
         return <h1>Page: {formStates.step}</h1>;
