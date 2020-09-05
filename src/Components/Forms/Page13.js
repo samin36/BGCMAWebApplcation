@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Container, Icon, Header} from "semantic-ui-react";
+import { Form, Container, Icon, Header } from "semantic-ui-react";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Persist } from "formik-persist";
@@ -15,7 +15,7 @@ import {
  * Pass in prevStep if the page number >= 1
  */
 const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
-  const pageNo = 14; //Define the page number here
+  const pageNo = 13; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
       return {
@@ -83,25 +83,33 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     familyUnitSize: yup.number().required("Family unit size is required"),
     yealyIncome: yup.number().required("Yearly income is required"),
     monthlyIncome: yup.number().required("Monthly income is required"),
-    
-    person1Name: yup.string().required("Your first, middle, and last name is required"),
+
+    person1Name: yup
+      .string()
+      .required("Your first, middle, and last name is required"),
     person1Relationship: yup.string().required("Self is required"),
     person1Birth: yup
       .string()
       .required("Birthdate is required as MM/DD/YYYY")
       .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
     person1IncomeSource: yup.string().required("Source of income is required"),
-    person1grossMonthlyIncome: yup.number().required("Gross monthly income is required"),
+    person1grossMonthlyIncome: yup
+      .number()
+      .required("Gross monthly income is required"),
     person1howOften: yup.string().required("How often recieved is required"),
 
-    person2Name: yup.string().required("Your first, middle, and last name is required"),
+    person2Name: yup
+      .string()
+      .required("Your first, middle, and last name is required"),
     person2Relationship: yup.string().required("Child is required"),
     person2Birth: yup
       .string()
       .required("Birthdate is required as MM/DD/YYYY")
       .matches(dateRegex, "Date must be in the form MM/DD/YYYY"),
     person2IncomeSource: yup.string().required("Source of income is required"),
-    person2grossMonthlyIncome: yup.number().required("Gross monthly income is required"),
+    person2grossMonthlyIncome: yup
+      .number()
+      .required("Gross monthly income is required"),
     person2howOften: yup.string().required("How often recieved is required"),
 
     person3Birth: yup
@@ -123,9 +131,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     person6grossMonthlyIncome: yup.number(),
   });
 
-  const validationSchema = yup
-    .object()
-    .concat(page13validationSchema);
+  const validationSchema = yup.object().concat(page13validationSchema);
 
   return (
     <Formik
@@ -150,31 +156,35 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         <Container textAlign="center">
           {/* {JSON.stringify(values, null, 2)} */}
           <Header textAlign="center" as="h1">
-            <b>
-              Page 2 of 3 - DFCS AfterSchool Care Program Elgibility Form
-            </b>
+            <b>Page 2 of 3 - DFCS AfterSchool Care Program Elgibility Form</b>
           </Header>
           <Header as="h2" textAlign="left">
-            <b>
-                Section 3
-            </b>
+            <b>Section 3</b>
           </Header>
           <Header as="h4" textAlign="left">
             {paragraph1}
           </Header>
           <Header textAlign="center" as="h1">
             <b>
-              <u>Family Income Elgibility for the DFCS Afterschool Care Program Income Elgibility Guide</u> 
+              <u>
+                Family Income Elgibility for the DFCS Afterschool Care Program
+                Income Elgibility Guide
+              </u>
             </b>
           </Header>
           <center>
-              <img src={require('../../PageText/page13Section2Table.jpg')} width="1000" height="" alt="chart describing poverty level" />
+            <img
+              src={require("../../PageText/page13Section2Table.jpg")}
+              width="1000"
+              height=""
+              alt="chart describing poverty level"
+            />
           </center>
           <Form size="big">
             <Header as="h4" textAlign="left">
               {paragraph2}
               {paragraph3}
-            </Header> 
+            </Header>
             <Form.Group widths="equal">
               <Form.Input
                 icon={<Icon name="asterisk" size="small" color="red" />}
@@ -226,24 +236,18 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
             </Form.Group>
             <Header as="h4" textAlign="left">
               * See Appendix A for definition of family unit.
-            </Header> 
+            </Header>
             <Header as="h2" textAlign="left">
-              <b>
-                Section 4
-              </b>
+              <b>Section 4</b>
             </Header>
             <Header as="h4" textAlign="left">
               {paragraph4}
             </Header>
             <Header as="h2" textAlign="left">
-              <b>
-                Household Composition and Income 
-              </b>
+              <b>Household Composition and Income</b>
             </Header>
             <Header as="h2" textAlign="left">
-              <b>
-                Gross Monthly Income is income before taxes and deductions
-              </b>
+              <b>Gross Monthly Income is income before taxes and deductions</b>
             </Header>
             <Form.Group widths="2">
               <Form.Input
