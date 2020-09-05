@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 
 import Page5 from "./Page5";
 import Page6 from "./Page6";
-
+import Page7 from "./Page7";
+import Page8 from "./Page8";
 import Page9 from "./Page9";
 import Page10 from "./Page10";
 import Page11 from "./Page11";
@@ -13,9 +14,9 @@ import Page13 from "./Page13";
 import Page14 from "./Page14";
 import SampleSubmitForm from "./SampleSubmitForm";
 
-import ConfirmationPopup from "../ConfirmationPopup";
-import { SegmentGroup, Segment } from "semantic-ui-react";
 
+
+import ConfirmationPopup from "../ConfirmationPopup";
 const MainForm = () => {
   const totalNumberOfForms = 16;
   const [formStates, setFormStates] = useState({
@@ -84,11 +85,11 @@ const MainForm = () => {
       case 5:
         return (
           <Page5
-          nextStep={nextStep}
-          setFormStates={setFormStates}
-          prevStep={prevStep}
-          cancelApplication={cancelApplication}
-          setCancel={setCancelPopupOpen}
+            nextStep={nextStep}
+            setFormStates={setFormStates}
+            prevStep={prevStep}
+            cancelApplication={cancelApplication}
+            setCancel={setCancelPopupOpen}
           />
         );
       case 6:
@@ -103,6 +104,26 @@ const MainForm = () => {
         );
       case 7:
         return (
+          <Page7
+            nextStep={nextStep}
+            setFormStates={setFormStates}
+            prevStep={prevStep}
+            cancelApplication={cancelApplication}
+            setCancel={setCancelPopupOpen}
+          />
+        );
+      case 8:
+        return (
+          <Page8
+            nextStep={nextStep}
+            setFormStates={setFormStates}
+            prevStep={prevStep}
+            cancelApplication={cancelApplication}
+            setCancel={setCancelPopupOpen}
+          />
+        );
+      case 9:
+        return (
           <Page9
             nextStep={nextStep}
             prevStep={prevStep}
@@ -110,7 +131,7 @@ const MainForm = () => {
             prevStep={prevStep}
           />
         );
-      case 8:
+      case 10:
         return (
           <Page10
             nextStep={nextStep}
@@ -119,7 +140,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 9:
+      case 11:
         return (
           <Page11
             nextStep={nextStep}
@@ -128,7 +149,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 10:
+      case 12:
         return (
           <Page12
             nextStep={nextStep}
@@ -137,7 +158,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 11:
+      case 13:
         return (
           <Page13
             nextStep={nextStep}
@@ -147,7 +168,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 12:
+      case 14:
         return (
           <Page14
             nextStep={nextStep}
@@ -157,7 +178,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 13:
+      case 15:
         return <SampleSubmitForm formStates={formStates} />;
       default:
         return <h1>Page: {formStates.step}</h1>;
