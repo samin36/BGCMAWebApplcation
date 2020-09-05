@@ -18,17 +18,17 @@ import {
   //zipCodeRegex,
 } from "../../Regex/regex";
 import {
-    paragraph1,
-    redText,
-    section2Q,
-    paragraph3,
-    paragraph4
+  paragraph1,
+  redText,
+  section2Q,
+  paragraph3,
+  paragraph4,
 } from "../../PageText/page12text";
 /**
  * Pass in prevStep if the page number >= 1
  * Notes: <hr> to horizonatal line
  */
-const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
+const Page12 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
   const pageNo = 12; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -45,6 +45,11 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   };
 
   const goToPrevPage = (values) => {
+    if (localStorage.getItem(`page${pageNo}`)) {
+      let currPage = JSON.parse(localStorage.getItem(`page${pageNo}`));
+      currPage["values"] = values;
+      localStorage.setItem(`page${pageNo}`, JSON.stringify(currPage));
+    }
     updateFormState(values);
     prevStep();
   };
@@ -100,10 +105,10 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
     DPFK: yup.string().required("You must select either Yes or No."),
   });
 
-//   const validationSchema = yup
-//     .object()
-//     .concat(section1ValidationSchema)
-//     .concat(section2ValidationSchema);
+  const validationSchema = yup
+    .object()
+    .concat(section1ValidationSchema)
+    .concat(section2ValidationSchema);
 
   return (
     <Formik
@@ -125,7 +130,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
         isSubmitting,
         setFieldValue,
       }) => (
-        <Container textAlign="center" text>
+        <Container textAlign="center" fluid style={{ padding: "0 10em" }}>
           {/*JSON.stringify(values, null, 2)*/}
           <Header textAlign="center" as="h2">
             Georgia Division of Family and Children Services Afterschool Care
@@ -490,168 +495,139 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 </Segment>
               </Grid.Row>
             </Grid.Column>
-            <Divider hidden/>
-            <Header as="h4" textAlign = "left">
-                {redText}
+            <Divider hidden />
+            <Header as="h4" textAlign="left">
+              {redText}
             </Header>
-            <Divider horizontal content= "Section 2"/>
-            <Header as="h3" textAlign = "left">
-                {section2Q}
+            <Divider horizontal content="Section 2" />
+            <Header as="h3" textAlign="left">
+              {section2Q}
             </Header>
             <Grid.Column>
               <Grid.Row>
                 <Segment textAlign="left" size="big">
                   <Form.Group>
-                    <h4>
-                      A. Temporary Assistance for Needy Families (TANF)
-                      {" "}
-                    </h4>
+                    <h4>A. Temporary Assistance for Needy Families (TANF) </h4>
                     <Icon name="asterisk" color="red" size="small" corner />
                     <Form.Radio
                       name="ATANF"
                       value="Yes"
                       label="Yes"
                       onBlur={handleBlur}
-                      onChange={(_, { value }) =>
-                        setFieldValue("ATANF", value)
-                      }
+                      onChange={(_, { value }) => setFieldValue("ATANF", value)}
                       checked={values.ATANF === "Yes"}
-                      error={
-                        touched.ATANF && errors.ATANF !== undefined
-                      }
+                      error={touched.ATANF && errors.ATANF !== undefined}
                     />
                     <Form.Radio
                       name="ATANF"
                       value="No"
                       label="No"
                       onBlur={handleBlur}
-                      onChange={(_, { value }) =>
-                        setFieldValue("ATANF", value)
-                      }
+                      onChange={(_, { value }) => setFieldValue("ATANF", value)}
                       checked={values.ATANF === "No"}
-                      error={
-                        touched.ATANF && errors.ATANF !== undefined
-                      }
+                      error={touched.ATANF && errors.ATANF !== undefined}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <h4>B. Supplemental Nutrition Assistance Program (SNAP) (also known as Food Stamps)
-                        {" "} </h4>
+                    <h4>
+                      B. Supplemental Nutrition Assistance Program (SNAP) (also
+                      known as Food Stamps){" "}
+                    </h4>
                     <Icon name="asterisk" color="red" size="small" corner />
                     <Form.Radio
                       name="BSNAP"
                       value="Yes"
                       label="Yes"
                       onBlur={handleBlur}
-                      onChange={(_, { value }) =>
-                        setFieldValue("BSNAP", value)
-                      }
+                      onChange={(_, { value }) => setFieldValue("BSNAP", value)}
                       checked={values.BSNAP === "Yes"}
-                      error={
-                        touched.BSNAP && errors.BSNAP !== undefined
-                      }
+                      error={touched.BSNAP && errors.BSNAP !== undefined}
                     />
                     <Form.Radio
                       name="BSNAP"
                       value="No"
                       label="No"
                       onBlur={handleBlur}
-                      onChange={(_, { value }) =>
-                        setFieldValue("BSNAP", value)
-                      }
+                      onChange={(_, { value }) => setFieldValue("BSNAP", value)}
                       checked={values.BSNAP === "No"}
-                      error={
-                        touched.BSNAP && errors.BSNAP !== undefined
-                      }
+                      error={touched.BSNAP && errors.BSNAP !== undefined}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <h4>
-                      C. Medicaid or Social Security Income (SSI){" "}
-                    </h4>
+                    <h4>C. Medicaid or Social Security Income (SSI) </h4>
                     <Icon name="asterisk" color="red" size="small" corner />
                     <Form.Radio
                       name="CSSI"
                       value="Yes"
                       label="Yes"
                       onBlur={handleBlur}
-                      onChange={(_, { value }) =>
-                        setFieldValue("CSSI", value)
-                      }
+                      onChange={(_, { value }) => setFieldValue("CSSI", value)}
                       checked={values.CSSI === "Yes"}
-                      error={
-                        touched.CSSI &&
-                        errors.CSSI !== undefined
-                      }
+                      error={touched.CSSI && errors.CSSI !== undefined}
                     />
                     <Form.Radio
                       name="CSSI"
                       value="No"
                       label="No"
                       onBlur={handleBlur}
-                      onChange={(_, { value }) =>
-                        setFieldValue("CSSI", value)
-                      }
+                      onChange={(_, { value }) => setFieldValue("CSSI", value)}
                       checked={values.CSSI === "No"}
-                      error={
-                        touched.CSSI &&
-                        errors.CSSI !== undefined
-                      }
+                      error={touched.CSSI && errors.CSSI !== undefined}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <h4>
-                      D. Peachcare for Kids{" "}
-                    </h4>
+                    <h4>D. Peachcare for Kids </h4>
                     <Icon name="asterisk" color="red" size="small" corner />
                     <Form.Radio
                       name="DPFK"
                       value="Yes"
                       label="Yes"
                       onBlur={handleBlur}
-                      onChange={(_, { value }) =>
-                        setFieldValue("DPFK", value)
-                      }
+                      onChange={(_, { value }) => setFieldValue("DPFK", value)}
                       checked={values.DPFK === "Yes"}
-                      error={
-                        touched.DPFK &&
-                        errors.DPFK !== undefined
-                      }
+                      error={touched.DPFK && errors.DPFK !== undefined}
                     />
                     <Form.Radio
                       name="DPFK"
                       value="No"
                       label="No"
                       onBlur={handleBlur}
-                      onChange={(_, { value }) =>
-                        setFieldValue("DPFK", value)
-                      }
+                      onChange={(_, { value }) => setFieldValue("DPFK", value)}
                       checked={values.DPFK === "No"}
-                      error={
-                        touched.DPFK &&
-                        errors.DPFK !== undefined
-                      }
+                      error={touched.DPFK && errors.DPFK !== undefined}
                     />
                   </Form.Group>
                 </Segment>
               </Grid.Row>
             </Grid.Column>
-            
-            <Header as="h4"textAlign="left">
-                {paragraph3}
-                {paragraph4}
+
+            <Header as="h4" textAlign="left">
+              {paragraph3}
+              {paragraph4}
             </Header>
-            <hr/>
-            <Form.Group widths="equal">
+            <hr />
+            <Form.Group>
               <Form.Button
-                onClick={goToPrevPage}
+                size="large"
+                onClick={() => goToPrevPage(values)}
                 primary
                 floated="left"
                 disabled={isSubmitting}
                 icon="arrow left"
                 style={{ padding: ".75em 2em" }}
+                width={12}
               />
               <Form.Button
+                size="large"
+                onClick={() => setCancel(true)}
+                disabled={isSubmitting}
+                content="Cancel"
+                style={{ padding: ".75em 2em" }}
+                color="red"
+                width={2}
+              />
+              <Form.Button
+                size="large"
                 type="submit"
                 onClick={handleSubmit}
                 primary
@@ -659,6 +635,7 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
                 disabled={isSubmitting}
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}
+                width={2}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />
@@ -669,4 +646,4 @@ const FormTemplate = ({ nextStep, prevStep, setFormStates }) => {
   );
 };
 
-export default FormTemplate;
+export default Page12;
