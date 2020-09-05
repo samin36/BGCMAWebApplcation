@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
+import { useHistory } from "react-router-dom";
 
 import Page5 from "./Page5";
 import Page6 from "./Page6";
 import Page13 from "./Page13";
 import Page14 from "./Page14";
+import Page9 from "/Page9";
+import Page10 from "./Page10";
 import SampleSubmitForm from "./SampleSubmitForm";
 
 import ConfirmationPopup from "../ConfirmationPopup";
@@ -75,16 +79,17 @@ const MainForm = () => {
 
   const renderForm = () => {
     switch (formStates.step) {
-      case 5:
+      case 1:
         return (
           <Page5
-            nextStep={nextStep}
-            setFormStates={setFormStates}
-            prevStep={prevStep}
-            setCancel={setCancelPopupOpen}
+          nextStep={nextStep}
+          setFormStates={setFormStates}
+          prevStep={prevStep}
+          cancelApplication={cancelApplication}
+          setCancel={setCancelPopupOpen}
           />
         );
-      case 6:
+      case 2:
         return (
           <Page6
             nextStep={nextStep}
@@ -94,7 +99,24 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 7:
+      case 3:
+        return (
+          <Page9
+            nextStep={nextStep}
+            prevStep={prevStep}
+            setFormStates={setFormStates}
+          />
+        );
+      case 4:
+        return (
+          <Page10
+            nextStep={nextStep}
+            setFormStates={setFormStates}
+            prevStep={prevStep}
+            setCancel={setCancelPopupOpen}
+          />
+        );
+      case 5:
         return (
           <Page13
             nextStep={nextStep}
@@ -104,7 +126,7 @@ const MainForm = () => {
             setCancel={setCancelPopupOpen}
           />
         );
-      case 8:
+      case 6:
         return (
           <Page14
             nextStep={nextStep}

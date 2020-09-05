@@ -8503,9 +8503,15 @@ prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
     react-is "^16.8.1"
 
 property-expr@^2.0.2:
+<<<<<<< HEAD
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/property-expr/-/property-expr-2.0.3.tgz#0a3fce936515da358aca0b74d5844a3dc34139bd"
   integrity sha512-TEMKBo6s4gZUKmNYwaMkS2JdDxdWgUijW/U/jLAOHVyLZfU1KHXv+mC1J9gkfGOr8532XHqMJytko1lSjc0kmw==
+=======
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/property-expr/-/property-expr-2.0.4.tgz#37b925478e58965031bb612ec5b3260f8241e910"
+  integrity sha512-sFPkHQjVKheDNnPvotjQmm3KD3uk1fWKUN7CrpdbwmUx3CrG3QiM8QpTSimvig5vTXmTvjz7+TDvXOI9+4rkcg==
+>>>>>>> origin/Sprint-1-FormPages-9-10
 
 proxy-addr@~2.0.5:
   version "2.0.6"
