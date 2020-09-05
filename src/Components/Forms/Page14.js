@@ -555,17 +555,19 @@ const Page14 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
                 floated="left"
                 disabled={isSubmitting}
                 icon="arrow left"
+                content={`Page ${pageNo - 1}`}
+                labelPosition="left"
                 style={{ padding: ".75em 2em" }}
-                width={12}
+                width={4}
               />
               <Form.Button
                 size="large"
-                onClick={() => setCancel(true)}
                 disabled={isSubmitting}
+                onClick={() => setCancel(true)}
                 content="Cancel"
                 style={{ padding: ".75em 2em" }}
                 color="red"
-                width={2}
+                width={8}
               />
               <Form.Button
                 size="large"
@@ -574,9 +576,9 @@ const Page14 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
                 primary
                 floated="right"
                 disabled={isSubmitting}
-                icon="arrow right"
+                content="Submit"
                 style={{ padding: ".75em 2em" }}
-                width={2}
+                width={4}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />

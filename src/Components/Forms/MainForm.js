@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import Page5 from "./Page5";
@@ -25,13 +24,14 @@ const MainForm = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (localStorage.getItem("step")) {
-      setFormStates((prevState) => {
-        return {
-          ...prevState,
-          step: Number.parseInt(localStorage.getItem("step")),
-        };
-      });
+    if (localStorage.getItem("formStates")) {
+      // setFormStates((prevState) => {
+      //   // return {
+      //   //   ...prevState,
+      //   //   step: Number.parseInt(localStorage.getItem("step")),
+      //   // };
+      // });
+      setFormStates(JSON.parse(localStorage.getItem("formStates")));
     }
   }, []);
 
@@ -42,8 +42,9 @@ const MainForm = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("step", formStates.step);
-  }, [formStates.step]);
+    // localStorage.setItem("step", formStates.step);
+    localStorage.setItem("formStates", JSON.stringify(formStates));
+  }, [formStates]);
 
   const nextStep = () => {
     setFormStates((prevState) => {

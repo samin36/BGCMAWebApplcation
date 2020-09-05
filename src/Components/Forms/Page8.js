@@ -1,9 +1,8 @@
 import React from "react";
-import { Form, Container, Icon, Header } from "semantic-ui-react";
+import { Form, Container, Header } from "semantic-ui-react";
 import * as yup from "yup";
 import { Field, Formik } from "formik";
 import { Persist } from "formik-persist";
-import { dateRegex } from "../../Regex/regex";
 import {
   paragraph1,
   paragraph2,
@@ -166,17 +165,19 @@ const Page8 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
                 floated="left"
                 disabled={isSubmitting}
                 icon="arrow left"
+                content={`Page ${pageNo - 1}`}
+                labelPosition="left"
                 style={{ padding: ".75em 2em" }}
-                width={12}
+                width={4}
               />
               <Form.Button
                 size="large"
-                onClick={() => setCancel(true)}
                 disabled={isSubmitting}
+                onClick={() => setCancel(true)}
                 content="Cancel"
                 style={{ padding: ".75em 2em" }}
                 color="red"
-                width={2}
+                width={8}
               />
               <Form.Button
                 size="large"
@@ -185,9 +186,11 @@ const Page8 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
                 primary
                 floated="right"
                 disabled={isSubmitting}
+                content={`Page ${pageNo + 1}`}
+                labelPosition="right"
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}
-                width={2}
+                width={4}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />

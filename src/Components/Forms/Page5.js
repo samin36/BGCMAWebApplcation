@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Container, Icon, Header } from "semantic-ui-react";
+import { Form, Container, Icon, Header, Label } from "semantic-ui-react";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Persist } from "formik-persist";
@@ -170,19 +170,19 @@ const Page5 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
                 onClick={() => goToPrevPage(values)}
                 primary
                 floated="left"
-                disabled={isSubmitting}
+                disabled
                 icon="arrow left"
                 style={{ padding: ".75em 2em" }}
-                width={12}
+                width={4}
               />
               <Form.Button
                 size="large"
-                onClick={() => setCancel(true)}
                 disabled={isSubmitting}
+                onClick={() => setCancel(true)}
                 content="Cancel"
                 style={{ padding: ".75em 2em" }}
                 color="red"
-                width={2}
+                width={8}
               />
               <Form.Button
                 size="large"
@@ -191,9 +191,11 @@ const Page5 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
                 primary
                 floated="right"
                 disabled={isSubmitting}
+                content={`Page ${pageNo}`}
+                labelPosition="right"
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}
-                width={2}
+                width={4}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />
