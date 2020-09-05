@@ -4,7 +4,11 @@ import MainForm from "./Forms/MainForm";
 
 const NewApplication = () => {
   return (
-    <Container fluid style={{ background: "#EFF2F7" }} textAlign="center">
+    <Container
+      fluid
+      style={{ background: "#EFF2F7", marginBottom: "0em" }}
+      textAlign="center"
+    >
       <Header
         textAlign="center"
         as="h1"
