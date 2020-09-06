@@ -191,7 +191,7 @@ const Page5 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
                 primary
                 floated="right"
                 disabled={isSubmitting}
-                content={`Page ${pageNo}`}
+                content={`Page ${pageNo + 1}`}
                 labelPosition="right"
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}

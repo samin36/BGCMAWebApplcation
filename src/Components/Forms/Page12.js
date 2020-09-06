@@ -605,7 +605,6 @@ const Page12 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
               {paragraph3}
               {paragraph4}
             </Header>
-            <hr />
             <Form.Group>
               <Form.Button
                 size="large"

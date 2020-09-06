@@ -6,7 +6,11 @@ const NewApplication = () => {
   return (
     <Container
       fluid
-      style={{ background: "#EFF2F7", marginBottom: "0em" }}
+      style={{
+        background: "#EFF2F7",
+        marginBottom: "0em",
+        borderBottom: "1px solid #EFF2F7",
+      }}
       textAlign="center"
     >
       <Header

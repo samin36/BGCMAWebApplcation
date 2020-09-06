@@ -144,10 +144,10 @@ const Page14 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
           <Header textAlign="center" as="h1">
             <b>Page 3 of 3 - DFCS AfterSchool Care Program Elgibility Form</b>
           </Header>
-          <Header as="h2" textAlign="left">
+          <Header as="h2" textAlign="center">
             <b>Section 5</b>
           </Header>
-          <Header as="h4" textAlign="left">
+          <Header as="h4" textAlign="center">
             {paragraph1}
           </Header>
           <Header textAlign="center" as="h1">

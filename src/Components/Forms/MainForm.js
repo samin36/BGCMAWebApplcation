@@ -180,7 +180,6 @@ const MainForm = () => {
   };
   return (
     <>
-      <h3>Page: {formStates.step}</h3>
       {renderForm()}
       {cancelPopupOpen && (
         <ConfirmationPopup
