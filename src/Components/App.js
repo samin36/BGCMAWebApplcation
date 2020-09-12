@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBarDesktop from "./NavBarDesktop";
 import Dashboard from "./Dashboard";
 import NewApplication from "./NewApplication";
@@ -10,6 +10,14 @@ import userdata from "../UserData/sampledata";
 
 const App = () => {
   const [dashboardState, dashboardDispatch] = useDashboardReducer(userdata);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("isSessionActive")) {
+      console.log("doesn't exist");
+      localStorage.clear();
+      sessionStorage.setItem("isSessionActive", "true");
+    }
+  }, []);
 
   return (
     <DashboardDispatchContext.Provider value={dashboardDispatch}>
