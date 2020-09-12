@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Container, Icon, Header, Label } from "semantic-ui-react";
+import { Form, Container, Icon, Header } from "semantic-ui-react";
 import * as yup from "yup";
 import { Formik } from "formik";
 import { Persist } from "formik-persist";
