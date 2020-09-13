@@ -39,7 +39,7 @@ const validationSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords do not match"),
 });
 
-function SignUp() {
+const SignUp = () => {
   return (
     <Formik
       initialValues={initialValues}
@@ -186,6 +186,6 @@ function SignUp() {
       )}
     </Formik>
   );
-}
+};
 
 export default SignUp;

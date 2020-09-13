@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import NavBarDesktop from "./NavBarDesktop";
 import Dashboard from "./Dashboard";
 import NewApplication from "./NewApplication";
@@ -10,14 +10,14 @@ import userdata from "../UserData/sampledata";
 import Welcome from "./Welcome";
 import SignUp from "./ParentLoginLogout/SignUp";
 import Login from "./ParentLoginLogout/Login";
+import { ProtectedRoute } from "./ProtectedRoute";
+import PageNotFound from "./PageNotFound";
 
 const App = () => {
   const [dashboardState, dashboardDispatch] = useDashboardReducer(userdata);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     if (!sessionStorage.getItem("isSessionActive")) {
-      console.log("doesn't exist");
       localStorage.clear();
       sessionStorage.setItem("isSessionActive", "true");
     }
@@ -27,13 +27,39 @@ const App = () => {
     <DashboardDispatchContext.Provider value={dashboardDispatch}>
       <DashboardStateContext.Provider value={dashboardState}>
         <Router>
-          {isLoggedIn && <NavBarDesktop />}
+          <NavBarDesktop />
           <Switch>
-            <Route exact path="/" component={Welcome} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/newapplication" component={NewApplication} />
+            <ProtectedRoute
+              exact
+              path="/dashboard"
+              component={Dashboard}
+              isWelcomeSignUpOrLogin={false}
+            />
+            <ProtectedRoute
+              exact
+              path="/newapplication"
+              component={NewApplication}
+              isWelcomeSignUpOrLogin={false}
+            />
+            <ProtectedRoute
+              exact
+              path="/signup"
+              component={SignUp}
+              isWelcomeSignUpOrLogin={true}
+            />
+            <ProtectedRoute
+              exact
+              path="/login"
+              component={Login}
+              isWelcomeSignUpOrLogin={true}
+            />
+            <ProtectedRoute
+              exact
+              path="/"
+              component={Welcome}
+              isWelcomeSignUpOrLogin={true}
+            />
+            <Route path="*" component={PageNotFound} />
           </Switch>
         </Router>
       </DashboardStateContext.Provider>

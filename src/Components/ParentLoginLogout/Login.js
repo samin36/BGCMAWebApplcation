@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Form,
   Container,
@@ -24,14 +23,15 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
-function Login() {
+const Login = () => {
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        alert(`submitted: ${JSON.stringify(values, null, 2)}`);
         setSubmitting(false);
+        sessionStorage.setItem("isAuthenticated", "true");
+        window.location.reload();
       }}
     >
       {({
@@ -104,6 +104,6 @@ function Login() {
       )}
     </Formik>
   );
-}
+};
 
 export default Login;
