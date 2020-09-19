@@ -18,7 +18,12 @@ const NavBarDesktop = () => {
     { key: "contact", text: "Contact Us", icon: "talk" },
   ];
 
-  return (
+  const handleLogout = () => {
+    sessionStorage.clear();
+    window.location.reload();
+  };
+
+  return sessionStorage.getItem("isAuthenticated") ? (
     <Menu
       size="large"
       secondary
@@ -38,12 +43,10 @@ const NavBarDesktop = () => {
       </Menu.Item>
 
       <Menu.Menu position="right" style={{ fontSize: "1.2em" }}>
-        <Menu.Item as={NavLink} to="/">
+        <Menu.Item as={NavLink} to="/dashboard">
           Home
         </Menu.Item>
-        <Menu.Item as={NavLink} to="/logout">
-          Logout
-        </Menu.Item>
+        <Menu.Item onClick={handleLogout}>Logout</Menu.Item>
         <Menu.Item>
           <Dropdown
             trigger={<Icon name="user circle" size="large" />}
@@ -52,7 +55,7 @@ const NavBarDesktop = () => {
         </Menu.Item>
       </Menu.Menu>
     </Menu>
-  );
+  ) : null;
 };
 
 export default NavBarDesktop;
