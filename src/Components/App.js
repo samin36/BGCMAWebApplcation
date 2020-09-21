@@ -16,12 +16,12 @@ import PageNotFound from "./PageNotFound";
 const App = () => {
   const [dashboardState, dashboardDispatch] = useDashboardReducer(userdata);
 
-  useEffect(() => {
-    if (!sessionStorage.getItem("isSessionActive")) {
-      localStorage.clear();
-      sessionStorage.setItem("isSessionActive", "true");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem("isSessionActive")) {
+  //     localStorage.clear();
+  //     sessionStorage.setItem("isSessionActive", "true");
+  //   }
+  // }, []);
 
   return (
     <DashboardDispatchContext.Provider value={dashboardDispatch}>

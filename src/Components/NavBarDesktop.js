@@ -2,13 +2,19 @@ import React from "react";
 import { Menu, Image, Icon, Dropdown } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 
+import firebase from "../Firebase/firebase";
+import useFirebaseUser from "../CustomHooks/useFirebaseUser";
+
 const NavBarDesktop = () => {
+  const user = useFirebaseUser();
+
+  const displayName = user ? user.displayName : "";
   const options = [
     {
       key: "user",
       text: (
         <span>
-          Signed in as <strong>Taylor Smith</strong>
+          Signed in as <strong>{displayName}</strong>
         </span>
       ),
       disabled: true,
@@ -19,8 +25,16 @@ const NavBarDesktop = () => {
   ];
 
   const handleLogout = () => {
-    sessionStorage.clear();
-    window.location.reload();
+    firebase
+      .logout()
+      .then(() => {
+        console.log("Successfully signed out");
+        sessionStorage.clear();
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return sessionStorage.getItem("isAuthenticated") ? (

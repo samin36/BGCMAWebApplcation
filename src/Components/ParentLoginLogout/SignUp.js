@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Form,
@@ -8,8 +8,12 @@ import {
   Divider,
   Header,
 } from "semantic-ui-react";
+import CustomModal from "../CustomModal";
+
 import * as yup from "yup";
 import { Formik } from "formik";
+
+import firebase from "../../Firebase/firebase";
 
 const initialValues = {
   firstName: "",
@@ -40,13 +44,48 @@ const validationSchema = yup.object().shape({
 });
 
 const SignUp = () => {
+  const [signUpError, setSignUpError] = useState(null);
+
+  firebase.authChange((user) => {
+    if (user) {
+      console.log(user);
+      sessionStorage.setItem("isAuthenticated", "true");
+      window.location.reload();
+    } else {
+      sessionStorage.clear();
+    }
+  });
+
+  const onSignUp = async (
+    { firstName, lastName, emailAddress, password },
+    setSubmitting
+  ) => {
+    try {
+      const resp = await firebase.register(
+        emailAddress,
+        password,
+        firstName,
+        lastName
+      );
+      console.log("successfully registered user: ", resp);
+      setSubmitting(false);
+    } catch (err) {
+      setSignUpError(err.message);
+      setSubmitting(false);
+    }
+  };
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        alert(`submitted: ${JSON.stringify(values, null, 2)}`);
-        setSubmitting(false);
+        const { firstName, lastName, emailAddress, password } = values;
+        onSignUp(
+          { firstName, lastName, emailAddress, password },
+          setSubmitting
+        );
+        // setSubmitting(false);
       }}
     >
       {({
@@ -179,8 +218,16 @@ const SignUp = () => {
                 disabled={isSubmitting}
                 content="Sign Up"
                 style={{ padding: ".75em 2em" }}
+                loading={isSubmitting}
               />
             </Form>
+            {signUpError && (
+              <CustomModal
+                isError={true}
+                bodyMessage={signUpError}
+                okAction={() => setSignUpError(null)}
+              />
+            )}
           </Container>
         </Container>
       )}

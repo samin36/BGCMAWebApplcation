@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   Container,
@@ -7,8 +7,11 @@ import {
   Divider,
   Header,
 } from "semantic-ui-react";
+import CustomModal from "../CustomModal";
 import * as yup from "yup";
 import { Formik } from "formik";
+
+import firebase from "../../Firebase/firebase";
 
 const initialValues = {
   emailAddress: "",
@@ -24,14 +27,38 @@ const validationSchema = yup.object().shape({
 });
 
 const Login = () => {
+  const [loginError, setLoginError] = useState(null);
+
+  firebase.authChange((user) => {
+    if (user) {
+      console.log(user);
+      sessionStorage.setItem("isAuthenticated", "true");
+      window.location.reload();
+    } else {
+      sessionStorage.clear();
+    }
+  });
+
+  const onLogin = async ({ emailAddress, password }, setSubmitting) => {
+    try {
+      const resp = await firebase.login(emailAddress, password);
+      console.log("successfully logged in user: ", resp);
+      setSubmitting(false);
+    } catch (err) {
+      setLoginError(err.message);
+      setSubmitting(false);
+    }
+  };
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(false);
-        sessionStorage.setItem("isAuthenticated", "true");
-        window.location.reload();
+        const { emailAddress, password } = values;
+        onLogin({ emailAddress, password }, setSubmitting);
+        // setSubmitting(false);
+        // sessionStorage.setItem("isAuthenticated", "true");
+        // window.location.reload();
       }}
     >
       {({
@@ -99,6 +126,13 @@ const Login = () => {
                 style={{ padding: ".75em 2em" }}
               />
             </Form>
+            {loginError && (
+              <CustomModal
+                isError={true}
+                bodyMessage={loginError}
+                okAction={() => setLoginError(null)}
+              />
+            )}
           </Container>
         </Container>
       )}
