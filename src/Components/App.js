@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import NavBarDesktop from "./NavBarDesktop";
 import Dashboard from "./Dashboard";
 import NewApplication from "./NewApplication";
@@ -18,26 +18,6 @@ import useFirebaseUser from "../CustomHooks/useFirebaseUser";
 const App = () => {
   const [dashboardState, dashboardDispatch] = useDashboardReducer(userdata);
   const user = useFirebaseUser();
-
-  // useEffect(() => {
-  //   firebase.authChange((user) => {
-  //     if (user) {
-  //       const isAuthenticated = JSON.parse(
-  //         sessionStorage.getItem("isAuthenticated")
-  //       );
-  //       if (!isAuthenticated || isAuthenticated === false) {
-  //         firebase
-  //           .logout()
-  //           .then(() => {
-  //             console.log("Session Timeout");
-  //           })
-  //           .catch((err) => {
-  //             console.error("Error handling session timeout");
-  //           });
-  //       }
-  //     }
-  //   });
-  // }, []);
 
   return (
     <DashboardDispatchContext.Provider value={dashboardDispatch}>

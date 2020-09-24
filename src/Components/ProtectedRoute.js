@@ -30,6 +30,8 @@ export const ProtectedRoute = ({
             <Component {...props} />
           );
         } else {
+          console.log("not null and not isWelcomeSignUpOrLogin");
+          console.log(props);
           return user !== null ? <Component {...props} /> : <Redirect to="/" />;
         }
       }}

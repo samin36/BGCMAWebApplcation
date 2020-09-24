@@ -44,16 +44,52 @@ class Firebase {
     });
   }
 
-  async uploadChildForm(childFirstName, childLastName, childFormData, uid) {
+  async uploadChildForm(
+    childFirstName,
+    childLastName,
+    childFormData,
+    parentId
+  ) {
     //TODO: Add rule to check if childFirstName and childLastName are non-null
-    const collectionName = `${childFirstName}${childLastName}`;
-    const documentName = `${collectionName}FormData`;
+    // const collectionName = `${childFirstName}${childLastName}`;
+    // const documentName = `${collectionName}FormData`;
+    // await this.firestore
+    //   .collection("parents")
+    //   .doc(uid)
+    //   .collection(collectionName)
+    //   .doc(documentName)
+    //   .set(childFormData);
+
+    const newChildRef = this.firestore
+      .collection("parents")
+      .doc(parentId)
+      .collection("Children")
+      .doc();
+
+    const metaData = {
+      //Assume that the parent completed the entire application
+      applicationStatus: "Submitted",
+      dateSubmitted: firebaseApp.firestore.FieldValue.serverTimestamp(),
+      firstName: childFirstName,
+      lastName: childLastName,
+      childDocRefId: newChildRef.id,
+    };
+
+    await newChildRef.set({
+      metaData: metaData,
+      formData: childFormData,
+    });
+  }
+
+  async testChildrenCollectionRule() {
     await this.firestore
       .collection("parents")
-      .doc(uid)
-      .collection(collectionName)
-      .doc(documentName)
-      .set(childFormData);
+      .doc("QOj4Yi1JlOXblMUvxttpEvkp0iA2")
+      .collection("ShreyAmin")
+      .doc("ShreyAminFormData")
+      .set({
+        securityIssue: "yes",
+      });
   }
 
   logout() {
