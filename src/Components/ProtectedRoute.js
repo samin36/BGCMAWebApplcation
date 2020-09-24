@@ -23,6 +23,12 @@ export const ProtectedRoute = ({
         // } else {
         //   return <Redirect to="/" />;
         // }
+        console.log(
+          "isWelcomeSignUpOrLogin",
+          isWelcomeSignUpOrLogin,
+          " and user begin null is: ",
+          user === null
+        );
         if (isWelcomeSignUpOrLogin) {
           return user !== null ? (
             <Redirect to="/dashboard" />
