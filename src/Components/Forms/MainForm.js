@@ -18,7 +18,6 @@ const MainForm = () => {
   const totalNumberOfForms = 16;
   const [formStates, setFormStates] = useState({
     step: 5,
-    newApplicationDashboardData: {},
   });
   const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
   const history = useHistory();

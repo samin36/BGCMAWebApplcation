@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
 import { DashboardStateContext } from "../../Context/DashboardStateContext";
+import { FirebaseAuthContext } from "../../Context/FirebaseAuthContext";
 import { useHistory } from "react-router-dom";
 import {
   Header,
@@ -11,11 +12,15 @@ import {
   List,
 } from "semantic-ui-react";
 
+import firebase from "../../Firebase/firebase";
+
 const SampleSubmitForm = ({ formStates }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const dashboardDispatch = useContext(DashboardDispatchContext);
   const dashboardState = useContext(DashboardStateContext);
   const history = useHistory();
+
+  const user = useContext(FirebaseAuthContext);
 
   // useEffect(() => {
   //   if (isSubmitting) {
@@ -43,9 +48,28 @@ const SampleSubmitForm = ({ formStates }) => {
 
   useEffect(() => {
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-    }, 2500);
+    const submitFormData = async () => {
+      const parentId = user.uid;
+      console.log(formStates);
+      const childFormData = { ...formStates };
+      delete childFormData.step;
+      console.log(childFormData);
+      const childFirstName = childFormData.page6.childFirstName;
+      const childLastName = childFormData.page6.childLastName;
+      try {
+        await firebase.uploadChildForm(
+          childFirstName,
+          childLastName,
+          childFormData,
+          parentId
+        );
+        setIsSubmitting(false);
+      } catch (err) {
+        console.log("Error submitting form data: ", err);
+        setIsSubmitting(false);
+      }
+    };
+    submitFormData();
   }, []);
 
   return (

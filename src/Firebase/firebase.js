@@ -18,11 +18,42 @@ class Firebase {
   }
 
   async register(email, password, firstName, lastName) {
-    console.log(email, password, firstName, lastName);
-    await this.auth.createUserWithEmailAndPassword(email, password);
-    return this.auth.currentUser.updateProfile({
-      displayName: `${firstName} ${lastName}`,
+    try {
+      await this.auth.createUserWithEmailAndPassword(email, password);
+      await this.auth.currentUser.updateProfile({
+        displayName: `${firstName} ${lastName}`,
+      });
+      console.log("parent registered");
+      await this.addParentToDatabase(
+        firstName,
+        lastName,
+        email,
+        this.auth.currentUser.uid
+      );
+      console.log("parent added to database");
+    } catch (err) {
+      console.error("error in registration: ", err.message);
+    }
+  }
+
+  async addParentToDatabase(firstName, lastName, email, uid) {
+    await this.firestore.collection("parents").doc(uid).set({
+      firstName,
+      lastName,
+      email,
     });
+  }
+
+  async uploadChildForm(childFirstName, childLastName, childFormData, uid) {
+    //TODO: Add rule to check if childFirstName and childLastName are non-null
+    const collectionName = `${childFirstName}${childLastName}`;
+    const documentName = `${collectionName}FormData`;
+    await this.firestore
+      .collection("parents")
+      .doc(uid)
+      .collection(collectionName)
+      .doc(documentName)
+      .set(childFormData);
   }
 
   logout() {

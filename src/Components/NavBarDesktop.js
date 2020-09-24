@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Menu, Image, Icon, Dropdown } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
-
+import { FirebaseAuthContext } from "../Context/FirebaseAuthContext";
 import firebase from "../Firebase/firebase";
-import useFirebaseUser from "../CustomHooks/useFirebaseUser";
+// import useFirebaseUser from "../CustomHooks/useFirebaseUser";
 
 const NavBarDesktop = () => {
-  const user = useFirebaseUser();
+  // const user = useFirebaseUser();
+  const user = useContext(FirebaseAuthContext);
 
   const displayName = user ? user.displayName : "";
   const options = [
@@ -29,7 +30,6 @@ const NavBarDesktop = () => {
       .logout()
       .then(() => {
         console.log("Successfully signed out");
-        sessionStorage.clear();
         window.location.reload();
       })
       .catch((err) => {
@@ -37,7 +37,7 @@ const NavBarDesktop = () => {
       });
   };
 
-  return sessionStorage.getItem("isAuthenticated") ? (
+  return user !== null ? (
     <Menu
       size="large"
       secondary

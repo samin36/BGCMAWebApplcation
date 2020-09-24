@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
+
+import { FirebaseAuthContext } from "../Context/FirebaseAuthContext";
 
 export const ProtectedRoute = ({
   isWelcomeSignUpOrLogin,
   component: Component,
   ...rest
 }) => {
+  const user = useContext(FirebaseAuthContext);
+
   return (
     <Route
       {...rest}
       render={(props) => {
-        const isAuthenticated = sessionStorage.getItem("isAuthenticated");
         // if (isAuthenticated) {
         //   return isWelcomeSignUpOrLogin ? (
         //     <Redirect to="/dashboard" />
@@ -21,17 +24,13 @@ export const ProtectedRoute = ({
         //   return <Redirect to="/" />;
         // }
         if (isWelcomeSignUpOrLogin) {
-          return isAuthenticated ? (
+          return user !== null ? (
             <Redirect to="/dashboard" />
           ) : (
             <Component {...props} />
           );
         } else {
-          return isAuthenticated ? (
-            <Component {...props} />
-          ) : (
-            <Redirect to="/" />
-          );
+          return user !== null ? <Component {...props} /> : <Redirect to="/" />;
         }
       }}
     />

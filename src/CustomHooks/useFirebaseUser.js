@@ -6,6 +6,7 @@ const useFirebaseUser = () => {
 
   useEffect(() => {
     const unsubscribe = firebase.authChange((currUser) => {
+      console.log(user);
       if (currUser) {
         setUser(currUser);
       } else {

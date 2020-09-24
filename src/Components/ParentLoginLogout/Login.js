@@ -29,21 +29,10 @@ const validationSchema = yup.object().shape({
 const Login = () => {
   const [loginError, setLoginError] = useState(null);
 
-  firebase.authChange((user) => {
-    if (user) {
-      console.log(user);
-      sessionStorage.setItem("isAuthenticated", "true");
-      window.location.reload();
-    } else {
-      sessionStorage.clear();
-    }
-  });
-
   const onLogin = async ({ emailAddress, password }, setSubmitting) => {
     try {
       const resp = await firebase.login(emailAddress, password);
       console.log("successfully logged in user: ", resp);
-      setSubmitting(false);
     } catch (err) {
       setLoginError(err.message);
       setSubmitting(false);
@@ -56,9 +45,6 @@ const Login = () => {
       onSubmit={(values, { setSubmitting }) => {
         const { emailAddress, password } = values;
         onLogin({ emailAddress, password }, setSubmitting);
-        // setSubmitting(false);
-        // sessionStorage.setItem("isAuthenticated", "true");
-        // window.location.reload();
       }}
     >
       {({

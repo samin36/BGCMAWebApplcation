@@ -46,29 +46,12 @@ const validationSchema = yup.object().shape({
 const SignUp = () => {
   const [signUpError, setSignUpError] = useState(null);
 
-  firebase.authChange((user) => {
-    if (user) {
-      console.log(user);
-      sessionStorage.setItem("isAuthenticated", "true");
-      window.location.reload();
-    } else {
-      sessionStorage.clear();
-    }
-  });
-
   const onSignUp = async (
     { firstName, lastName, emailAddress, password },
     setSubmitting
   ) => {
     try {
-      const resp = await firebase.register(
-        emailAddress,
-        password,
-        firstName,
-        lastName
-      );
-      console.log("successfully registered user: ", resp);
-      setSubmitting(false);
+      await firebase.register(emailAddress, password, firstName, lastName);
     } catch (err) {
       setSignUpError(err.message);
       setSubmitting(false);
@@ -85,7 +68,6 @@ const SignUp = () => {
           { firstName, lastName, emailAddress, password },
           setSubmitting
         );
-        // setSubmitting(false);
       }}
     >
       {({
