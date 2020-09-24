@@ -29,6 +29,7 @@ export const ProtectedRoute = ({
           " and user begin null is: ",
           user === null
         );
+        console.log(props);
         if (isWelcomeSignUpOrLogin) {
           return user !== null ? (
             <Redirect to="/dashboard" />
@@ -37,7 +38,6 @@ export const ProtectedRoute = ({
           );
         } else {
           console.log("not null and not isWelcomeSignUpOrLogin");
-          console.log(props);
           return user !== null ? <Component {...props} /> : <Redirect to="/" />;
         }
       }}
