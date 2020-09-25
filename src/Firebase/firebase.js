@@ -106,6 +106,10 @@ class Firebase {
       });
   }
 
+  resetPassword(emailAddress) {
+    return this.auth.sendPasswordResetEmail(emailAddress);
+  }
+
   logout() {
     return this.auth.signOut();
   }

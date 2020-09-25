@@ -26,8 +26,18 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
+const passwordResetValidationSchema = yup.object().shape({
+  emailAddress: yup
+    .string()
+    .required("Email is required")
+    .email("Please make sure email is formatted correctly"),
+});
+
 const Login = () => {
   const [loginError, setLoginError] = useState(null);
+  const [resetPasswordError, setResetPasswordError] = useState(null);
+  const [resetPasswordWaiting, setResetPasswordWaiting] = useState(null);
+  const [resetPasswordSuccess, setResetPasswordSuccess] = useState(null);
 
   const onLogin = async ({ emailAddress, password }, setSubmitting) => {
     try {
@@ -39,6 +49,37 @@ const Login = () => {
       setSubmitting(false);
     }
   };
+
+  const handlePasswordReset = (emailAddress) => {
+    passwordResetValidationSchema.isValid({ emailAddress }).then((valid) => {
+      if (!valid) {
+        setResetPasswordError(
+          "Please enter a valid email to reset the password"
+        );
+        setResetPasswordSuccess(null);
+        setResetPasswordWaiting(null);
+      } else {
+        setResetPasswordWaiting("Please wait...");
+        setResetPasswordSuccess(null);
+        setResetPasswordError(null);
+        firebase
+          .resetPassword(emailAddress)
+          .then(() => {
+            setResetPasswordSuccess(
+              "Please follow the instructions sent to your email to reset the password"
+            );
+            setResetPasswordError(null);
+            setResetPasswordWaiting(null);
+          })
+          .catch((error) => {
+            setResetPasswordError(error.message);
+            setResetPasswordSuccess(null);
+            setResetPasswordWaiting(null);
+          });
+      }
+    });
+  };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -56,6 +97,7 @@ const Login = () => {
         handleBlur,
         handleSubmit,
         isSubmitting,
+        isValid,
       }) => (
         <Container
           fluid
@@ -112,15 +154,51 @@ const Login = () => {
                 content="Login"
                 style={{ padding: ".75em 2em" }}
               />
+              <Form.Button
+                size="tiny"
+                onClick={() => handlePasswordReset(values.emailAddress)}
+                basic
+                color="blue"
+                disabled={isSubmitting}
+                content="Forgot Password?"
+                style={{ padding: ".75em 2em" }}
+              />
             </Form>
-            <Header as="h4" textAlign="center" color="blue">
+            {/* <Header
+              as="h4"
+              textAlign="center"
+              color="blue"
+              onClick={console.log("clicked!")}
+            >
               Forgot your password?
-            </Header>
+            </Header> */}
+            <Divider hidden />
             {loginError && (
               <CustomModal
                 isError={true}
                 bodyMessage={loginError}
                 okAction={() => setLoginError(null)}
+              />
+            )}
+            {resetPasswordError && (
+              <CustomModal
+                isError={true}
+                bodyMessage={resetPasswordError}
+                okAction={() => setResetPasswordError(null)}
+              />
+            )}
+            {resetPasswordWaiting && (
+              <CustomModal
+                isInfo={true}
+                bodyMessage={resetPasswordWaiting}
+                okAction={() => setResetPasswordWaiting(null)}
+              />
+            )}
+            {resetPasswordSuccess && (
+              <CustomModal
+                isSuccess={true}
+                bodyMessage={resetPasswordSuccess}
+                okAction={() => setResetPasswordSuccess(null)}
               />
             )}
           </Container>
