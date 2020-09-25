@@ -1,12 +1,53 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Container, Header } from "semantic-ui-react";
 import ApplicationEntries from "./ApplicationEntries";
+import { DashboardDispatchContext } from "../Context/DashboardDispatchContext";
+import firebase from "../Firebase/firebase";
 
 const Dashboard = () => {
+  const dashboardDispatch = useContext(DashboardDispatchContext);
   useEffect(() => {
     setTimeout(() => {
       localStorage.clear();
     }, 1000);
+  }, []);
+
+  const computeAction = (applicationStatus) => {
+    if (applicationStatus === "Incomplete") {
+      return "Edit";
+    } else if (
+      applicationStatus === "Approved" ||
+      applicationStatus === "Pending"
+    ) {
+      return "View";
+    } else {
+      return "Error";
+    }
+  };
+
+  useEffect(() => {
+    const getMetaData = async () => {
+      let parentId = JSON.parse(sessionStorage.getItem("authenticatedUser"));
+      parentId = parentId.uid;
+      try {
+        const allChildren = await firebase.getMetaDataForAllChildren(parentId);
+        const allMetaData = allChildren.docs.map((doc) => {
+          const originalMetaData = doc.data().metaData;
+          const modifiedMetaData = {
+            name: `${originalMetaData.firstName} ${originalMetaData.lastName}`,
+            id: originalMetaData.childDocRefId,
+            date: originalMetaData.dateSubmitted,
+            applicationStatus: originalMetaData.applicationStatus,
+            action: computeAction(originalMetaData.applicationStatus),
+          };
+          return modifiedMetaData;
+        });
+        dashboardDispatch({ type: "UPDATE", metaData: allMetaData });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getMetaData();
   }, []);
 
   return (

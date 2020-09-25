@@ -52,6 +52,7 @@ const SignUp = () => {
   ) => {
     try {
       await firebase.register(emailAddress, password, firstName, lastName);
+      window.location.reload();
     } catch (err) {
       setSignUpError(err.message);
       setSubmitting(false);

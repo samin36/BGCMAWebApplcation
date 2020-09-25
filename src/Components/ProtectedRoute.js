@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { FirebaseAuthContext } from "../Context/FirebaseAuthContext";
-
+import useFirebaseUser from "../CustomHooks/useFirebaseUser";
 export const ProtectedRoute = ({
   isWelcomeSignUpOrLogin,
   component: Component,
   ...rest
 }) => {
-  const user = useContext(FirebaseAuthContext);
+  const user = useFirebaseUser();
 
   return (
     <Route
@@ -23,13 +22,6 @@ export const ProtectedRoute = ({
         // } else {
         //   return <Redirect to="/" />;
         // }
-        console.log(
-          "isWelcomeSignUpOrLogin",
-          isWelcomeSignUpOrLogin,
-          " and user begin null is: ",
-          user === null
-        );
-        console.log(props);
         if (isWelcomeSignUpOrLogin) {
           return user !== null ? (
             <Redirect to="/dashboard" />
@@ -37,7 +29,6 @@ export const ProtectedRoute = ({
             <Component {...props} />
           );
         } else {
-          console.log("not null and not isWelcomeSignUpOrLogin");
           return user !== null ? <Component {...props} /> : <Redirect to="/" />;
         }
       }}

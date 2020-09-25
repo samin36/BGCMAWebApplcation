@@ -2,6 +2,9 @@ import * as firebaseApp from "firebase/app";
 
 import firebaseConfig from "./config";
 
+import { getFormattedDate } from "./firebaseutils";
+import _ from "lodash";
+
 import "firebase/auth";
 import "firebase/firebase-firestore";
 // Initialize Firebase
@@ -68,8 +71,10 @@ class Firebase {
 
     const metaData = {
       //Assume that the parent completed the entire application
-      applicationStatus: "Submitted",
-      dateSubmitted: firebaseApp.firestore.FieldValue.serverTimestamp(),
+      applicationStatus: _.sample(["Approved", "Pending", "Incomplete"]),
+      dateSubmitted: getFormattedDate(
+        firebaseApp.firestore.Timestamp.now().toDate()
+      ),
       firstName: childFirstName,
       lastName: childLastName,
       childDocRefId: newChildRef.id,
@@ -79,6 +84,15 @@ class Firebase {
       metaData: metaData,
       formData: childFormData,
     });
+  }
+
+  getMetaDataForAllChildren(parentId) {
+    const allChildren = this.firestore
+      .collection("parents")
+      .doc(parentId)
+      .collection("Children")
+      .get();
+    return allChildren;
   }
 
   async testChildrenCollectionRule() {

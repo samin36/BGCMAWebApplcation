@@ -6,19 +6,8 @@ import { DashboardDispatchContext } from "../Context/DashboardDispatchContext";
 import { NavLink } from "react-router-dom";
 
 const ApplicationEntries = () => {
-  // const { userData, setUserData } = useContext(UserDataContext);
-  // const [state, dispatch] = React.useReducer(dataReducer, {
-  //   column: null,
-  //   direction: null,
-  //   data: userData,
-  // });
   const dashboardState = useContext(DashboardStateContext);
   const dashboardDispatch = useContext(DashboardDispatchContext);
-
-  // useEffect(() => {
-  //   // setUserData(state.data);
-  //   //Update the database
-  // }, [dashboardState]);
 
   return (
     <>

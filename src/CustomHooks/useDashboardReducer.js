@@ -26,43 +26,10 @@ const useDashboardReducer = (initialData) => {
             (application) => application.id !== action.id
           ),
         };
-      case "NEW_APPLICATION":
-        const newUserId = state.data.length + 1;
-        const newApplication = action.newApplication;
-        newApplication.id = newUserId;
-        let newData = [...state.data, newApplication];
-        if (state.column && state.direction) {
-          newData = _.orderBy(newData, [state.column], [state.direction]);
-        }
+      case "UPDATE":
         return {
           ...state,
-          data: newData,
-        };
-      case "NEW_APPLICATIONS":
-        const currUserId = state.data.length + 1;
-        const { page1, page2 } = action.newApplication;
-        const application1 = {
-          name: `${page1.childFirstName} ${page1.childLastName}`,
-          date: page1.date,
-          action: page1.actionType,
-          applicationStatus: page1.applicationStatus,
-        };
-        const application2 = {
-          name: `${page2.childFirstName} ${page2.childLastName}`,
-          date: page2.date,
-          action: page2.actionType,
-          applicationStatus: page2.applicationStatus,
-        };
-
-        application1.id = currUserId + 1;
-        application2.id = currUserId + 2;
-        let newDatas = [...state.data, application1, application2];
-        if (state.column && state.direction) {
-          newDatas = _.orderBy(newDatas, [state.column], [state.direction]);
-        }
-        return {
-          ...state,
-          data: newDatas,
+          data: action.metaData,
         };
       default:
         throw new Error("dashboard reducer error");

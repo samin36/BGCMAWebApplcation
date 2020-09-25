@@ -28,7 +28,7 @@ const ApplicationEntry = ({ child }) => {
         <Icon
           size="large"
           name="trash alternate"
-          disabled={child.action === "View"}
+          disabled={child.action !== "Edit"}
           onClick={() => deleteApplication()}
           style={{ cursor: `${child.action === "Edit" && "pointer"}` }}
         />

@@ -33,6 +33,7 @@ const Login = () => {
     try {
       const resp = await firebase.login(emailAddress, password);
       console.log("successfully logged in user: ", resp);
+      window.location.reload();
     } catch (err) {
       setLoginError(err.message);
       setSubmitting(false);
@@ -112,6 +113,9 @@ const Login = () => {
                 style={{ padding: ".75em 2em" }}
               />
             </Form>
+            <Header as="h4" textAlign="center" color="blue">
+              Forgot your password?
+            </Header>
             {loginError && (
               <CustomModal
                 isError={true}
