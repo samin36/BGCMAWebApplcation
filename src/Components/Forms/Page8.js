@@ -23,6 +23,8 @@ const Page8 = ({
   setFormStates,
   setCancel,
   initialData,
+  isView,
+  saveAndExitApplication,
 }) => {
   const pageNo = 8; //Define the page number here
   const updateFormState = (values) => {
@@ -32,6 +34,11 @@ const Page8 = ({
         [`page${pageNo}`]: values,
       };
     });
+  };
+
+  const saveAndExit = (values) => {
+    updateFormState(values);
+    saveAndExitApplication();
   };
 
   const goToNextPage = (values) => {
@@ -176,10 +183,8 @@ const Page8 = ({
                 floated="left"
                 disabled={isSubmitting}
                 icon="arrow left"
-                content={`Page ${pageNo - 1}`}
-                labelPosition="left"
                 style={{ padding: ".75em 2em" }}
-                width={4}
+                width={!isView ? 6 : 4}
               />
               <Form.Button
                 size="large"
@@ -188,8 +193,20 @@ const Page8 = ({
                 content="Cancel"
                 style={{ padding: ".75em 2em" }}
                 color="red"
-                width={8}
+                width={!isView ? 2 : 8}
               />
+              {!isView && (
+                <Form.Button
+                  size="large"
+                  type="submit"
+                  disabled={isSubmitting}
+                  onClick={() => saveAndExit(values)}
+                  content="Save & Exit"
+                  style={{ padding: ".75em 2em" }}
+                  color="green"
+                  width={2}
+                />
+              )}
               <Form.Button
                 size="large"
                 type="submit"
@@ -201,7 +218,7 @@ const Page8 = ({
                 labelPosition="right"
                 icon="arrow right"
                 style={{ padding: ".75em 2em" }}
-                width={4}
+                width={!isView ? 6 : 4}
               />
             </Form.Group>
             <Persist name={`page${pageNo}`} />

@@ -50,8 +50,8 @@ const ApplicationEntries = () => {
         </Table.Header>
         <Table.Body>
           {dashboardState.data &&
-            dashboardState.data.map((child, index) => (
-              <ApplicationEntry key={index} child={child} />
+            dashboardState.data.map((child) => (
+              <ApplicationEntry key={child.id} child={child} />
             ))}
         </Table.Body>
         <Table.Footer fullWidth>

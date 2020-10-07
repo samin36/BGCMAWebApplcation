@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 
 import Page5 from "./Page5";
 import Page6 from "./Page6";
@@ -12,8 +11,10 @@ import Page12 from "./Page12";
 import Page13 from "./Page13";
 import Page14 from "./Page14";
 import SampleSubmitForm from "./SampleSubmitForm";
-
 import ConfirmationPopup from "../ConfirmationPopup";
+import SubmissionModal from "../SubmissionModal";
+import { Redirect } from "react-router-dom";
+
 const MainForm = ({ childApplicationId, isView }) => {
   const totalNumberOfForms = 16;
   const [formStates, setFormStates] = useState(() => {
@@ -33,18 +34,13 @@ const MainForm = ({ childApplicationId, isView }) => {
       step: 5,
     };
   });
+  const [saveClicked, setSaveClicked] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
-  const history = useHistory();
 
   useEffect(() => {
     if (localStorage.getItem("formStates")) {
-      // setFormStates((prevState) => {
-      //   // return {
-      //   //   ...prevState,
-      //   //   step: Number.parseInt(localStorage.getItem("step")),
-      //   // };
-      // });
       setFormStates(JSON.parse(localStorage.getItem("formStates")));
     }
   }, []);
@@ -83,7 +79,7 @@ const MainForm = ({ childApplicationId, isView }) => {
 
   const cancelApplication = () => {
     setCancelPopupOpen(false);
-    history.goBack();
+    setRedirect(true);
     setTimeout(() => {
       localStorage.clear();
     }, 1000);
@@ -91,6 +87,69 @@ const MainForm = ({ childApplicationId, isView }) => {
 
   const dontCancelApplication = () => {
     setCancelPopupOpen(false);
+    setRedirect(false);
+  };
+
+  const saveAndExitApplication = () => {
+    // setIsBeingSaved(true);
+    // setTimeout(async () => {
+    //   console.log(formStates);
+    //   // const parentId = user.uid;
+    //   // const childFormData = { ...formStates };
+    //   // delete childFormData.step;
+    //   // const childFirstName = childFormData.page6
+    //   //   ? childFormData.page6.childFirstName
+    //   //   : "";
+    //   // const childLastName = childFormData.page6
+    //   //   ? childFormData.page6.childLastName
+    //   //   : "";
+    //   // const isIncomplete = true;
+    //   // if (childFormData.update) {
+    //   //   const childApplicationId = childFormData.update;
+    //   //   delete childFormData.update;
+    //   //   try {
+    //   //     await firebase.updateChildForm(
+    //   //       childFirstName,
+    //   //       childLastName,
+    //   //       childFormData,
+    //   //       parentId,
+    //   //       childApplicationId,
+    //   //       isIncomplete
+    //   //     );
+    //   //     setTimeout(() => {
+    //   //       localStorage.clear();
+    //   //     }, 1000);
+    //   //     setIsBeingSaved(false);
+    //   //     setRedirect(true);
+    //   //   } catch (err) {
+    //   //     setIsBeingSaved(false);
+    //   //   }
+    //   // } else {
+    //   //   try {
+    //   //     await firebase.uploadChildForm(
+    //   //       childFirstName,
+    //   //       childLastName,
+    //   //       childFormData,
+    //   //       parentId,
+    //   //       isIncomplete
+    //   //     );
+    //   //     setTimeout(() => {
+    //   //       localStorage.clear();
+    //   //     }, 1000);
+    //   //     setIsBeingSaved(false);
+    //   //     setRedirect(true);
+    //   //   } catch (err) {
+    //   //     setIsBeingSaved(false);
+    //   //   }
+    //   // }
+    // }, 3000);
+    setSaveClicked(true);
+    setFormStates((prevState) => {
+      return {
+        ...prevState,
+        step: 15,
+      };
+    });
   };
 
   const renderForm = () => {
@@ -103,6 +162,8 @@ const MainForm = ({ childApplicationId, isView }) => {
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page5 : null}
+            isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 6:
@@ -113,6 +174,8 @@ const MainForm = ({ childApplicationId, isView }) => {
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page6 : null}
+            isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 7:
@@ -123,6 +186,8 @@ const MainForm = ({ childApplicationId, isView }) => {
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page7 : null}
+            isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 8:
@@ -133,6 +198,8 @@ const MainForm = ({ childApplicationId, isView }) => {
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page8 : null}
+            isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 9:
@@ -143,6 +210,8 @@ const MainForm = ({ childApplicationId, isView }) => {
             setFormStates={setFormStates}
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page9 : null}
+            isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 10:
@@ -153,6 +222,8 @@ const MainForm = ({ childApplicationId, isView }) => {
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page10 : null}
+            isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 11:
@@ -163,6 +234,8 @@ const MainForm = ({ childApplicationId, isView }) => {
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page11 : null}
+            isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 12:
@@ -173,6 +246,8 @@ const MainForm = ({ childApplicationId, isView }) => {
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page12 : null}
+            isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 13:
@@ -184,6 +259,8 @@ const MainForm = ({ childApplicationId, isView }) => {
             cancelApplication={cancelApplication}
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page13 : null}
+            isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 14:
@@ -195,10 +272,13 @@ const MainForm = ({ childApplicationId, isView }) => {
             setCancel={setCancelPopupOpen}
             initialData={childApplicationId ? formStates.page14 : null}
             isView={isView}
+            saveAndExitApplication={saveAndExitApplication}
           />
         );
       case 15:
-        return <SampleSubmitForm formStates={formStates} />;
+        return (
+          <SampleSubmitForm formStates={formStates} saveClicked={saveClicked} />
+        );
       default:
         return <h1>Page: {formStates.step}</h1>;
     }
@@ -215,6 +295,7 @@ const MainForm = ({ childApplicationId, isView }) => {
           isOpen={cancelPopupOpen}
         />
       )}
+      {redirect && <Redirect to="/dashboard" />}
     </>
   );
 };

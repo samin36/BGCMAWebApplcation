@@ -13,8 +13,9 @@ import {
 
 import firebase from "../../Firebase/firebase";
 import useFirebaseUser from "../../CustomHooks/useFirebaseUser";
+import SubmissionModal from "../SubmissionModal";
 
-const SampleSubmitForm = ({ formStates }) => {
+const SampleSubmitForm = ({ formStates, saveClicked }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [redirect, setRedirect] = useState(false);
   // const dashboardDispatch = useContext(DashboardDispatchContext);
@@ -53,8 +54,13 @@ const SampleSubmitForm = ({ formStates }) => {
       const parentId = user.uid;
       const childFormData = { ...formStates };
       delete childFormData.step;
-      const childFirstName = childFormData.page6.childFirstName;
-      const childLastName = childFormData.page6.childLastName;
+      const childFirstName = childFormData.page6
+        ? childFormData.page6.childFirstName
+        : "";
+      const childLastName = childFormData.page6
+        ? childFormData.page6.childLastName
+        : "";
+      const isIncomplete = saveClicked;
       if (childFormData.update) {
         const childApplicationId = childFormData.update;
         delete childFormData.update;
@@ -64,7 +70,8 @@ const SampleSubmitForm = ({ formStates }) => {
             childLastName,
             childFormData,
             parentId,
-            childApplicationId
+            childApplicationId,
+            isIncomplete
           );
           setIsSubmitting(false);
           setTimeout(() => {
@@ -80,7 +87,8 @@ const SampleSubmitForm = ({ formStates }) => {
             childFirstName,
             childLastName,
             childFormData,
-            parentId
+            parentId,
+            isIncomplete
           );
           setIsSubmitting(false);
           setTimeout(() => {
@@ -97,25 +105,7 @@ const SampleSubmitForm = ({ formStates }) => {
 
   return !redirect ? (
     isSubmitting ? (
-      <Modal open={isSubmitting} centered dimmer size="small">
-        <Modal.Header>Submitting your form</Modal.Header>
-        <Modal.Content>
-          <Modal.Description>
-            <Header as="h1" textAlign="center">
-              Please wait until your form is submitted
-              <br />
-              <Header.Content>
-                <Icon
-                  name="spinner"
-                  loading={true}
-                  size="large"
-                  color="green"
-                />
-              </Header.Content>
-            </Header>
-          </Modal.Description>
-        </Modal.Content>
-      </Modal>
+      <SubmissionModal isSubmitting={isSubmitting} />
     ) : (
       <Header as="h1">
         Your form has been submitted.

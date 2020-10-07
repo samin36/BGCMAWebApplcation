@@ -51,7 +51,8 @@ class Firebase {
     childFirstName,
     childLastName,
     childFormData,
-    parentId
+    parentId,
+    isIncomplete = false
   ) {
     //TODO: Add rule to check if childFirstName and childLastName are non-null
     const newChildRef = this.firestore
@@ -62,7 +63,7 @@ class Firebase {
 
     const metaData = {
       //Assume that the parent completed the entire application
-      applicationStatus: _.sample(["Approved", "Pending", "Incomplete"]),
+      applicationStatus: isIncomplete ? "Incomplete" : "Pending",
       dateSubmitted: getFormattedDate(
         firebaseApp.firestore.Timestamp.now().toDate()
       ),
@@ -82,7 +83,8 @@ class Firebase {
     childLastName,
     childFormData,
     parentId,
-    childApplicationId
+    childApplicationId,
+    isIncomplete = false
   ) {
     const childRef = this.firestore
       .collection("parents")
@@ -96,6 +98,7 @@ class Firebase {
       ),
       "metaData.firstName": childFirstName,
       "metaData.lastName": childLastName,
+      "metaData.applicationStatus": isIncomplete ? "Incomplete" : "Pending",
       formData: childFormData,
     });
   }
