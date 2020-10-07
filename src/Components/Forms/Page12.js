@@ -28,7 +28,13 @@ import {
  * Pass in prevStep if the page number >= 1
  * Notes: <hr> to horizonatal line
  */
-const Page12 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
+const Page12 = ({
+  nextStep,
+  prevStep,
+  setFormStates,
+  setCancel,
+  initialData,
+}) => {
   const pageNo = 12; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -54,24 +60,29 @@ const Page12 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
     prevStep();
   };
 
-  const initialValues = {
-    youthLastName: "",
-    youthFirstName: "",
-    youthMI: "",
-    youthSSN: "",
-    youthGender: "",
-    documentDate: "",
-    youthFosterCare: "",
-    youthFosterCareEntry: "",
-    youthUSCiti: "",
-    youthGARes: "",
-    youth3CateQuestion: "",
-    youth3CateRadio: "",
-    ATANF: "",
-    BSNAP: "",
-    CSSI: "",
-    DPFK: "",
-  };
+  let initialValues;
+  if (initialData) {
+    initialValues = initialData;
+  } else {
+    initialValues = {
+      youthLastName: "",
+      youthFirstName: "",
+      youthMI: "",
+      youthSSN: "",
+      youthGender: "",
+      documentDate: "",
+      youthFosterCare: "",
+      youthFosterCareEntry: "",
+      youthUSCiti: "",
+      youthGARes: "",
+      youth3CateQuestion: "",
+      youth3CateRadio: "",
+      ATANF: "",
+      BSNAP: "",
+      CSSI: "",
+      DPFK: "",
+    };
+  }
 
   const section1ValidationSchema = yup.object().shape({
     youthLastName: yup.string().required("Child's Last Name is required"),

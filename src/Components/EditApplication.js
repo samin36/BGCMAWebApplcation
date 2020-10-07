@@ -1,8 +1,12 @@
 import React from "react";
 import { Container, Header } from "semantic-ui-react";
 import MainForm from "./Forms/MainForm";
+import { useLocation } from "react-router-dom";
 
-const NewApplication = () => {
+const EditApplication = () => {
+  const location = useLocation();
+  const childApplicationId = location.state.childApplicationId;
+
   return (
     <Container
       fluid
@@ -19,11 +23,11 @@ const NewApplication = () => {
         style={{ color: "#47525E", fontSize: "4em" }}
         dividing
       >
-        New Application
+        Edit Application
       </Header>
-      <MainForm childApplicationId={null} isView={false} />
+      <MainForm childApplicationId={childApplicationId} isView={false} />
     </Container>
   );
 };
 
-export default NewApplication;
+export default EditApplication;

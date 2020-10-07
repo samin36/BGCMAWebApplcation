@@ -55,20 +55,41 @@ const SampleSubmitForm = ({ formStates }) => {
       delete childFormData.step;
       const childFirstName = childFormData.page6.childFirstName;
       const childLastName = childFormData.page6.childLastName;
-      try {
-        await firebase.uploadChildForm(
-          childFirstName,
-          childLastName,
-          childFormData,
-          parentId
-        );
-        setIsSubmitting(false);
-        setTimeout(() => {
-          setRedirect(true);
-        }, 3000);
-      } catch (err) {
-        console.log("Error submitting form data: ", err);
-        setIsSubmitting(false);
+      if (childFormData.update) {
+        const childApplicationId = childFormData.update;
+        delete childFormData.update;
+        try {
+          await firebase.updateChildForm(
+            childFirstName,
+            childLastName,
+            childFormData,
+            parentId,
+            childApplicationId
+          );
+          setIsSubmitting(false);
+          setTimeout(() => {
+            setRedirect(true);
+          }, 3000);
+        } catch (err) {
+          console.log("Error updating form data: ", err);
+          setIsSubmitting(false);
+        }
+      } else {
+        try {
+          await firebase.uploadChildForm(
+            childFirstName,
+            childLastName,
+            childFormData,
+            parentId
+          );
+          setIsSubmitting(false);
+          setTimeout(() => {
+            setRedirect(true);
+          }, 3000);
+        } catch (err) {
+          console.log("Error submitting form data: ", err);
+          setIsSubmitting(false);
+        }
       }
     };
     submitFormData();

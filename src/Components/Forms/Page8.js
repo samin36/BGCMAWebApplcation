@@ -17,7 +17,13 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page8 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
+const Page8 = ({
+  nextStep,
+  prevStep,
+  setFormStates,
+  setCancel,
+  initialData,
+}) => {
   const pageNo = 8; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -43,12 +49,17 @@ const Page8 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
     prevStep();
   };
 
-  const initialValues = {
-    mediaPermission: true,
-    schoolDataRelease: true,
-    generalTravelPermissions: true,
-    clubMaskDownZone: true,
-  };
+  let initialValues;
+  if (initialData) {
+    initialValues = initialData;
+  } else {
+    initialValues = {
+      mediaPermission: true,
+      schoolDataRelease: true,
+      generalTravelPermissions: true,
+      clubMaskDownZone: true,
+    };
+  }
 
   const validationSchema = yup.object().shape({
     mediaPermission: yup.boolean().required("This selection is required"),

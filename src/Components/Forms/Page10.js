@@ -16,7 +16,13 @@ import { dateRegex } from "../../Regex/regex";
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page10 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
+const Page10 = ({
+  nextStep,
+  prevStep,
+  setFormStates,
+  setCancel,
+  initialData,
+}) => {
   const pageNo = 10; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -42,18 +48,23 @@ const Page10 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
     prevStep();
   };
 
-  const initialValues = {
-    brightFromStart: "",
-    parentOrientation: "",
-    firstAidPermission: "",
-    medicalPermission: "",
-    afterSchoolTravel: "",
-    fieldTrips: "",
-    waiverAgreement: "",
-    childName: "",
-    parentSignature: "",
-    date: "",
-  };
+  let initialValues;
+  if (initialData) {
+    initialValues = initialData;
+  } else {
+    initialValues = {
+      brightFromStart: "",
+      parentOrientation: "",
+      firstAidPermission: "",
+      medicalPermission: "",
+      afterSchoolTravel: "",
+      fieldTrips: "",
+      waiverAgreement: "",
+      childName: "",
+      parentSignature: "",
+      date: "",
+    };
+  }
 
   const exemptionAndParentOrientationValidationSchema = yup.object().shape({
     brightFromStart: yup.string().required("This section is required"),

@@ -13,6 +13,8 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import PageNotFound from "./PageNotFound";
 // import useFirebaseUser from "../CustomHooks/useFirebaseUser";
 import firebase from "../Firebase/firebase";
+import EditApplication from "./EditApplication";
+import ViewApplication from "./ViewApplication";
 
 const App = () => {
   const [dashboardState, dashboardDispatch] = useDashboardReducer(null);
@@ -55,6 +57,18 @@ const App = () => {
               exact
               path="/newapplication"
               component={NewApplication}
+              isWelcomeSignUpOrLogin={false}
+            />
+            <ProtectedRoute
+              exact
+              path="/editapplication"
+              component={EditApplication}
+              isWelcomeSignUpOrLogin={false}
+            />
+            <ProtectedRoute
+              exact
+              path="/viewapplication"
+              component={ViewApplication}
               isWelcomeSignUpOrLogin={false}
             />
             <ProtectedRoute

@@ -16,7 +16,13 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page5 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
+const Page5 = ({
+  nextStep,
+  prevStep,
+  setFormStates,
+  setCancel,
+  initialData,
+}) => {
   const pageNo = 5; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -42,12 +48,17 @@ const Page5 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
     prevStep();
   };
 
-  const initialValues = {
-    staffVisitorParentOrGuardianInitials: "",
-    staffVisitorParentOrGuardianName: "",
-    agreementDate: "",
-    bgcmaParticipantOrClubMemberName: "",
-  };
+  let initialValues;
+  if (initialData) {
+    initialValues = initialData;
+  } else {
+    initialValues = {
+      staffVisitorParentOrGuardianInitials: "",
+      staffVisitorParentOrGuardianName: "",
+      agreementDate: "",
+      bgcmaParticipantOrClubMemberName: "",
+    };
+  }
 
   const validationSchema = yup.object().shape({
     staffVisitorParentOrGuardianInitials: yup

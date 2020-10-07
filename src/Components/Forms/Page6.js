@@ -21,7 +21,13 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page6 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
+const Page6 = ({
+  nextStep,
+  prevStep,
+  setFormStates,
+  setCancel,
+  initialData,
+}) => {
   const pageNo = 6; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -47,48 +53,53 @@ const Page6 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
     prevStep();
   };
 
-  const initialValues = {
-    nameOfClub: "",
-    childFirstName: "",
-    childMiddleInitial: "",
-    childLastName: "",
-    childBirthdate: "",
-    childAge: "",
-    childGender: "",
-    childRace: "",
-    childCellPhone: "",
-    childSSN: "",
-    childSchoolDistrict: "",
-    childSchoolName: "",
-    childGrade: "",
-    childAbsences: "",
-    clubMemberFor: "",
-    parentEmail: "",
-    parentCellPhone: "",
-    streetAddress: "",
-    zipCode: "",
-    county: "",
-    city: "",
-    memberFromSingleParentHousehold: "",
-    genderOfHeadOfHousehold: "",
-    memberReceives: "",
-    memberLivesWith: "",
-    memberLivesWithOther: "",
-    primaryLanguageSpokenInHome: "",
-    militaryHousehold: "",
-    liveOnBase: "",
-    memberAllergies: "",
-    memberAllergiesOther: "",
-    memberMedications: "",
-    memberMedicationsOther: "",
-    memberPescriptionMedication: "",
-    memberPescriptionMedicationNames: "",
-    memberPrescriptionClubHours: "",
-    physicianName: "",
-    physicianCellPhone: "",
-    insuranceCompany: "",
-    insuranceCompanyPolicyNumber: "",
-  };
+  let initialValues;
+  if (initialData) {
+    initialValues = initialData;
+  } else {
+    initialValues = {
+      nameOfClub: "",
+      childFirstName: "",
+      childMiddleInitial: "",
+      childLastName: "",
+      childBirthdate: "",
+      childAge: "",
+      childGender: "",
+      childRace: "",
+      childCellPhone: "",
+      childSSN: "",
+      childSchoolDistrict: "",
+      childSchoolName: "",
+      childGrade: "",
+      childAbsences: "",
+      clubMemberFor: "",
+      parentEmail: "",
+      parentCellPhone: "",
+      streetAddress: "",
+      zipCode: "",
+      county: "",
+      city: "",
+      memberFromSingleParentHousehold: "",
+      genderOfHeadOfHousehold: "",
+      memberReceives: "",
+      memberLivesWith: "",
+      memberLivesWithOther: "",
+      primaryLanguageSpokenInHome: "",
+      militaryHousehold: "",
+      liveOnBase: "",
+      memberAllergies: "",
+      memberAllergiesOther: "",
+      memberMedications: "",
+      memberMedicationsOther: "",
+      memberPescriptionMedication: "",
+      memberPescriptionMedicationNames: "",
+      memberPrescriptionClubHours: "",
+      physicianName: "",
+      physicianCellPhone: "",
+      insuranceCompany: "",
+      insuranceCompanyPolicyNumber: "",
+    };
+  }
 
   const memberInfoValidationSchema = yup.object().shape({
     nameOfClub: yup.string(),

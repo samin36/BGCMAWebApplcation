@@ -3,9 +3,12 @@ import { Container, Header } from "semantic-ui-react";
 import ApplicationEntries from "./ApplicationEntries";
 import { DashboardDispatchContext } from "../Context/DashboardDispatchContext";
 import firebase from "../Firebase/firebase";
+import useFirebaseUser from "../CustomHooks/useFirebaseUser";
 
 const Dashboard = () => {
   const dashboardDispatch = useContext(DashboardDispatchContext);
+  const user = useFirebaseUser();
+
   useEffect(() => {
     setTimeout(() => {
       localStorage.clear();
@@ -27,12 +30,15 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getMetaData = async () => {
-      let parentId = JSON.parse(sessionStorage.getItem("authenticatedUser"));
-      parentId = parentId.uid;
+      let parentId = user.uid;
       try {
         const allChildren = await firebase.getMetaDataForAllChildren(parentId);
         const allMetaData = allChildren.docs.map((doc) => {
           const originalMetaData = doc.data().metaData;
+          sessionStorage.setItem(
+            originalMetaData.childDocRefId,
+            JSON.stringify(doc.data().formData)
+          );
           const modifiedMetaData = {
             name: `${originalMetaData.firstName} ${originalMetaData.lastName}`,
             id: originalMetaData.childDocRefId,

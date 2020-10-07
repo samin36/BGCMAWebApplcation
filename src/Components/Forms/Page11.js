@@ -16,7 +16,13 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page11 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
+const Page11 = ({
+  nextStep,
+  prevStep,
+  setFormStates,
+  setCancel,
+  initialData,
+}) => {
   const pageNo = 11; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -42,11 +48,16 @@ const Page11 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
     prevStep();
   };
 
-  const initialValues = {
-    parentSign: "",
-    childName: "",
-    signatureDate: "",
-  };
+  let initialValues;
+  if (initialData) {
+    initialValues = initialData;
+  } else {
+    initialValues = {
+      parentSign: "",
+      childName: "",
+      signatureDate: "",
+    };
+  }
 
   const validationSchema = yup.object().shape({
     parentSign: yup.string().required("Parent Signature/ Name is required."),

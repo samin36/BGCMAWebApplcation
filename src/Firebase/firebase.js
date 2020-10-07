@@ -54,15 +54,6 @@ class Firebase {
     parentId
   ) {
     //TODO: Add rule to check if childFirstName and childLastName are non-null
-    // const collectionName = `${childFirstName}${childLastName}`;
-    // const documentName = `${collectionName}FormData`;
-    // await this.firestore
-    //   .collection("parents")
-    //   .doc(uid)
-    //   .collection(collectionName)
-    //   .doc(documentName)
-    //   .set(childFormData);
-
     const newChildRef = this.firestore
       .collection("parents")
       .doc(parentId)
@@ -84,6 +75,38 @@ class Firebase {
       metaData: metaData,
       formData: childFormData,
     });
+  }
+
+  async updateChildForm(
+    childFirstName,
+    childLastName,
+    childFormData,
+    parentId,
+    childApplicationId
+  ) {
+    const childRef = this.firestore
+      .collection("parents")
+      .doc(parentId)
+      .collection("Children")
+      .doc(childApplicationId);
+
+    await childRef.update({
+      "metaData.dateSubmitted": getFormattedDate(
+        firebaseApp.firestore.Timestamp.now().toDate()
+      ),
+      "metaData.firstName": childFirstName,
+      "metaData.lastName": childLastName,
+      formData: childFormData,
+    });
+  }
+
+  async deleteApplication(parentId, childApplicationId) {
+    await this.firestore
+      .collection("parents")
+      .doc(parentId)
+      .collection("Children")
+      .doc(childApplicationId)
+      .delete();
   }
 
   getMetaDataForAllChildren(parentId) {

@@ -16,7 +16,13 @@ import { phoneRegex } from "../../Regex/regex";
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page9 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
+const Page9 = ({
+  nextStep,
+  prevStep,
+  setFormStates,
+  setCancel,
+  initialData,
+}) => {
   const pageNo = 9; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -42,42 +48,47 @@ const Page9 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
     prevStep();
   };
 
-  const initialValues = {
-    parent1_firstName: "",
-    parent1_lastName: "",
-    parent1_homePhone: "",
-    parent1_employer: "",
-    parent1_occupation: "",
-    parent1_workPhone: "",
-    parent1_cellPhone: "",
-    parent1_vouchersOrPublicHousing: "",
-    parent1_vouchersOrPublicHousingYes: "",
+  let initialValues;
+  if (initialData) {
+    initialValues = initialData;
+  } else {
+    initialValues = {
+      parent1_firstName: "",
+      parent1_lastName: "",
+      parent1_homePhone: "",
+      parent1_employer: "",
+      parent1_occupation: "",
+      parent1_workPhone: "",
+      parent1_cellPhone: "",
+      parent1_vouchersOrPublicHousing: "",
+      parent1_vouchersOrPublicHousingYes: "",
 
-    parent2_firstName: "",
-    parent2_lastName: "",
-    parent2_homePhone: "",
-    parent2_cellPhone: "",
-    parent2_employer: "",
-    parent2_occupation: "",
-    parent2_workPhone: "",
+      parent2_firstName: "",
+      parent2_lastName: "",
+      parent2_homePhone: "",
+      parent2_cellPhone: "",
+      parent2_employer: "",
+      parent2_occupation: "",
+      parent2_workPhone: "",
 
-    emergencyContact1_name: "",
-    emergencyContact1_phone: "",
-    emergencyContact2_name: "",
-    emergencyContact2_phone: "",
-    emergencyContact3_name: "",
-    emergencyContact3_phone: "",
-    emergencyContact4_name: "",
-    emergencyContact4_phone: "",
-    emergencyContact5_name: "",
-    emergencyContact5_phone: "",
-    emergencyContact6_name: "",
-    emergencyContact6_phone: "",
-    age13_permission: "",
+      emergencyContact1_name: "",
+      emergencyContact1_phone: "",
+      emergencyContact2_name: "",
+      emergencyContact2_phone: "",
+      emergencyContact3_name: "",
+      emergencyContact3_phone: "",
+      emergencyContact4_name: "",
+      emergencyContact4_phone: "",
+      emergencyContact5_name: "",
+      emergencyContact5_phone: "",
+      emergencyContact6_name: "",
+      emergencyContact6_phone: "",
+      age13_permission: "",
 
-    numPersonsInFam: "",
-    houseHoldIncome: "",
-  };
+      numPersonsInFam: "",
+      houseHoldIncome: "",
+    };
+  }
 
   const parentInfoValidationSchema = yup.object().shape({
     parent1_firstName: yup

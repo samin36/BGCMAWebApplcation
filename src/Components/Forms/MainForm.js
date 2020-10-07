@@ -14,11 +14,26 @@ import Page14 from "./Page14";
 import SampleSubmitForm from "./SampleSubmitForm";
 
 import ConfirmationPopup from "../ConfirmationPopup";
-const MainForm = () => {
+const MainForm = ({ childApplicationId, isView }) => {
   const totalNumberOfForms = 16;
-  const [formStates, setFormStates] = useState({
-    step: 5,
+  const [formStates, setFormStates] = useState(() => {
+    if (childApplicationId) {
+      const initialFormData = JSON.parse(
+        sessionStorage.getItem(childApplicationId)
+      );
+      if (initialFormData) {
+        return {
+          step: 5,
+          update: childApplicationId,
+          ...initialFormData,
+        };
+      }
+    }
+    return {
+      step: 5,
+    };
   });
+
   const [cancelPopupOpen, setCancelPopupOpen] = useState(false);
   const history = useHistory();
 
@@ -87,6 +102,7 @@ const MainForm = () => {
             setFormStates={setFormStates}
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page5 : null}
           />
         );
       case 6:
@@ -96,6 +112,7 @@ const MainForm = () => {
             setFormStates={setFormStates}
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page6 : null}
           />
         );
       case 7:
@@ -105,6 +122,7 @@ const MainForm = () => {
             setFormStates={setFormStates}
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page7 : null}
           />
         );
       case 8:
@@ -114,6 +132,7 @@ const MainForm = () => {
             setFormStates={setFormStates}
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page8 : null}
           />
         );
       case 9:
@@ -123,6 +142,7 @@ const MainForm = () => {
             prevStep={prevStep}
             setFormStates={setFormStates}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page9 : null}
           />
         );
       case 10:
@@ -132,6 +152,7 @@ const MainForm = () => {
             setFormStates={setFormStates}
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page10 : null}
           />
         );
       case 11:
@@ -141,6 +162,7 @@ const MainForm = () => {
             setFormStates={setFormStates}
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page11 : null}
           />
         );
       case 12:
@@ -150,6 +172,7 @@ const MainForm = () => {
             setFormStates={setFormStates}
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page12 : null}
           />
         );
       case 13:
@@ -160,6 +183,7 @@ const MainForm = () => {
             prevStep={prevStep}
             cancelApplication={cancelApplication}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page13 : null}
           />
         );
       case 14:
@@ -169,6 +193,8 @@ const MainForm = () => {
             setFormStates={setFormStates}
             prevStep={prevStep}
             setCancel={setCancelPopupOpen}
+            initialData={childApplicationId ? formStates.page14 : null}
+            isView={isView}
           />
         );
       case 15:

@@ -14,12 +14,21 @@ import {
   paragraph7,
   paragraph8,
 } from "../../PageText/page14text";
+import { useHistory } from "react-router-dom";
 
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page14 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
+const Page14 = ({
+  nextStep,
+  prevStep,
+  setFormStates,
+  setCancel,
+  initialData,
+  isView,
+}) => {
   const pageNo = 14; //Define the page number here
+  const history = useHistory();
   const updateFormState = (values) => {
     setFormStates((prevState) => {
       return {
@@ -44,30 +53,35 @@ const Page14 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
     prevStep();
   };
 
-  const initialValues = {
-    guardianFirstName: "",
-    guardianMiddleInitial: "",
-    guardianLastName: "",
-    streetAddress: "",
-    city: "",
-    stateIn: "",
-    zipCode: "",
-    homePhoneNumber: "",
-    workPhoneNumber: "",
-    cellPhoneNumber: "",
-    guardianPrintedName: "",
-    guardianPrintedNameDate: "",
-    guardianInitals: "",
-    guardianInitalsDate: "",
+  let initialValues;
+  if (initialData) {
+    initialValues = initialData;
+  } else {
+    initialValues = {
+      guardianFirstName: "",
+      guardianMiddleInitial: "",
+      guardianLastName: "",
+      streetAddress: "",
+      city: "",
+      stateIn: "",
+      zipCode: "",
+      homePhoneNumber: "",
+      workPhoneNumber: "",
+      cellPhoneNumber: "",
+      guardianPrintedName: "",
+      guardianPrintedNameDate: "",
+      guardianInitals: "",
+      guardianInitalsDate: "",
 
-    totalIncome: "",
-    incomeFrequency: "",
-    houseHoldSize: "",
-    annualIncome: "",
-    staffInitials: "",
-    staffTitle: "",
-    staffDate: "",
-  };
+      totalIncome: "",
+      incomeFrequency: "",
+      houseHoldSize: "",
+      annualIncome: "",
+      staffInitials: "",
+      staffTitle: "",
+      staffDate: "",
+    };
+  }
 
   const page14validationSchema = yup.object().shape({
     guardianFirstName: yup
@@ -126,7 +140,11 @@ const Page14 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
       onSubmit={(values, { setSubmitting }) => {
         // as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
-        goToNextPage(values);
+        if (isView) {
+          history.push("/");
+        } else {
+          goToNextPage(values);
+        }
       }}
     >
       {({
@@ -569,17 +587,30 @@ const Page14 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
                 color="red"
                 width={8}
               />
-              <Form.Button
-                size="large"
-                type="submit"
-                onClick={handleSubmit}
-                primary
-                floated="right"
-                disabled={isSubmitting}
-                content="Submit"
-                style={{ padding: ".75em 2em" }}
-                width={4}
-              />
+              {!isView ? (
+                <Form.Button
+                  size="large"
+                  type="submit"
+                  onClick={handleSubmit}
+                  primary
+                  floated="right"
+                  disabled={isSubmitting}
+                  content="Submit"
+                  style={{ padding: ".75em 2em" }}
+                  width={4}
+                />
+              ) : (
+                <Form.Button
+                  size="large"
+                  type="submit"
+                  onClick={handleSubmit}
+                  primary
+                  floated="right"
+                  content="Exit"
+                  style={{ padding: ".75em 2em" }}
+                  width={4}
+                />
+              )}
             </Form.Group>
             <Persist name={`page${pageNo}`} />
           </Form>

@@ -14,7 +14,13 @@ import {
 /**
  * Pass in prevStep if the page number >= 1
  */
-const Page13 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
+const Page13 = ({
+  nextStep,
+  prevStep,
+  setFormStates,
+  setCancel,
+  initialData,
+}) => {
   const pageNo = 13; //Define the page number here
   const updateFormState = (values) => {
     setFormStates((prevState) => {
@@ -40,49 +46,54 @@ const Page13 = ({ nextStep, prevStep, setFormStates, setCancel }) => {
     prevStep();
   };
 
-  const initialValues = {
-    familyUnitSize: "",
-    yealyIncome: "",
-    monthlyIncome: "",
+  let initialValues;
+  if (initialData) {
+    initialValues = initialData;
+  } else {
+    initialValues = {
+      familyUnitSize: "",
+      yealyIncome: "",
+      monthlyIncome: "",
 
-    person1Name: "",
-    person1Relationship: "",
-    person1Birth: "",
-    person1IncomeSource: "",
-    person1grossMonthlyIncome: "",
-    person1howOften: "",
-    person2Name: "",
-    person2Relationship: "",
-    person2Birth: "",
-    person2IncomeSource: "",
-    person2grossMonthlyIncome: "",
-    person2howOften: "",
+      person1Name: "",
+      person1Relationship: "",
+      person1Birth: "",
+      person1IncomeSource: "",
+      person1grossMonthlyIncome: "",
+      person1howOften: "",
+      person2Name: "",
+      person2Relationship: "",
+      person2Birth: "",
+      person2IncomeSource: "",
+      person2grossMonthlyIncome: "",
+      person2howOften: "",
 
-    person3Name: "",
-    person3Relationship: "",
-    person3Birth: "",
-    person3IncomeSource: "",
-    person3grossMonthlyIncome: "",
-    person3howOften: "",
-    person4Name: "",
-    person4Relationship: "",
-    person4Birth: "",
-    person4IncomeSource: "",
-    person4grossMonthlyIncome: "",
-    person4howOften: "",
-    person5Name: "",
-    person5Relationship: "",
-    person5Birth: "",
-    person5IncomeSource: "",
-    person5grossMonthlyIncome: "",
-    person5howOften: "",
-    person6Name: "",
-    person6Relationship: "",
-    person6Birth: "",
-    person6IncomeSource: "",
-    person6grossMonthlyIncome: "",
-    person6howOften: "",
-  };
+      person3Name: "",
+      person3Relationship: "",
+      person3Birth: "",
+      person3IncomeSource: "",
+      person3grossMonthlyIncome: "",
+      person3howOften: "",
+      person4Name: "",
+      person4Relationship: "",
+      person4Birth: "",
+      person4IncomeSource: "",
+      person4grossMonthlyIncome: "",
+      person4howOften: "",
+      person5Name: "",
+      person5Relationship: "",
+      person5Birth: "",
+      person5IncomeSource: "",
+      person5grossMonthlyIncome: "",
+      person5howOften: "",
+      person6Name: "",
+      person6Relationship: "",
+      person6Birth: "",
+      person6IncomeSource: "",
+      person6grossMonthlyIncome: "",
+      person6howOften: "",
+    };
+  }
 
   const page13validationSchema = yup.object().shape({
     familyUnitSize: yup.number().required("Family unit size is required"),
