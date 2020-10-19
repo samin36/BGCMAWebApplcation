@@ -58,7 +58,7 @@ const NavBarDesktop = () => {
       </Menu.Item>
 
       <Menu.Menu position="right" style={{ fontSize: "1.2em" }}>
-        <Menu.Item as={NavLink} to="/dashboard">
+        <Menu.Item as={NavLink} to={(user != null && user.admin === true) ? "/admindashboard" : "/dashboard"}>
           Home
         </Menu.Item>
         <Menu.Item onClick={handleLogout}>Logout</Menu.Item>

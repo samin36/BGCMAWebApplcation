@@ -15,6 +15,7 @@ import PageNotFound from "./PageNotFound";
 import firebase from "../Firebase/firebase";
 import EditApplication from "./EditApplication";
 import ViewApplication from "./ViewApplication";
+import AdminDashboard from "./AdminDashboard";
 
 const App = () => {
   const [dashboardState, dashboardDispatch] = useDashboardReducer(null);
@@ -22,7 +23,14 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = firebase.authChange((currUser) => {
       if (currUser) {
-        sessionStorage.setItem("authenticatedUser", JSON.stringify(currUser));
+        const user = JSON.parse(JSON.stringify(currUser));
+        if (user && user.email.endsWith("bgcma.org") && user.emailVerified) {
+          const isAdmin = firebase.checkAdminStatus();
+          if (isAdmin) {
+            user.admin = true;
+          }
+        }
+        sessionStorage.setItem("authenticatedUser", JSON.stringify(user));
       } else {
         sessionStorage.removeItem("authenticatedUser");
       }
@@ -51,6 +59,12 @@ const App = () => {
               exact
               path="/dashboard"
               component={Dashboard}
+              isWelcomeSignUpOrLogin={false}
+            />
+            <ProtectedRoute
+              exact
+              path="/admindashboard"
+              component={AdminDashboard}
               isWelcomeSignUpOrLogin={false}
             />
             <ProtectedRoute

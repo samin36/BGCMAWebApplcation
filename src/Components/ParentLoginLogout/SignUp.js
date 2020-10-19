@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Redirect } from 'react-router-dom';
 import {
   Form,
   Container,
@@ -45,14 +45,25 @@ const validationSchema = yup.object().shape({
 
 const SignUp = () => {
   const [signUpError, setSignUpError] = useState(null);
+  const [adminMessage, setAdminMessage] = useState(null);
+  const [redirectToLogin, setRedirectToLogin] = useState(null);
+
 
   const onSignUp = async (
     { firstName, lastName, emailAddress, password },
     setSubmitting
   ) => {
     try {
-      await firebase.register(emailAddress, password, firstName, lastName);
-      window.location.reload();
+      if (emailAddress.endsWith("bgcma.org")) {
+        await firebase.registerAdmin(emailAddress, password, firstName, lastName);
+        setAdminMessage("A verification link has been sent to your email. Please verify and login.");
+        setTimeout(() => {
+          setRedirectToLogin(true);
+        }, 4000);
+      } else {
+        await firebase.register(emailAddress, password, firstName, lastName);
+        window.location.reload();
+      }
     } catch (err) {
       setSignUpError(err.message);
       setSubmitting(false);
@@ -210,6 +221,15 @@ const SignUp = () => {
                 bodyMessage={signUpError}
                 okAction={() => setSignUpError(null)}
               />
+            )}
+            {redirectToLogin && (
+              <Redirect to="/Login"/>
+            )}
+            {adminMessage && (
+              <CustomModal isInfo={true} bodyMessage={adminMessage} okAction={() => {
+                setAdminMessage(null);
+                setRedirectToLogin(true);
+              }}/>
             )}
           </Container>
         </Container>

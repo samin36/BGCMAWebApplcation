@@ -7,6 +7,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "firebase": "^7.21.0",
+    "firebase-admin": "^9.2.0",
+    "firebase-tools": "^8.12.1",
     "formik": "^2.1.5",
     "formik-persist": "^1.1.0",
     "lodash": "^4.17.20",

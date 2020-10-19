@@ -8,7 +8,6 @@ export const ProtectedRoute = ({
   ...rest
 }) => {
   const user = useFirebaseUser();
-
   return (
     <Route
       {...rest}
@@ -23,11 +22,20 @@ export const ProtectedRoute = ({
         //   return <Redirect to="/" />;
         // }
         if (isWelcomeSignUpOrLogin) {
-          return user !== null ? (
-            <Redirect to="/dashboard" />
-          ) : (
-            <Component {...props} />
-          );
+          if (user !== null) {
+            if (user.admin === true) {
+              return <Redirect to="/admindashboard" />
+            } else {
+              return <Redirect to="/dashboard" />
+            }
+          } else {
+            return <Component {...props} />
+          }
+          // return user !== null ? (
+          //   <Redirect to="/dashboard" />
+          // ) : (
+          //   <Component {...props} />
+          // );
         } else {
           return user !== null ? <Component {...props} /> : <Redirect to="/" />;
         }

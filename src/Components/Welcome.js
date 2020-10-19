@@ -54,10 +54,6 @@ const Welcome = () => {
             </Button>
           </Grid.Row>
         </Grid>
-        <Header as="h3" textAlign="center">
-          If you want to register as an administrator, click{" "}
-          <a href="/#">here</a>
-        </Header>
       </Container>
     </Container>
   );

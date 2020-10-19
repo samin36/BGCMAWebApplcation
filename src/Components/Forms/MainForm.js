@@ -12,10 +12,11 @@ import Page13 from "./Page13";
 import Page14 from "./Page14";
 import SampleSubmitForm from "./SampleSubmitForm";
 import ConfirmationPopup from "../ConfirmationPopup";
-import SubmissionModal from "../SubmissionModal";
 import { Redirect } from "react-router-dom";
+import useFirebaseUser from '../../CustomHooks/useFirebaseUser';
 
 const MainForm = ({ childApplicationId, isView }) => {
+  const user = useFirebaseUser();
   const totalNumberOfForms = 16;
   const [formStates, setFormStates] = useState(() => {
     if (childApplicationId) {
@@ -295,7 +296,7 @@ const MainForm = ({ childApplicationId, isView }) => {
           isOpen={cancelPopupOpen}
         />
       )}
-      {redirect && <Redirect to="/dashboard" />}
+      {redirect && <Redirect to={(user && user.admin === true) ? "/admindashboard" : "/dashboard"} />}
     </>
   );
 };

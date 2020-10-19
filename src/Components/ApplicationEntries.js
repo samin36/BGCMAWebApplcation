@@ -4,11 +4,12 @@ import ApplicationEntry from "./ApplicationEntry";
 import { DashboardStateContext } from "../Context/DashboardStateContext";
 import { DashboardDispatchContext } from "../Context/DashboardDispatchContext";
 import { NavLink } from "react-router-dom";
+import useFirebaseUser from '../CustomHooks/useFirebaseUser';
 
 const ApplicationEntries = () => {
   const dashboardState = useContext(DashboardStateContext);
   const dashboardDispatch = useContext(DashboardDispatchContext);
-
+  const user = useFirebaseUser();
   return (
     <>
       <Table
@@ -54,6 +55,7 @@ const ApplicationEntries = () => {
               <ApplicationEntry key={child.id} child={child} />
             ))}
         </Table.Body>
+        {(!user || user.admin === false) && (
         <Table.Footer fullWidth>
           <Table.Row textAlign="center">
             <Table.HeaderCell colSpan="4">
@@ -62,12 +64,13 @@ const ApplicationEntries = () => {
                 circular
                 as={NavLink}
                 to="/newapplication"
+                disabled={user && user.admin === true}
               >
                 New Application
               </Button>
             </Table.HeaderCell>
           </Table.Row>
-        </Table.Footer>
+        </Table.Footer>)}
       </Table>
     </>
   );

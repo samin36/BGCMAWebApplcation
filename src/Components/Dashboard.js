@@ -4,10 +4,19 @@ import ApplicationEntries from "./ApplicationEntries";
 import { DashboardDispatchContext } from "../Context/DashboardDispatchContext";
 import firebase from "../Firebase/firebase";
 import useFirebaseUser from "../CustomHooks/useFirebaseUser";
+import { useLocation } from "react-router-dom";
 
 const Dashboard = () => {
   const dashboardDispatch = useContext(DashboardDispatchContext);
-  const user = useFirebaseUser();
+  const user = useFirebaseUser();  
+  const location = useLocation();
+  let parentUid = null;
+  if (user && user.admin === true) {
+    if (location.state) {
+      parentUid = location.state.parentUid;
+    } 
+  }
+  
 
   useEffect(() => {
     setTimeout(() => {
@@ -16,7 +25,9 @@ const Dashboard = () => {
   }, []);
 
   const computeAction = (applicationStatus) => {
-    if (applicationStatus === "Incomplete") {
+    if (parentUid && user && user.admin === true) {
+      return "View";
+    } else if (applicationStatus === "Incomplete") {
       return "Edit";
     } else if (
       applicationStatus === "Approved" ||
@@ -30,7 +41,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getMetaData = async () => {
-      let parentId = user.uid;
+      let parentId = parentUid ? parentUid : user.uid;
       try {
         const allChildren = await firebase.getMetaDataForAllChildren(parentId);
         const allMetaData = allChildren.docs.map((doc) => {
@@ -57,6 +68,7 @@ const Dashboard = () => {
   }, []);
 
   return (
+    <>
     <Container fluid style={{ background: "#EFF2F7" }} textAlign="center">
       <Header
         textAlign="center"
@@ -68,6 +80,7 @@ const Dashboard = () => {
       </Header>
       <ApplicationEntries />
     </Container>
+    </>
   );
 };
 

@@ -41,12 +41,16 @@ const Login = () => {
 
   const onLogin = async ({ emailAddress, password }, setSubmitting) => {
     try {
-      const resp = await firebase.login(emailAddress, password);
-      console.log("successfully logged in user: ", resp);
+      if (emailAddress.endsWith("bgcma.org")) {
+        await firebase.loginAdmin(emailAddress, password);
+      } else {
+        await firebase.login(emailAddress, password);
+      }
       window.location.reload();
     } catch (err) {
       setLoginError(err.message);
       setSubmitting(false);
+      await firebase.logout();
     }
   };
 
