@@ -55,7 +55,7 @@ const ApplicationEntries = () => {
               <ApplicationEntry key={child.id} child={child} />
             ))}
         </Table.Body>
-        {(!user || user.admin === false) && (
+        {(!user || !user.admin) && (
         <Table.Footer fullWidth>
           <Table.Row textAlign="center">
             <Table.HeaderCell colSpan="4">

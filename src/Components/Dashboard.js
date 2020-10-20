@@ -56,6 +56,7 @@ const Dashboard = () => {
             date: originalMetaData.dateSubmitted,
             applicationStatus: originalMetaData.applicationStatus,
             action: computeAction(originalMetaData.applicationStatus),
+            parentUid: parentId
           };
           return modifiedMetaData;
         });

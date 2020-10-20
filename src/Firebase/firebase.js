@@ -152,6 +152,21 @@ class Firebase {
     });
   }
 
+  async changeChildApplicationStatus(parentId, childApplicationId, newApplicationStatus) {
+    const childRef = this.firestore
+    .collection("parents")
+    .doc(parentId)
+    .collection("Children")
+    .doc(childApplicationId);
+
+    await childRef.update({
+    "metaData.dateSubmitted": getFormattedDate(
+      firebaseApp.firestore.Timestamp.now().toDate()
+    ),
+    "metaData.applicationStatus": newApplicationStatus,
+    });
+  }
+
   async deleteApplication(parentId, childApplicationId) {
     await this.firestore
       .collection("parents")
