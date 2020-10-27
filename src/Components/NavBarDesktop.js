@@ -9,12 +9,13 @@ const NavBarDesktop = () => {
   // const user = useContext(FirebaseAuthContext);
   // const user = JSON.parse(sessionStorage.getItem("authenticatedUser"));
   const displayName = user ? user.displayName : "";
+  const adminStatus = user ? user.admin === true : false;
   const options = [
     {
       key: "user",
       text: (
         <span>
-          Signed in as <strong>{displayName}</strong>
+          Signed in as <strong>{`${displayName} ${adminStatus ? "(Admin)" : ""}`}</strong>
         </span>
       ),
       disabled: true,
