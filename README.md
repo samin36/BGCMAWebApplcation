@@ -1,10 +1,10 @@
-Delivery Documentation
+# Delivery Documentation
 
-Team 0132 -- Application Avengers
+# Team 0132 -- Application Avengers
 
-11/22/2020
+# 11/22/2020
 
-**Release Notes**
+## Release Notes
 
 **VERSION**
 
@@ -49,7 +49,7 @@ Team 0132 -- Application Avengers
 -   Refreshing Web Application while updating data might cause
     information to be lost/corrupted
 
-**Install Guide**
+## Install Guide
 
 **PRE-REQUISITES**
 
