@@ -1,15 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import { DashboardDispatchContext } from "../../Context/DashboardDispatchContext";
-import { DashboardStateContext } from "../../Context/DashboardStateContext";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import {
-  Header,
-  Modal,
-  Icon,
-  SegmentGroup,
-  Segment,
-  List,
-} from "semantic-ui-react";
+import { Header } from "semantic-ui-react";
 
 import firebase from "../../Firebase/firebase";
 import useFirebaseUser from "../../CustomHooks/useFirebaseUser";
@@ -18,35 +9,8 @@ import SubmissionModal from "../SubmissionModal";
 const SampleSubmitForm = ({ formStates, saveClicked }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  // const dashboardDispatch = useContext(DashboardDispatchContext);
-  // const dashboardState = useContext(DashboardStateContext);
-  // const history = useHistory();
 
   const user = useFirebaseUser();
-
-  // useEffect(() => {
-  //   if (isSubmitting) {
-  //     setIsSubmitting(false);
-  //     history.goBack();
-  //   }
-  //   return () => {
-  //     localStorage.clear();
-  //   };
-  // }, [dashboardState]);
-
-  // useEffect(() => {
-  //   const newApplication = {
-  //     ...formStates,
-  //   };
-  //   delete newApplication.step;
-  //   const timeoutId = setTimeout(() => {
-  //     dashboardDispatch({ type: "NEW_APPLICATIONS", newApplication });
-  //   }, 3000);
-  //   setIsSubmitting(true);
-  //   return () => {
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, []);
 
   useEffect(() => {
     setIsSubmitting(true);
@@ -108,25 +72,9 @@ const SampleSubmitForm = ({ formStates, saveClicked }) => {
       <SubmissionModal isSubmitting={isSubmitting} />
     ) : (
       <Header as="h1">
-        Your form has been submitted.
+        Your form has been {saveClicked ? "saved" : "submitted"}.
         <Header.Subheader>Redirecting...</Header.Subheader>
       </Header>
-      // {/* <SegmentGroup>
-      //   {Object.entries(formStates).map(([k, v], index) =>
-      //     k !== "step" && k !== "newApplicationDashboardData" ? (
-      //       <Segment key={index}>
-      //         <h2 style={{ textDecoration: "underline" }}>
-      //           {k.replace(/^page(\d+)$/, "Page $1")}
-      //         </h2>
-      //         {Object.entries(v).map(([field, fieldValue], index2) => (
-      //           <List key={index2} size="big">
-      //             <List.Item as="h3">{`${field} -> ${fieldValue}`}</List.Item>
-      //           </List>
-      //         ))}
-      //       </Segment>
-      //     ) : null
-      //   )}
-      // </SegmentGroup> */}
     )
   ) : (
     <Redirect to="/" />

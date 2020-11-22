@@ -6,8 +6,6 @@ import useFirebaseUser from "../CustomHooks/useFirebaseUser";
 
 const NavBarDesktop = () => {
   const user = useFirebaseUser();
-  // const user = useContext(FirebaseAuthContext);
-  // const user = JSON.parse(sessionStorage.getItem("authenticatedUser"));
   const displayName = user ? user.displayName : "";
   const adminStatus = user ? user.admin === true : false;
   const options = [
@@ -15,21 +13,18 @@ const NavBarDesktop = () => {
       key: "user",
       text: (
         <span>
-          Signed in as <strong>{`${displayName} ${adminStatus ? "(Admin)" : ""}`}</strong>
+          Signed in as{" "}
+          <strong>{`${displayName} ${adminStatus ? "(Admin)" : ""}`}</strong>
         </span>
       ),
       disabled: true,
     },
-    { key: "profile", text: "Account Settings", icon: "settings" },
-    { key: "help", text: "Help & FAQ", icon: "help" },
-    { key: "contact", text: "Contact Us", icon: "talk" },
   ];
 
   const handleLogout = () => {
     firebase
       .logout()
       .then(() => {
-        console.log("Successfully signed out");
         sessionStorage.clear();
         localStorage.clear();
         window.location.reload();
@@ -59,7 +54,14 @@ const NavBarDesktop = () => {
       </Menu.Item>
 
       <Menu.Menu position="right" style={{ fontSize: "1.2em" }}>
-        <Menu.Item as={NavLink} to={(user != null && user.admin === true) ? "/admindashboard" : "/dashboard"}>
+        <Menu.Item
+          as={NavLink}
+          to={
+            user != null && user.admin === true
+              ? "/admindashboard"
+              : "/dashboard"
+          }
+        >
           Home
         </Menu.Item>
         <Menu.Item onClick={handleLogout}>Logout</Menu.Item>

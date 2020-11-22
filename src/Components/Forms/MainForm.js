@@ -13,7 +13,7 @@ import Page14 from "./Page14";
 import SampleSubmitForm from "./SampleSubmitForm";
 import ConfirmationPopup from "../ConfirmationPopup";
 import { Redirect } from "react-router-dom";
-import useFirebaseUser from '../../CustomHooks/useFirebaseUser';
+import useFirebaseUser from "../../CustomHooks/useFirebaseUser";
 
 const MainForm = ({ childApplicationId, isView }) => {
   const user = useFirebaseUser();
@@ -92,58 +92,6 @@ const MainForm = ({ childApplicationId, isView }) => {
   };
 
   const saveAndExitApplication = () => {
-    // setIsBeingSaved(true);
-    // setTimeout(async () => {
-    //   console.log(formStates);
-    //   // const parentId = user.uid;
-    //   // const childFormData = { ...formStates };
-    //   // delete childFormData.step;
-    //   // const childFirstName = childFormData.page6
-    //   //   ? childFormData.page6.childFirstName
-    //   //   : "";
-    //   // const childLastName = childFormData.page6
-    //   //   ? childFormData.page6.childLastName
-    //   //   : "";
-    //   // const isIncomplete = true;
-    //   // if (childFormData.update) {
-    //   //   const childApplicationId = childFormData.update;
-    //   //   delete childFormData.update;
-    //   //   try {
-    //   //     await firebase.updateChildForm(
-    //   //       childFirstName,
-    //   //       childLastName,
-    //   //       childFormData,
-    //   //       parentId,
-    //   //       childApplicationId,
-    //   //       isIncomplete
-    //   //     );
-    //   //     setTimeout(() => {
-    //   //       localStorage.clear();
-    //   //     }, 1000);
-    //   //     setIsBeingSaved(false);
-    //   //     setRedirect(true);
-    //   //   } catch (err) {
-    //   //     setIsBeingSaved(false);
-    //   //   }
-    //   // } else {
-    //   //   try {
-    //   //     await firebase.uploadChildForm(
-    //   //       childFirstName,
-    //   //       childLastName,
-    //   //       childFormData,
-    //   //       parentId,
-    //   //       isIncomplete
-    //   //     );
-    //   //     setTimeout(() => {
-    //   //       localStorage.clear();
-    //   //     }, 1000);
-    //   //     setIsBeingSaved(false);
-    //   //     setRedirect(true);
-    //   //   } catch (err) {
-    //   //     setIsBeingSaved(false);
-    //   //   }
-    //   // }
-    // }, 3000);
     setSaveClicked(true);
     setFormStates((prevState) => {
       return {
@@ -296,7 +244,11 @@ const MainForm = ({ childApplicationId, isView }) => {
           isOpen={cancelPopupOpen}
         />
       )}
-      {redirect && <Redirect to={(user && user.admin === true) ? "/admindashboard" : "/dashboard"} />}
+      {redirect && (
+        <Redirect
+          to={user && user.admin === true ? "/admindashboard" : "/dashboard"}
+        />
+      )}
     </>
   );
 };

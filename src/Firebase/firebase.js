@@ -1,11 +1,10 @@
 // import * as firebaseApp from "firebase/app";
-import * as firebaseApp from 'firebase';
+import * as firebaseApp from "firebase";
 import "firebase/app";
 
 import firebaseConfig from "./config";
 
 import { getFormattedDate } from "./firebaseutils";
-import _ from "lodash";
 
 import "firebase/auth";
 import "firebase/firebase-firestore";
@@ -31,43 +30,49 @@ class Firebase {
     } else {
       const currentUser = this.auth.currentUser;
       const name = currentUser.displayName.split(" ");
-      const firstName = name[0], lastName = name[1];
-      await this.addAdminToDatabase(firstName, lastName, currentUser.email, currentUser.uid);
+      const firstName = name[0],
+        lastName = name[1];
+      await this.addAdminToDatabase(
+        firstName,
+        lastName,
+        currentUser.email,
+        currentUser.uid
+      );
     }
   }
 
   async register(email, password, firstName, lastName) {
-      await this.auth.createUserWithEmailAndPassword(email, password);
-      await this.auth.currentUser.updateProfile({
-        displayName: `${firstName} ${lastName}`,
-      });
-      await this.addParentToDatabase(
-        firstName,
-        lastName,
-        email,
-        this.auth.currentUser.uid
-      );
+    await this.auth.createUserWithEmailAndPassword(email, password);
+    await this.auth.currentUser.updateProfile({
+      displayName: `${firstName} ${lastName}`,
+    });
+    await this.addParentToDatabase(
+      firstName,
+      lastName,
+      email,
+      this.auth.currentUser.uid
+    );
   }
 
   async registerAdmin(email, password, firstName, lastName) {
-      await this.auth.createUserWithEmailAndPassword(email, password);
-      await this.auth.currentUser.updateProfile({
-        displayName: `${firstName} ${lastName}`,
-      });
-      const addAdminRole = this.functions.httpsCallable('addAdminRole');
-      const data = {
-        email,
-        uid: this.auth.currentUser.uid
-      };
-      await addAdminRole(data);
-      await this.auth.currentUser.sendEmailVerification();
-      await this.auth.signOut();
+    await this.auth.createUserWithEmailAndPassword(email, password);
+    await this.auth.currentUser.updateProfile({
+      displayName: `${firstName} ${lastName}`,
+    });
+    const addAdminRole = this.functions.httpsCallable("addAdminRole");
+    const data = {
+      email,
+      uid: this.auth.currentUser.uid,
+    };
+    await addAdminRole(data);
+    await this.auth.currentUser.sendEmailVerification();
+    await this.auth.signOut();
   }
 
   async checkAdminStatus() {
-    const checkIfAdmin = this.functions.httpsCallable('checkIfAdmin');
+    const checkIfAdmin = this.functions.httpsCallable("checkIfAdmin");
     const data = {
-      uid: this.auth.currentUser.uid
+      uid: this.auth.currentUser.uid,
     };
     const result = await checkIfAdmin(data);
     return result.data === true;
@@ -79,21 +84,24 @@ class Firebase {
       firstName,
       lastName,
       email,
-      uid
+      uid,
     });
   }
 
   async addAdminToDatabase(firstName, lastName, email, uid) {
     console.log(firstName, lastName, email);
-    await this.firestore.collection("admins").doc(uid).set({
-      firstName,
-      lastName,
-      email,
-      uid,
-      isAdmin: true
-    }, {
-      merge: true
-    });
+    await this.firestore.collection("admins").doc(uid).set(
+      {
+        firstName,
+        lastName,
+        email,
+        uid,
+        isAdmin: true,
+      },
+      {
+        merge: true,
+      }
+    );
   }
 
   async uploadChildForm(
@@ -152,18 +160,22 @@ class Firebase {
     });
   }
 
-  async changeChildApplicationStatus(parentId, childApplicationId, newApplicationStatus) {
+  async changeChildApplicationStatus(
+    parentId,
+    childApplicationId,
+    newApplicationStatus
+  ) {
     const childRef = this.firestore
-    .collection("parents")
-    .doc(parentId)
-    .collection("Children")
-    .doc(childApplicationId);
+      .collection("parents")
+      .doc(parentId)
+      .collection("Children")
+      .doc(childApplicationId);
 
     await childRef.update({
-    "metaData.dateSubmitted": getFormattedDate(
-      firebaseApp.firestore.Timestamp.now().toDate()
-    ),
-    "metaData.applicationStatus": newApplicationStatus,
+      "metaData.dateSubmitted": getFormattedDate(
+        firebaseApp.firestore.Timestamp.now().toDate()
+      ),
+      "metaData.applicationStatus": newApplicationStatus,
     });
   }
 

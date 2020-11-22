@@ -1,5 +1,4 @@
 import React from "react";
-import { Header } from "semantic-ui-react";
 
 export const paragraph1 = (
   <p style={{ textIndent: "2em" }}>
