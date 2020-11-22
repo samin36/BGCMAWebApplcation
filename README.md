@@ -4,7 +4,7 @@
 
 # 11/22/2020
 
-##Release Notes
+## Release Notes
 
 **VERSION**
 
@@ -35,7 +35,7 @@
 - Web Application slows down on some browsers
 - Refreshing Web Application while updating data might cause information to be lost/corrupted
 
-##Install Guide
+## Install Guide
 
 **PRE-REQUISITES**
 
