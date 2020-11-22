@@ -78,7 +78,7 @@ const Page11 = ({
   return (
     <Formik
       initialValues={initialValues}
-      //validationSchema={validationSchema}
+      validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         //as long as the current page isn't the one that submits the data, keep the stuff below
         setSubmitting(false);
