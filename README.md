@@ -96,8 +96,7 @@
         Google account, if not already.
 
     -   Click on the + icon as shown below\
-        ![](media/image1.png){width="3.3652777777777776in"
-        height="2.3826388888888888in"}
+        ![](media/image1.png)
 
     -   Enter a project name and click continue
 
@@ -106,15 +105,13 @@
 
     -   Once on the project homepage, click the angle brackets web icon
         as highlighted below\
-        ![](media/image2.png){width="3.35625in"
-        height="1.382638888888889in"}
+        ![](media/image2.png)
 
     -   Give the web app a nickname. If you wish to host the website
         using firebase hosting, check the "Also set up Firebase Hosting"
         option. Click "Register App" after making your choice.
 
-    -   ![](media/image3.png){width="6.495833333333334in"
-        height="4.0784722222222225in"}Clicking "Register App" will show
+    -   ![](media/image3.png)Clicking "Register App" will show
         some scripts needed to link the application with firebase. The
         entire script is not needed, however. Copy the portion shown in
         the image below.
@@ -126,14 +123,12 @@
     -   You should see a Javascript (.js) file called config.js. Open it
         in a text editor, and you will see something similar to the
         image shown below.\
-        ![](media/image4.png){width="5.198641732283464in"
-        height="0.8021948818897637in"}
+        ![](media/image4.png)
 
     -   Right after the line that begins with //, paste the copied
         script contents. If done correctly, it should look similar to
         the image shown below.\
-        ![](media/image5.png){width="6.3029625984251965in"
-        height="2.5732753718285215in"}
+        ![](media/image5.png)
 
     -   Once this is complete, go back to the firebase console website
         where you copied the script from and click "Continue to
@@ -141,8 +136,7 @@
 
     -   On the left hand side of the web page, you should see these two
         options:\
-        ![](media/image6.png){width="2.427422353455818in"
-        height="1.177247375328084in"}
+        ![](media/image6.png)
 
     -   Click on Cloud Firestore and on the page that loads upon
         clicking, press the "Create Database" button.
@@ -153,7 +147,7 @@
 
     -   Once on the Cloud Firestore page, click the "Rules" tab as shown
         below.\
-        ![](media/image7.png){width="3.2in" height="1.1in"}
+        ![](media/image7.png)
 
     -   In the editor that pops up upon clicking rules, paste the
         following rules:
@@ -162,8 +156,7 @@
 
     -   Navigate to the "Authentication" page located on the left hand
         side.\
-        ![](media/image6.png){width="2.427422353455818in"
-        height="1.177247375328084in"}
+        ![](media/image6.png)
 
     -   After clicking Authentication, click "Get Started" or "Create
         Authentication" depending on which one shows up.
@@ -172,8 +165,7 @@
         method" tab and click on "Email/Password" which should be the
         first entry in the table that pops up.
 
-    -   ![](media/image8.png){width="6.5in"
-        height="2.229861111111111in"}After clicking, click on the first
+    -   ![](media/image8.png)After clicking, click on the first
         slider to enable email login. If done correctly, it should look
         similar to the image below.
 
