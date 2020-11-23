@@ -151,8 +151,41 @@
         ![](media/image7.png)
 
     -   In the editor that pops up upon clicking rules, paste the
-        following rules:
+        following rules:\
+        ```js
+        rules_version = '2';
+        service cloud.firestore {
+          match /databases/{database}/documents {
+            // match /parents/{parentId} {
+            //   // allow read, write: if isLoggedIn() && request.auth.uid == parentId;
+            //   allow read, write: if isLoggedIn();
+            // }
+             match /parents/{parentId} {
+              allow read, write: if isLoggedIn() && (isParent(parentId) || isAdmin());
+              match /{childCollections=**} {
+                allow read, write: if isLoggedIn() && (isParent(parentId) || isAdmin());
+              }
+            }
 
+            match /admins/{adminId} {
+                allow read, write: if isLoggedIn() && request.auth.uid == adminId;
+            }
+
+            function isLoggedIn() {
+                return request.auth.uid != null;
+            }
+
+            function isParent(parentId) {
+              return request.auth.uid == parentId;
+            }
+
+            function isAdmin() {
+              return request.auth.uid != null && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.isAdmin == true;
+            }  
+          }
+        }
+        ```
+        
     -   Once pasted, click "Publish".
 
     -   Navigate to the "Authentication" page located on the left hand
