@@ -168,7 +168,7 @@
 
     -   After clicking, click on the first
         slider to enable email login. If done correctly, it should look
-        similar to the image below.
+        similar to the image below.\
         ![](media/image9.png)
 
     -   Click "Save"
