@@ -111,10 +111,11 @@
         using firebase hosting, check the "Also set up Firebase Hosting"
         option. Click "Register App" after making your choice.
 
-    -   ![](media/image3.png)Clicking "Register App" will show
+    -   Clicking "Register App" will show
         some scripts needed to link the application with firebase. The
         entire script is not needed, however. Copy the portion shown in
         the image below.
+        ![](media/image3.png)
 
     -   Once copied, open the previously downloaded project files (from
         Github) and navigate to the *Firebase* folder located inside the
@@ -156,7 +157,7 @@
 
     -   Navigate to the "Authentication" page located on the left hand
         side.\
-        ![](media/image6.png)
+        ![](media/image8.png)
 
     -   After clicking Authentication, click "Get Started" or "Create
         Authentication" depending on which one shows up.
@@ -165,9 +166,10 @@
         method" tab and click on "Email/Password" which should be the
         first entry in the table that pops up.
 
-    -   ![](media/image8.png)After clicking, click on the first
+    -   After clicking, click on the first
         slider to enable email login. If done correctly, it should look
         similar to the image below.
+        ![](media/image9.png)
 
     -   Click "Save"
 
