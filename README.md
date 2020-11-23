@@ -114,7 +114,7 @@
     -   Clicking "Register App" will show
         some scripts needed to link the application with firebase. The
         entire script is not needed, however. Copy the portion shown in
-        the image below.
+        the image below.\
         ![](media/image3.png)
 
     -   Once copied, open the previously downloaded project files (from
