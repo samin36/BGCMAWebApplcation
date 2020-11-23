@@ -151,7 +151,7 @@
         ![](media/image7.png)
 
     -   In the editor that pops up upon clicking rules, paste the
-        following rules:\
+        following rules:
         ```js
         rules_version = '2';
         service cloud.firestore {
